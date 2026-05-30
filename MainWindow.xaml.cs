@@ -627,6 +627,7 @@ namespace MessagesEncrypter
         {
             return new TextBox
             {
+                RequestedTheme = RootNavigation.ActualTheme,
                 PlaceholderText = AppResources.GetString($"{resourcePrefix}.PlaceholderText")
             };
         }
@@ -639,6 +640,7 @@ namespace MessagesEncrypter
             var dialog = new ContentDialog
             {
                 XamlRoot = RootNavigation.XamlRoot,
+                RequestedTheme = RootNavigation.ActualTheme,
                 Title = AppResources.GetString(titleResourceKey),
                 PrimaryButtonText = AppResources.GetString(primaryButtonResourceKey),
                 CloseButtonText = AppResources.GetString("DialogCancelButtonText"),
@@ -657,6 +659,7 @@ namespace MessagesEncrypter
             var dialog = new ContentDialog
             {
                 XamlRoot = RootNavigation.XamlRoot,
+                RequestedTheme = RootNavigation.ActualTheme,
                 Title = AppResources.GetString(titleResourceKey),
                 PrimaryButtonText = AppResources.GetString(primaryButtonResourceKey),
                 CloseButtonText = AppResources.GetString("DialogCancelButtonText"),

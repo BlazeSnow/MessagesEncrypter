@@ -67,6 +67,7 @@ public sealed partial class SettingsView : UserControl
         var dialog = new ContentDialog
         {
             XamlRoot = XamlRoot,
+            RequestedTheme = ActualTheme,
             Title = AppResources.GetString("FeedbackEmailCopiedDialogTitle"),
             Content = AppResources.GetString("FeedbackEmailCopiedDialogContent"),
             CloseButtonText = AppResources.GetString("DialogOkButtonText"),
