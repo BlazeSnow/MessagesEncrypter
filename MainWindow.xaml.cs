@@ -13,6 +13,7 @@ namespace MessagesEncrypter
     {
         private readonly KeyManagementService _keyManagementService = new();
         private readonly CredentialManagerService _credentialManagerService = new();
+        private readonly KeyStoreService _keyStoreService = new();
         private readonly MessageCryptoService _messageCryptoService;
         private readonly ObservableCollection<KeyEntry> _recipientKeys = [];
         private readonly ObservableCollection<KeyEntry> _privateKeys = [];
@@ -26,6 +27,7 @@ namespace MessagesEncrypter
             RecipientKeysListView.ItemsSource = _recipientKeys;
             PrivateKeyComboBox.ItemsSource = _privateKeys;
             PrivateKeysListView.ItemsSource = _privateKeys;
+            LoadKeyStore();
             ShowPanel("Encrypt");
         }
 
@@ -69,7 +71,10 @@ namespace MessagesEncrypter
                 _privateKeys.Add(entry);
                 PrivateKeyComboBox.SelectedItem = entry;
                 PrivateKeysListView.SelectedItem = entry;
-                ShowStatus("StatusKeyGenerated", InfoBarSeverity.Success);
+                if (SaveKeyStore())
+                {
+                    ShowStatus("StatusKeyGenerated", InfoBarSeverity.Success);
+                }
             }
             catch (CryptoException ex)
             {
@@ -161,7 +166,10 @@ namespace MessagesEncrypter
                 _recipientKeys.Add(entry);
                 RecipientKeyComboBox.SelectedItem = entry;
                 RecipientKeysListView.SelectedItem = entry;
-                ShowStatus("StatusRecipientKeyImported", InfoBarSeverity.Success);
+                if (SaveKeyStore())
+                {
+                    ShowStatus("StatusRecipientKeyImported", InfoBarSeverity.Success);
+                }
             }
             catch (CryptoException ex)
             {
@@ -276,6 +284,53 @@ namespace MessagesEncrypter
             StatusInfoBar.Message = AppResources.GetString(resourceKey);
             StatusInfoBar.Severity = severity;
             StatusInfoBar.IsOpen = true;
+        }
+
+        private void LoadKeyStore()
+        {
+            try
+            {
+                KeyStoreData data = _keyStoreService.Load();
+                foreach (KeyEntry entry in data.RecipientKeys)
+                {
+                    _recipientKeys.Add(entry);
+                }
+
+                foreach (KeyEntry entry in data.PrivateKeys)
+                {
+                    _privateKeys.Add(entry);
+                }
+
+                if (_recipientKeys.Count > 0)
+                {
+                    RecipientKeyComboBox.SelectedIndex = 0;
+                    RecipientKeysListView.SelectedIndex = 0;
+                }
+
+                if (_privateKeys.Count > 0)
+                {
+                    PrivateKeyComboBox.SelectedIndex = 0;
+                    PrivateKeysListView.SelectedIndex = 0;
+                }
+            }
+            catch (CryptoException ex)
+            {
+                ShowStatus(ex.ResourceKey, InfoBarSeverity.Error);
+            }
+        }
+
+        private bool SaveKeyStore()
+        {
+            try
+            {
+                _keyStoreService.Save(_recipientKeys, _privateKeys);
+                return true;
+            }
+            catch (CryptoException ex)
+            {
+                ShowStatus(ex.ResourceKey, InfoBarSeverity.Error);
+                return false;
+            }
         }
 
         private static string GetAliasOrDefault(string alias, string defaultResourceKey, int index)

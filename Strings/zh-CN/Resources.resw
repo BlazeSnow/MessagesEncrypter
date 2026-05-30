@@ -240,6 +240,12 @@
   <data name="ErrorCredentialDeleteFailed" xml:space="preserve">
     <value>删除私钥密码失败，请稍后重试。</value>
   </data>
+  <data name="ErrorKeyStoreLoadFailed" xml:space="preserve">
+    <value>读取密钥存档失败，请检查应用本地数据文件是否损坏。</value>
+  </data>
+  <data name="ErrorKeyStoreSaveFailed" xml:space="preserve">
+    <value>保存密钥存档失败，请检查应用本地存储是否可用。</value>
+  </data>
   <data name="ErrorPublicKeyRequired" xml:space="preserve">
     <value>请提供接收方公钥。</value>
   </data>
