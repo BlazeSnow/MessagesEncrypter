@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "MessagesEncrypter (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "MessagesEncrypter (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
