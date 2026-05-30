@@ -10,6 +10,7 @@ namespace MessagesEncrypter
     public sealed partial class MainWindow : Window
     {
         private readonly KeyManagementService _keyManagementService = new();
+        private readonly CredentialManagerService _credentialManagerService = new();
         private readonly MessageCryptoService _messageCryptoService;
 
         public MainWindow()
@@ -34,7 +35,7 @@ namespace MessagesEncrypter
             DecryptPanel.Visibility = tag == "Decrypt" ? Visibility.Visible : Visibility.Collapsed;
             KeysPanel.Visibility = tag == "Keys" ? Visibility.Visible : Visibility.Collapsed;
             FilesPanel.Visibility = tag == "Files" ? Visibility.Visible : Visibility.Collapsed;
-            SecurityPanel.Visibility = tag == "Security" ? Visibility.Visible : Visibility.Collapsed;
+            SettingsPanel.Visibility = tag == "Settings" ? Visibility.Visible : Visibility.Collapsed;
             PageTitleText.Text = AppResources.GetString($"PageTitle{tag}");
         }
 
@@ -42,7 +43,8 @@ namespace MessagesEncrypter
         {
             try
             {
-                KeyPairResult result = _keyManagementService.GenerateKeyPair(KeyPasswordBox.Password);
+                string password = _credentialManagerService.GetPrivateKeyPassword();
+                KeyPairResult result = _keyManagementService.GenerateKeyPair(password);
                 GeneratedPublicKeyTextBox.Text = result.PublicKeyPem;
                 GeneratedPrivateKeyTextBox.Text = result.EncryptedPrivateKeyPem;
                 FingerprintTextBox.Text = result.PublicKeyFingerprint;
@@ -77,7 +79,7 @@ namespace MessagesEncrypter
                 DecryptedMessageTextBox.Text = _messageCryptoService.DecryptFromBase64Json(
                     CipherTextBox.Text,
                     DecryptPrivateKeyTextBox.Text,
-                    DecryptPasswordBox.Password);
+                    _credentialManagerService.GetPrivateKeyPassword());
                 ShowStatus("StatusMessageDecrypted", InfoBarSeverity.Success);
             }
             catch (CryptoException ex)
@@ -100,6 +102,34 @@ namespace MessagesEncrypter
         private void CopyPrivateKeyButton_Click(object sender, RoutedEventArgs e)
         {
             CopyTextToClipboard(GeneratedPrivateKeyTextBox.Text, "StatusPrivateKeyCopied");
+        }
+
+        private void SavePrivateKeyPasswordButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                _credentialManagerService.SavePrivateKeyPassword(PrivateKeyPasswordBox.Password);
+                PrivateKeyPasswordBox.Password = string.Empty;
+                ShowStatus("StatusPrivateKeyPasswordSaved", InfoBarSeverity.Success);
+            }
+            catch (CryptoException ex)
+            {
+                ShowStatus(ex.ResourceKey, InfoBarSeverity.Error);
+            }
+        }
+
+        private void DeletePrivateKeyPasswordButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                _credentialManagerService.DeletePrivateKeyPassword();
+                PrivateKeyPasswordBox.Password = string.Empty;
+                ShowStatus("StatusPrivateKeyPasswordDeleted", InfoBarSeverity.Success);
+            }
+            catch (CryptoException ex)
+            {
+                ShowStatus(ex.ResourceKey, InfoBarSeverity.Error);
+            }
         }
 
         private async void PasteEncryptedMessageButton_Click(object sender, RoutedEventArgs e)

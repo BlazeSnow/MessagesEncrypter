@@ -36,8 +36,8 @@
   <data name="FilesNavItem.Content" xml:space="preserve">
     <value>文件加密</value>
   </data>
-  <data name="SecurityNavItem.Content" xml:space="preserve">
-    <value>安全说明</value>
+  <data name="SettingsNavItem.Content" xml:space="preserve">
+    <value>设置</value>
   </data>
   <data name="PageTitleEncrypt" xml:space="preserve">
     <value>消息加密</value>
@@ -51,8 +51,8 @@
   <data name="PageTitleFiles" xml:space="preserve">
     <value>文件加密</value>
   </data>
-  <data name="PageTitleSecurity" xml:space="preserve">
-    <value>安全说明</value>
+  <data name="PageTitleSettings" xml:space="preserve">
+    <value>设置</value>
   </data>
   <data name="EncryptPublicKeyLabel.Text" xml:space="preserve">
     <value>接收方公钥</value>
@@ -84,12 +84,6 @@
   <data name="DecryptPrivateKeyTextBox.PlaceholderText" xml:space="preserve">
     <value>粘贴 -----BEGIN ENCRYPTED PRIVATE KEY----- 开头的私钥</value>
   </data>
-  <data name="DecryptPasswordLabel.Text" xml:space="preserve">
-    <value>私钥密码</value>
-  </data>
-  <data name="DecryptPasswordBox.PlaceholderText" xml:space="preserve">
-    <value>输入生成私钥时设置的密码</value>
-  </data>
   <data name="CipherTextLabel.Text" xml:space="preserve">
     <value>待解密密文</value>
   </data>
@@ -109,13 +103,7 @@
     <value>认证通过后会在这里显示明文</value>
   </data>
   <data name="GenerateKeyDescription.Text" xml:space="preserve">
-    <value>生成 RSA-4096 密钥对。公钥用于给别人加密消息，私钥会用密码加密后导出，请妥善保存。</value>
-  </data>
-  <data name="KeyPasswordLabel.Text" xml:space="preserve">
-    <value>新私钥密码</value>
-  </data>
-  <data name="KeyPasswordBox.PlaceholderText" xml:space="preserve">
-    <value>输入用于保护私钥的密码</value>
+    <value>生成 RSA-4096 密钥对。私钥会使用设置中保存的密码加密后导出，请妥善保存。</value>
   </data>
   <data name="GenerateKeyButton.Content" xml:space="preserve">
     <value>生成密钥对</value>
@@ -150,6 +138,21 @@
   <data name="FilesNotReadyDescription.Text" xml:space="preserve">
     <value>下一步会实现 PKEF 文件格式、AES-GCM 分块、块索引认证、异步 I/O、进度反馈和分块大小选择。</value>
   </data>
+  <data name="PrivateKeyPasswordSettingsCard.Header" xml:space="preserve">
+    <value>私钥密码</value>
+  </data>
+  <data name="PrivateKeyPasswordSettingsCard.Description" xml:space="preserve">
+    <value>保存到 Windows 凭据管理器，用于生成加密私钥和解密消息。</value>
+  </data>
+  <data name="PrivateKeyPasswordBox.PlaceholderText" xml:space="preserve">
+    <value>输入或更新私钥密码</value>
+  </data>
+  <data name="SavePrivateKeyPasswordButton.Content" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="DeletePrivateKeyPasswordButton.Content" xml:space="preserve">
+    <value>删除</value>
+  </data>
   <data name="SecuritySummaryTitle.Text" xml:space="preserve">
     <value>当前安全策略</value>
   </data>
@@ -177,8 +180,23 @@
   <data name="StatusEncryptedMessagePasted" xml:space="preserve">
     <value>已从剪贴板粘贴密文。</value>
   </data>
+  <data name="StatusPrivateKeyPasswordSaved" xml:space="preserve">
+    <value>私钥密码已保存到 Windows 凭据管理器。</value>
+  </data>
+  <data name="StatusPrivateKeyPasswordDeleted" xml:space="preserve">
+    <value>已删除保存的私钥密码。</value>
+  </data>
   <data name="ErrorPasswordRequired" xml:space="preserve">
     <value>请输入私钥密码。</value>
+  </data>
+  <data name="ErrorCredentialPasswordMissing" xml:space="preserve">
+    <value>请先在设置中保存私钥密码。</value>
+  </data>
+  <data name="ErrorCredentialSaveFailed" xml:space="preserve">
+    <value>保存私钥密码失败，请检查 Windows 凭据管理器是否可用。</value>
+  </data>
+  <data name="ErrorCredentialDeleteFailed" xml:space="preserve">
+    <value>删除私钥密码失败，请稍后重试。</value>
   </data>
   <data name="ErrorPublicKeyRequired" xml:space="preserve">
     <value>请提供接收方公钥。</value>
