@@ -188,6 +188,32 @@ namespace MessagesEncrypter
             CopyTextToClipboard(entry.PublicKeyPem ?? string.Empty, "StatusPublicKeyCopied");
         }
 
+        private async void DeleteSelectedRecipientKeyButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (RecipientKeysListView.SelectedItem is not KeyEntry entry)
+            {
+                ShowStatus("ErrorRecipientKeyNotSelected", InfoBarSeverity.Warning);
+                return;
+            }
+
+            ContentDialogResult dialogResult = await ShowConfirmDialogAsync(
+                "DeleteRecipientKeyDialogTitle",
+                "DeleteKeyDialogPrimaryButtonText",
+                string.Format(AppResources.GetString("DeleteKeyDialogContent"), entry.DisplayName));
+
+            if (dialogResult != ContentDialogResult.Primary)
+            {
+                return;
+            }
+
+            _recipientKeys.Remove(entry);
+            SelectFirstItemIfAvailable(RecipientKeyComboBox, RecipientKeysListView, _recipientKeys.Count);
+            if (SaveKeyStore())
+            {
+                ShowStatus("StatusRecipientKeyDeleted", InfoBarSeverity.Success);
+            }
+        }
+
         private void CopySelectedPrivatePublicKeyButton_Click(object sender, RoutedEventArgs e)
         {
             if (PrivateKeysListView.SelectedItem is not KeyEntry entry)
@@ -208,6 +234,32 @@ namespace MessagesEncrypter
             }
 
             CopyTextToClipboard(entry.EncryptedPrivateKeyPem ?? string.Empty, "StatusPrivateKeyCopied");
+        }
+
+        private async void DeleteSelectedPrivateKeyButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (PrivateKeysListView.SelectedItem is not KeyEntry entry)
+            {
+                ShowStatus("ErrorPrivateKeyNotSelected", InfoBarSeverity.Warning);
+                return;
+            }
+
+            ContentDialogResult dialogResult = await ShowConfirmDialogAsync(
+                "DeletePrivateKeyDialogTitle",
+                "DeleteKeyDialogPrimaryButtonText",
+                string.Format(AppResources.GetString("DeleteKeyDialogContent"), entry.DisplayName));
+
+            if (dialogResult != ContentDialogResult.Primary)
+            {
+                return;
+            }
+
+            _privateKeys.Remove(entry);
+            SelectFirstItemIfAvailable(PrivateKeyComboBox, PrivateKeysListView, _privateKeys.Count);
+            if (SaveKeyStore())
+            {
+                ShowStatus("StatusPrivateKeyDeleted", InfoBarSeverity.Success);
+            }
         }
 
         private void SavePrivateKeyPasswordButton_Click(object sender, RoutedEventArgs e)
@@ -333,6 +385,13 @@ namespace MessagesEncrypter
             }
         }
 
+        private static void SelectFirstItemIfAvailable(ComboBox comboBox, ListView listView, int itemCount)
+        {
+            int selectedIndex = itemCount > 0 ? 0 : -1;
+            comboBox.SelectedIndex = selectedIndex;
+            listView.SelectedIndex = selectedIndex;
+        }
+
         private static string GetAliasOrDefault(string alias, string defaultResourceKey, int index)
         {
             if (!string.IsNullOrWhiteSpace(alias))
@@ -363,6 +422,24 @@ namespace MessagesEncrypter
                 PrimaryButtonText = AppResources.GetString(primaryButtonResourceKey),
                 CloseButtonText = AppResources.GetString("DialogCancelButtonText"),
                 DefaultButton = ContentDialogButton.Primary,
+                Content = content
+            };
+
+            return await dialog.ShowAsync();
+        }
+
+        private async System.Threading.Tasks.Task<ContentDialogResult> ShowConfirmDialogAsync(
+            string titleResourceKey,
+            string primaryButtonResourceKey,
+            string content)
+        {
+            var dialog = new ContentDialog
+            {
+                XamlRoot = RootNavigation.XamlRoot,
+                Title = AppResources.GetString(titleResourceKey),
+                PrimaryButtonText = AppResources.GetString(primaryButtonResourceKey),
+                CloseButtonText = AppResources.GetString("DialogCancelButtonText"),
+                DefaultButton = ContentDialogButton.Close,
                 Content = content
             };
 

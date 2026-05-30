@@ -123,6 +123,9 @@
   <data name="CopySelectedRecipientKeyButton.Content" xml:space="preserve">
     <value>复制所选公钥</value>
   </data>
+  <data name="DeleteSelectedRecipientKeyButton.Content" xml:space="preserve">
+    <value>删除所选</value>
+  </data>
   <data name="GenerateKeyDescription.Text" xml:space="preserve">
     <value>生成 RSA-4096 密钥对。私钥会使用设置中保存的密码加密后导出，请妥善保存。</value>
   </data>
@@ -141,11 +144,26 @@
   <data name="DialogCancelButtonText" xml:space="preserve">
     <value>取消</value>
   </data>
+  <data name="DeleteRecipientKeyDialogTitle" xml:space="preserve">
+    <value>删除接收方</value>
+  </data>
+  <data name="DeletePrivateKeyDialogTitle" xml:space="preserve">
+    <value>删除我的私钥</value>
+  </data>
+  <data name="DeleteKeyDialogPrimaryButtonText" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="DeleteKeyDialogContent" xml:space="preserve">
+    <value>确定要删除“{0}”吗？此操作会更新本机密钥存档。</value>
+  </data>
   <data name="CopySelectedPrivatePublicKeyButton.Content" xml:space="preserve">
     <value>复制所选公钥</value>
   </data>
   <data name="CopySelectedPrivateKeyButton.Content" xml:space="preserve">
     <value>复制所选私钥</value>
+  </data>
+  <data name="DeleteSelectedPrivateKeyButton.Content" xml:space="preserve">
+    <value>删除所选</value>
   </data>
   <data name="RecipientKeysListTitle.Text" xml:space="preserve">
     <value>接收方列表</value>
@@ -227,6 +245,12 @@
   </data>
   <data name="StatusPrivateKeyPasswordDeleted" xml:space="preserve">
     <value>已删除保存的私钥密码。</value>
+  </data>
+  <data name="StatusRecipientKeyDeleted" xml:space="preserve">
+    <value>接收方已删除。</value>
+  </data>
+  <data name="StatusPrivateKeyDeleted" xml:space="preserve">
+    <value>我的私钥已删除。</value>
   </data>
   <data name="ErrorPasswordRequired" xml:space="preserve">
     <value>请输入私钥密码。</value>
