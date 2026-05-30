@@ -78,19 +78,14 @@
                 </NavigationViewItem>
             </NavigationView.MenuItems>
 
-            <Grid Padding="28" RowSpacing="16">
+            <Grid RowSpacing="16">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBlock
-                    x:Name="PageTitleText"
-                    Style="{ThemeResource TitleTextBlockStyle}" />
-
-                <ScrollViewer Grid.Row="1">
-                    <Grid>
+                <ScrollViewer>
+                    <Grid Padding="28">
                         <views:HomeView x:Name="HomeView" />
                         <views:EncryptView x:Name="EncryptView" Visibility="Collapsed" />
                         <views:DecryptView x:Name="DecryptView" Visibility="Collapsed" />
@@ -103,7 +98,8 @@
 
                 <InfoBar
                     x:Name="StatusInfoBar"
-                    Grid.Row="2"
+                    Grid.Row="1"
+                    Margin="28,0,28,28"
                     IsOpen="False"
                     IsClosable="True" />
             </Grid>

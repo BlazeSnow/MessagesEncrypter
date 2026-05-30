@@ -59,7 +59,6 @@ namespace MessagesEncrypter
             PrivateKeysView.Visibility = tag == "PrivateKeys" ? Visibility.Visible : Visibility.Collapsed;
             FilesView.Visibility = tag == "Files" ? Visibility.Visible : Visibility.Collapsed;
             SettingsView.Visibility = tag == "Settings" ? Visibility.Visible : Visibility.Collapsed;
-            PageTitleText.Text = AppResources.GetString($"PageTitle{tag}");
         }
 
         private void InitializeViews()
