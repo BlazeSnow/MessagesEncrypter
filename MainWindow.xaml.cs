@@ -34,7 +34,7 @@ namespace MessagesEncrypter
             InitializeViews();
             LoadKeyStore();
             LoadSettings();
-            ShowPanel("Encrypt");
+            ShowPanel("Home");
         }
 
         private void RootNavigation_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -52,6 +52,7 @@ namespace MessagesEncrypter
 
         private void ShowPanel(string tag)
         {
+            HomeView.Visibility = tag == "Home" ? Visibility.Visible : Visibility.Collapsed;
             EncryptView.Visibility = tag == "Encrypt" ? Visibility.Visible : Visibility.Collapsed;
             DecryptView.Visibility = tag == "Decrypt" ? Visibility.Visible : Visibility.Collapsed;
             RecipientKeysView.Visibility = tag == "RecipientKeys" ? Visibility.Visible : Visibility.Collapsed;
