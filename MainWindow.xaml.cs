@@ -48,7 +48,7 @@ namespace MessagesEncrypter
                 GeneratedPublicKeyTextBox.Text = result.PublicKeyPem;
                 GeneratedPrivateKeyTextBox.Text = result.EncryptedPrivateKeyPem;
                 FingerprintTextBox.Text = result.PublicKeyFingerprint;
-                EncryptPublicKeyTextBox.Text = result.PublicKeyPem;
+                DecryptPrivateKeyTextBox.Text = result.EncryptedPrivateKeyPem;
                 ShowStatus("StatusKeyGenerated", InfoBarSeverity.Success);
             }
             catch (CryptoException ex)
