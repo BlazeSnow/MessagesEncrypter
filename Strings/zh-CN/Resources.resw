@@ -201,6 +201,9 @@
   <data name="DialogCancelButtonText" xml:space="preserve">
     <value>取消</value>
   </data>
+  <data name="DialogOkButtonText" xml:space="preserve">
+    <value>确定</value>
+  </data>
   <data name="DeleteRecipientKeyDialogTitle" xml:space="preserve">
     <value>删除接收方</value>
   </data>
