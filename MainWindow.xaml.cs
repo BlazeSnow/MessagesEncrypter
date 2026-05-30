@@ -338,10 +338,38 @@ namespace MessagesEncrypter
 
         private void SavePrivateKeyPasswordButton_Click(object sender, RoutedEventArgs e)
         {
+            _ = SavePrivateKeyPasswordAsync();
+        }
+
+        private async System.Threading.Tasks.Task SavePrivateKeyPasswordAsync()
+        {
+            PasswordBox passwordBox = new()
+            {
+                PlaceholderText = AppResources.GetString("PrivateKeyPasswordBox.PlaceholderText"),
+                MinWidth = 320
+            };
+
+            ContentDialogResult dialogResult = await ShowInputDialogAsync(
+                "SavePrivateKeyPasswordDialogTitle",
+                "SavePrivateKeyPasswordDialogPrimaryButtonText",
+                passwordBox);
+
+            if (dialogResult != ContentDialogResult.Primary)
+            {
+                return;
+            }
+
+            string password = passwordBox.Password;
+            passwordBox.Password = string.Empty;
+
+            SavePrivateKeyPassword(password);
+        }
+
+        private void SavePrivateKeyPassword(string password)
+        {
             try
             {
-                _credentialManagerService.SavePrivateKeyPassword(SettingsView.PrivateKeyPassword);
-                SettingsView.PrivateKeyPassword = string.Empty;
+                _credentialManagerService.SavePrivateKeyPassword(password);
                 ShowStatus("StatusPrivateKeyPasswordSaved", InfoBarSeverity.Success);
             }
             catch (CryptoException ex)
@@ -355,7 +383,6 @@ namespace MessagesEncrypter
             try
             {
                 _credentialManagerService.DeletePrivateKeyPassword();
-                SettingsView.PrivateKeyPassword = string.Empty;
                 ShowStatus("StatusPrivateKeyPasswordDeleted", InfoBarSeverity.Success);
             }
             catch (CryptoException ex)

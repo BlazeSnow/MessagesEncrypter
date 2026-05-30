@@ -222,9 +222,6 @@
   <data name="ExportFolderSettingsCard.Description" xml:space="preserve">
     <value>用于保存导出的密钥文件和后续文件加密输出。</value>
   </data>
-  <data name="ExportFolderPathTextBox.PlaceholderText" xml:space="preserve">
-    <value>选择导出位置</value>
-  </data>
   <data name="ChooseExportFolderButton.Content" xml:space="preserve">
     <value>选择位置</value>
   </data>
@@ -236,6 +233,12 @@
   </data>
   <data name="PrivateKeyPasswordBox.PlaceholderText" xml:space="preserve">
     <value>输入或更新私钥密码</value>
+  </data>
+  <data name="SavePrivateKeyPasswordDialogTitle" xml:space="preserve">
+    <value>保存私钥密码</value>
+  </data>
+  <data name="SavePrivateKeyPasswordDialogPrimaryButtonText" xml:space="preserve">
+    <value>保存</value>
   </data>
   <data name="SavePrivateKeyPasswordButton.Content" xml:space="preserve">
     <value>保存</value>

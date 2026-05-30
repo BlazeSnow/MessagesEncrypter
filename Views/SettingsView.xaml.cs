@@ -20,14 +20,8 @@ public sealed partial class SettingsView : UserControl
 
     public string ExportFolderPath
     {
-        get => ExportFolderPathTextBox.Text;
-        set => ExportFolderPathTextBox.Text = value;
-    }
-
-    public string PrivateKeyPassword
-    {
-        get => PrivateKeyPasswordBox.Password;
-        set => PrivateKeyPasswordBox.Password = value;
+        get => ExportFolderPathTextBlock.Text;
+        set => ExportFolderPathTextBlock.Text = value;
     }
 
     private void ChooseExportFolderButton_Click(object sender, RoutedEventArgs e)
