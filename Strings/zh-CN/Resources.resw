@@ -21,9 +21,6 @@
   <data name="AppDescription" xml:space="preserve">
     <value>Windows 桌面端公钥加密工具</value>
   </data>
-  <data name="RootNavigation.PaneTitle" xml:space="preserve">
-    <value>MessagesEncrypter</value>
-  </data>
   <data name="AppTitleBar.Title" xml:space="preserve">
     <value>MessagesEncrypter</value>
   </data>
