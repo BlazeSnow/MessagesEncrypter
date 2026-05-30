@@ -1,7 +1,9 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using MessagesEncrypter.Services;
+using System;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.Foundation;
 
 namespace MessagesEncrypter
 {
@@ -14,6 +16,7 @@ namespace MessagesEncrypter
         {
             _messageCryptoService = new MessageCryptoService(_keyManagementService);
             InitializeComponent();
+            Title = AppResources.GetString("MainWindowTitle");
             ShowPanel("Encrypt");
         }
 

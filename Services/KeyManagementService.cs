@@ -1,3 +1,4 @@
+using System;
 using System.Security.Cryptography;
 
 namespace MessagesEncrypter.Services;
@@ -91,6 +92,7 @@ public sealed class KeyManagementService
         using RSA rsa = ImportPublicKey(publicKeyPem);
         byte[] spki = rsa.ExportSubjectPublicKeyInfo();
         byte[] hash = SHA256.HashData(spki);
-        return Convert.ToHexString(hash.AsSpan(0, CryptoConstants.FingerprintBytesToDisplay));
+        byte[] displayedHash = hash[..CryptoConstants.FingerprintBytesToDisplay];
+        return Convert.ToHexString(displayedHash);
     }
 }
