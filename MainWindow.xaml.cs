@@ -29,6 +29,8 @@ namespace MessagesEncrypter
             _messageCryptoService = new MessageCryptoService(_keyManagementService);
             InitializeComponent();
             Title = AppResources.GetString("MainWindowTitle");
+            ExtendsContentIntoTitleBar = true;
+            SetTitleBar(AppTitleBar);
             InitializeViews();
             LoadKeyStore();
             LoadSettings();
@@ -41,6 +43,11 @@ namespace MessagesEncrypter
             {
                 ShowPanel(tag);
             }
+        }
+
+        private void AppTitleBar_PaneToggleRequested(TitleBar sender, object args)
+        {
+            RootNavigation.IsPaneOpen = !RootNavigation.IsPaneOpen;
         }
 
         private void ShowPanel(string tag)
