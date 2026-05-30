@@ -2,7 +2,8 @@
 <UserControl
     x:Class="MessagesEncrypter.Views.HomeView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:CommunityToolkit.WinUI.Controls">
 
     <Grid MaxWidth="900" HorizontalAlignment="Stretch" RowSpacing="18">
         <Grid.RowDefinitions>
@@ -12,18 +13,50 @@
 
         <StackPanel Spacing="8">
             <TextBlock x:Uid="HomeSendMessageTitle" Style="{ThemeResource SubtitleTextBlockStyle}" />
-            <TextBlock x:Uid="HomeSendMessageStep1" TextWrapping="Wrap" />
-            <TextBlock x:Uid="HomeSendMessageStep2" TextWrapping="Wrap" />
-            <TextBlock x:Uid="HomeSendMessageStep3" TextWrapping="Wrap" />
-            <TextBlock x:Uid="HomeSendMessageStep4" TextWrapping="Wrap" />
+            <controls:SettingsCard x:Uid="HomeSendMessageStep1">
+                <controls:SettingsCard.HeaderIcon>
+                    <FontIcon FontFamily="Segoe UI" Glyph="1" />
+                </controls:SettingsCard.HeaderIcon>
+            </controls:SettingsCard>
+            <controls:SettingsCard x:Uid="HomeSendMessageStep2">
+                <controls:SettingsCard.HeaderIcon>
+                    <FontIcon FontFamily="Segoe UI" Glyph="2" />
+                </controls:SettingsCard.HeaderIcon>
+            </controls:SettingsCard>
+            <controls:SettingsCard x:Uid="HomeSendMessageStep3">
+                <controls:SettingsCard.HeaderIcon>
+                    <FontIcon FontFamily="Segoe UI" Glyph="3" />
+                </controls:SettingsCard.HeaderIcon>
+            </controls:SettingsCard>
+            <controls:SettingsCard x:Uid="HomeSendMessageStep4">
+                <controls:SettingsCard.HeaderIcon>
+                    <FontIcon FontFamily="Segoe UI" Glyph="4" />
+                </controls:SettingsCard.HeaderIcon>
+            </controls:SettingsCard>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Spacing="8">
             <TextBlock x:Uid="HomeReceiveMessageTitle" Style="{ThemeResource SubtitleTextBlockStyle}" />
-            <TextBlock x:Uid="HomeReceiveMessageStep1" TextWrapping="Wrap" />
-            <TextBlock x:Uid="HomeReceiveMessageStep2" TextWrapping="Wrap" />
-            <TextBlock x:Uid="HomeReceiveMessageStep3" TextWrapping="Wrap" />
-            <TextBlock x:Uid="HomeReceiveMessageStep4" TextWrapping="Wrap" />
+            <controls:SettingsCard x:Uid="HomeReceiveMessageStep1">
+                <controls:SettingsCard.HeaderIcon>
+                    <FontIcon FontFamily="Segoe UI" Glyph="1" />
+                </controls:SettingsCard.HeaderIcon>
+            </controls:SettingsCard>
+            <controls:SettingsCard x:Uid="HomeReceiveMessageStep2">
+                <controls:SettingsCard.HeaderIcon>
+                    <FontIcon FontFamily="Segoe UI" Glyph="2" />
+                </controls:SettingsCard.HeaderIcon>
+            </controls:SettingsCard>
+            <controls:SettingsCard x:Uid="HomeReceiveMessageStep3">
+                <controls:SettingsCard.HeaderIcon>
+                    <FontIcon FontFamily="Segoe UI" Glyph="3" />
+                </controls:SettingsCard.HeaderIcon>
+            </controls:SettingsCard>
+            <controls:SettingsCard x:Uid="HomeReceiveMessageStep4">
+                <controls:SettingsCard.HeaderIcon>
+                    <FontIcon FontFamily="Segoe UI" Glyph="4" />
+                </controls:SettingsCard.HeaderIcon>
+            </controls:SettingsCard>
         </StackPanel>
     </Grid>
 </UserControl>

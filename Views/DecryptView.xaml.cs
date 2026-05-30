@@ -55,4 +55,10 @@ public sealed partial class DecryptView : UserControl
     {
         PasteEncryptedMessageRequested?.Invoke(sender, e);
     }
+
+    private void ClearDecryptContentButton_Click(object sender, RoutedEventArgs e)
+    {
+        CipherTextBox.Text = string.Empty;
+        DecryptedMessageTextBox.Text = string.Empty;
+    }
 }

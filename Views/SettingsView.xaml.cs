@@ -1,5 +1,9 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using MessagesEncrypter.Services;
+using System;
+using Windows.ApplicationModel.DataTransfer;
+using Windows.System;
 
 namespace MessagesEncrypter.Views;
 
@@ -42,5 +46,33 @@ public sealed partial class SettingsView : UserControl
     private void DeletePrivateKeyPasswordButton_Click(object sender, RoutedEventArgs e)
     {
         DeletePrivateKeyPasswordRequested?.Invoke(sender, e);
+    }
+
+    private async void OpenProjectRepositoryButton_Click(object sender, RoutedEventArgs e)
+    {
+        await Launcher.LaunchUriAsync(new Uri("https://github.com/BlazeSnow/MessagesEncrypter"));
+    }
+
+    private async void OpenProjectWebsiteButton_Click(object sender, RoutedEventArgs e)
+    {
+        await Launcher.LaunchUriAsync(new Uri("https://www.blazesnow.com/messages/"));
+    }
+
+    private async void CopyFeedbackEmailButton_Click(object sender, RoutedEventArgs e)
+    {
+        var package = new DataPackage();
+        package.SetText("messages@blazesnow.com");
+        Clipboard.SetContent(package);
+
+        var dialog = new ContentDialog
+        {
+            XamlRoot = XamlRoot,
+            Title = AppResources.GetString("FeedbackEmailCopiedDialogTitle"),
+            Content = AppResources.GetString("FeedbackEmailCopiedDialogContent"),
+            CloseButtonText = AppResources.GetString("DialogOkButtonText"),
+            DefaultButton = ContentDialogButton.Close
+        };
+
+        await dialog.ShowAsync();
     }
 }

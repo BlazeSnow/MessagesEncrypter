@@ -12,7 +12,6 @@
     <WinUISDKReferences>false</WinUISDKReferences>
     <EnableMsixTooling>true</EnableMsixTooling>
     <Nullable>enable</Nullable>
-    <ApplicationIcon>Assets\MessagesEncrypter.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Content Remove="Assets\LargeTile.scale-100.png" />
@@ -68,7 +67,6 @@
     <Content Include="Assets\Square44x44Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
-    <Content Include="Assets\MessagesEncrypter.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -99,13 +97,8 @@
 
   <!-- Publish Properties -->
   <PropertyGroup>
-    <PublishReadyToRun Condition="'$(Configuration)' == 'Debug'">False</PublishReadyToRun>
-    <PublishReadyToRun Condition="'$(Configuration)' != 'Debug'">True</PublishReadyToRun>
-    <PublishTrimmed Condition="'$(Configuration)' == 'Debug'">False</PublishTrimmed>
-    <PublishTrimmed Condition="'$(Configuration)' != 'Debug'">True</PublishTrimmed>
+    <PublishReadyToRun>False</PublishReadyToRun>
+    <PublishTrimmed>False</PublishTrimmed>
     <DefaultLanguage>zh-CN</DefaultLanguage>
-    <PackageCertificateThumbprint>EF5D3B59FAF49BE847A5F9966194A8984176F276</PackageCertificateThumbprint>
-    <PackageCertificateKeyFile>MessagesEncrypter_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
   </PropertyGroup>
 </Project>

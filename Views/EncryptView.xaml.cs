@@ -51,4 +51,10 @@ public sealed partial class EncryptView : UserControl
     {
         CopyEncryptedMessageRequested?.Invoke(sender, e);
     }
+
+    private void ClearEncryptContentButton_Click(object sender, RoutedEventArgs e)
+    {
+        PlainTextBox.Text = string.Empty;
+        EncryptedMessageTextBox.Text = string.Empty;
+    }
 }

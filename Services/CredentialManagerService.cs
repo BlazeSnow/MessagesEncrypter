@@ -61,7 +61,8 @@ public sealed class CredentialManagerService
 
     public string GetPrivateKeyPassword()
     {
-        if (!TryReadPrivateKeyPassword(out string? password))
+        string? password = ReadPrivateKeyPassword();
+        if (password is null)
         {
             throw new CryptoException("ErrorCredentialPasswordMissing");
         }
@@ -71,7 +72,7 @@ public sealed class CredentialManagerService
 
     public bool HasPrivateKeyPassword()
     {
-        return TryReadPrivateKeyPassword(out _);
+        return ReadPrivateKeyPassword() is not null;
     }
 
     public void DeletePrivateKeyPassword()
@@ -88,12 +89,11 @@ public sealed class CredentialManagerService
         }
     }
 
-    private static bool TryReadPrivateKeyPassword(out string? password)
+    private static string? ReadPrivateKeyPassword()
     {
-        password = null;
         if (!CredReadW(TargetName, CredentialTypeGeneric, 0, out IntPtr credentialPointer))
         {
-            return false;
+            return null;
         }
 
         try
@@ -101,13 +101,13 @@ public sealed class CredentialManagerService
             NativeCredential credential = Marshal.PtrToStructure<NativeCredential>(credentialPointer);
             if (credential.CredentialBlob == IntPtr.Zero || credential.CredentialBlobSize == 0)
             {
-                return false;
+                return null;
             }
 
-            password = Marshal.PtrToStringUni(
+            string? password = Marshal.PtrToStringUni(
                 credential.CredentialBlob,
                 credential.CredentialBlobSize / sizeof(char));
-            return !string.IsNullOrEmpty(password);
+            return string.IsNullOrEmpty(password) ? null : password;
         }
         finally
         {
