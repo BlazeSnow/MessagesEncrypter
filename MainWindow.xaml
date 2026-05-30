@@ -125,9 +125,10 @@
                     <StackPanel x:Name="RecipientKeysPanel" Spacing="14" MaxWidth="900" HorizontalAlignment="Stretch" Visibility="Collapsed">
                         <TextBlock x:Uid="RecipientKeysListTitle" Style="{ThemeResource BodyStrongTextBlockStyle}" />
                         <StackPanel Orientation="Horizontal" Spacing="8">
-                            <Button x:Uid="ImportRecipientKeyButton" Click="ImportRecipientKeyButton_Click" />
-                            <Button x:Uid="CopySelectedRecipientKeyButton" Click="CopySelectedRecipientKeyButton_Click" />
-                            <Button x:Uid="DeleteSelectedRecipientKeyButton" Click="DeleteSelectedRecipientKeyButton_Click" />
+                                    <Button x:Uid="ImportRecipientKeyButton" Click="ImportRecipientKeyButton_Click" />
+                                    <Button x:Uid="CopySelectedRecipientKeyButton" Click="CopySelectedRecipientKeyButton_Click" />
+                                    <Button x:Uid="ExportSelectedRecipientKeyButton" Click="ExportSelectedRecipientKeyButton_Click" />
+                                    <Button x:Uid="DeleteSelectedRecipientKeyButton" Click="DeleteSelectedRecipientKeyButton_Click" />
                         </StackPanel>
                         <ListView
                             x:Name="RecipientKeysListView"
@@ -138,10 +139,12 @@
                     <StackPanel x:Name="PrivateKeysPanel" Spacing="14" MaxWidth="900" HorizontalAlignment="Stretch" Visibility="Collapsed">
                         <TextBlock x:Uid="PrivateKeysListTitle" Style="{ThemeResource BodyStrongTextBlockStyle}" />
                         <StackPanel Orientation="Horizontal" Spacing="8">
-                            <Button x:Uid="GenerateKeyButton" Click="GenerateKeyButton_Click" />
-                            <Button x:Uid="CopySelectedPrivatePublicKeyButton" Click="CopySelectedPrivatePublicKeyButton_Click" />
-                            <Button x:Uid="CopySelectedPrivateKeyButton" Click="CopySelectedPrivateKeyButton_Click" />
-                            <Button x:Uid="DeleteSelectedPrivateKeyButton" Click="DeleteSelectedPrivateKeyButton_Click" />
+                                    <Button x:Uid="GenerateKeyButton" Click="GenerateKeyButton_Click" />
+                                    <Button x:Uid="CopySelectedPrivatePublicKeyButton" Click="CopySelectedPrivatePublicKeyButton_Click" />
+                                    <Button x:Uid="ExportSelectedPrivatePublicKeyButton" Click="ExportSelectedPrivatePublicKeyButton_Click" />
+                                    <Button x:Uid="CopySelectedPrivateKeyButton" Click="CopySelectedPrivateKeyButton_Click" />
+                                    <Button x:Uid="ExportSelectedPrivateKeyButton" Click="ExportSelectedPrivateKeyButton_Click" />
+                                    <Button x:Uid="DeleteSelectedPrivateKeyButton" Click="DeleteSelectedPrivateKeyButton_Click" />
                         </StackPanel>
                         <ListView
                             x:Name="PrivateKeysListView"
@@ -155,6 +158,18 @@
                     </StackPanel>
 
                     <StackPanel x:Name="SettingsPanel" Spacing="14" MaxWidth="900" HorizontalAlignment="Stretch" Visibility="Collapsed">
+                        <controls:SettingsCard x:Uid="ExportFolderSettingsCard">
+                            <StackPanel Spacing="10">
+                                <TextBox
+                                    x:Name="ExportFolderPathTextBox"
+                                    x:Uid="ExportFolderPathTextBox"
+                                    IsReadOnly="True" />
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <Button x:Uid="ChooseExportFolderButton" Click="ChooseExportFolderButton_Click" />
+                                    <Button x:Uid="OpenExportFolderButton" Click="OpenExportFolderButton_Click" />
+                                </StackPanel>
+                            </StackPanel>
+                        </controls:SettingsCard>
                         <controls:SettingsCard x:Uid="PrivateKeyPasswordSettingsCard">
                             <StackPanel Spacing="10">
                                 <PasswordBox

@@ -4,8 +4,10 @@ using MessagesEncrypter.Models;
 using MessagesEncrypter.Services;
 using System;
 using System.Collections.ObjectModel;
+using Windows.Storage.Pickers;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
+using WinRT.Interop;
 
 namespace MessagesEncrypter
 {
@@ -14,6 +16,8 @@ namespace MessagesEncrypter
         private readonly KeyManagementService _keyManagementService = new();
         private readonly CredentialManagerService _credentialManagerService = new();
         private readonly KeyStoreService _keyStoreService = new();
+        private readonly AppSettingsService _appSettingsService = new();
+        private readonly KeyExportService _keyExportService = new();
         private readonly MessageCryptoService _messageCryptoService;
         private readonly ObservableCollection<KeyEntry> _recipientKeys = [];
         private readonly ObservableCollection<KeyEntry> _privateKeys = [];
@@ -28,6 +32,7 @@ namespace MessagesEncrypter
             PrivateKeyComboBox.ItemsSource = _privateKeys;
             PrivateKeysListView.ItemsSource = _privateKeys;
             LoadKeyStore();
+            LoadSettings();
             ShowPanel("Encrypt");
         }
 
@@ -189,6 +194,17 @@ namespace MessagesEncrypter
             CopyTextToClipboard(entry.PublicKeyPem ?? string.Empty, "StatusPublicKeyCopied");
         }
 
+        private void ExportSelectedRecipientKeyButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (RecipientKeysListView.SelectedItem is not KeyEntry entry)
+            {
+                ShowStatus("ErrorRecipientKeyNotSelected", InfoBarSeverity.Warning);
+                return;
+            }
+
+            ExportKey(() => _keyExportService.ExportPublicKey(entry, _appSettingsService.GetExportFolderPath()));
+        }
+
         private async void DeleteSelectedRecipientKeyButton_Click(object sender, RoutedEventArgs e)
         {
             if (RecipientKeysListView.SelectedItem is not KeyEntry entry)
@@ -226,6 +242,17 @@ namespace MessagesEncrypter
             CopyTextToClipboard(entry.PublicKeyPem ?? string.Empty, "StatusPublicKeyCopied");
         }
 
+        private void ExportSelectedPrivatePublicKeyButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (PrivateKeysListView.SelectedItem is not KeyEntry entry)
+            {
+                ShowStatus("ErrorPrivateKeyNotSelected", InfoBarSeverity.Warning);
+                return;
+            }
+
+            ExportKey(() => _keyExportService.ExportPublicKey(entry, _appSettingsService.GetExportFolderPath()));
+        }
+
         private void CopySelectedPrivateKeyButton_Click(object sender, RoutedEventArgs e)
         {
             if (PrivateKeysListView.SelectedItem is not KeyEntry entry)
@@ -235,6 +262,17 @@ namespace MessagesEncrypter
             }
 
             CopyTextToClipboard(entry.EncryptedPrivateKeyPem ?? string.Empty, "StatusPrivateKeyCopied");
+        }
+
+        private void ExportSelectedPrivateKeyButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (PrivateKeysListView.SelectedItem is not KeyEntry entry)
+            {
+                ShowStatus("ErrorPrivateKeyNotSelected", InfoBarSeverity.Warning);
+                return;
+            }
+
+            ExportKey(() => _keyExportService.ExportPrivateKey(entry, _appSettingsService.GetExportFolderPath()));
         }
 
         private async void DeleteSelectedPrivateKeyButton_Click(object sender, RoutedEventArgs e)
@@ -284,6 +322,45 @@ namespace MessagesEncrypter
                 _credentialManagerService.DeletePrivateKeyPassword();
                 PrivateKeyPasswordBox.Password = string.Empty;
                 ShowStatus("StatusPrivateKeyPasswordDeleted", InfoBarSeverity.Success);
+            }
+            catch (CryptoException ex)
+            {
+                ShowStatus(ex.ResourceKey, InfoBarSeverity.Error);
+            }
+        }
+
+        private async void ChooseExportFolderButton_Click(object sender, RoutedEventArgs e)
+        {
+            var picker = new FolderPicker
+            {
+                SuggestedStartLocation = PickerLocationId.DocumentsLibrary
+            };
+            picker.FileTypeFilter.Add("*");
+            InitializeWithWindow.Initialize(picker, WindowNative.GetWindowHandle(this));
+
+            Windows.Storage.StorageFolder? folder = await picker.PickSingleFolderAsync();
+            if (folder is null)
+            {
+                return;
+            }
+
+            try
+            {
+                _appSettingsService.SetExportFolderPath(folder.Path);
+                ExportFolderPathTextBox.Text = folder.Path;
+                ShowStatus("StatusExportFolderSaved", InfoBarSeverity.Success);
+            }
+            catch (CryptoException ex)
+            {
+                ShowStatus(ex.ResourceKey, InfoBarSeverity.Error);
+            }
+        }
+
+        private void OpenExportFolderButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                _keyExportService.OpenFolder(_appSettingsService.GetExportFolderPath());
             }
             catch (CryptoException ex)
             {
@@ -372,6 +449,18 @@ namespace MessagesEncrypter
             }
         }
 
+        private void LoadSettings()
+        {
+            try
+            {
+                ExportFolderPathTextBox.Text = _appSettingsService.GetExportFolderPath();
+            }
+            catch (CryptoException ex)
+            {
+                ShowStatus(ex.ResourceKey, InfoBarSeverity.Error);
+            }
+        }
+
         private bool SaveKeyStore()
         {
             try
@@ -383,6 +472,19 @@ namespace MessagesEncrypter
             {
                 ShowStatus(ex.ResourceKey, InfoBarSeverity.Error);
                 return false;
+            }
+        }
+
+        private void ExportKey(Func<string> exportAction)
+        {
+            try
+            {
+                exportAction();
+                ShowStatus("StatusKeyExported", InfoBarSeverity.Success);
+            }
+            catch (CryptoException ex)
+            {
+                ShowStatus(ex.ResourceKey, InfoBarSeverity.Error);
             }
         }
 
