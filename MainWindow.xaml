@@ -33,10 +33,12 @@
         <NavigationView
             x:Name="RootNavigation"
             Grid.Row="1"
+            CompactPaneLength="56"
             IsBackButtonVisible="Collapsed"
             IsPaneToggleButtonVisible="False"
             IsSettingsVisible="False"
             PaneDisplayMode="Left"
+            OpenPaneLength="220"
             SelectionChanged="RootNavigation_SelectionChanged">
             <NavigationView.MenuItems>
                 <NavigationViewItem x:Name="HomeNavItem" x:Uid="HomeNavItem" Tag="Home" IsSelected="True">
