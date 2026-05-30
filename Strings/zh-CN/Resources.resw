@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MainWindowTitle" xml:space="preserve">
+    <value>MessagesEncrypter</value>
+  </data>
+  <data name="AppDisplayName" xml:space="preserve">
+    <value>MessagesEncrypter</value>
+  </data>
+  <data name="AppDescription" xml:space="preserve">
+    <value>Windows 桌面端公钥加密工具</value>
+  </data>
+  <data name="AppTitleBar.Title" xml:space="preserve">
+    <value>MessagesEncrypter</value>
+  </data>
+  <data name="AppTitleBar.Subtitle" xml:space="preserve">
+    <value>公钥加密工具</value>
+  </data>
+  <data name="HomeNavItem.Content" xml:space="preserve">
+    <value>主页</value>
+  </data>
+  <data name="EncryptNavItem.Content" xml:space="preserve">
+    <value>消息加密</value>
+  </data>
+  <data name="DecryptNavItem.Content" xml:space="preserve">
+    <value>消息解密</value>
+  </data>
+  <data name="RecipientKeysNavItem.Content" xml:space="preserve">
+    <value>接收方公钥</value>
+  </data>
+  <data name="PrivateKeysNavItem.Content" xml:space="preserve">
+    <value>我的私钥</value>
+  </data>
+  <data name="FilesNavItem.Content" xml:space="preserve">
+    <value>文件加密</value>
+  </data>
+  <data name="SettingsNavItem.Content" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="PageTitleEncrypt" xml:space="preserve">
+    <value>消息加密</value>
+  </data>
+  <data name="PageTitleHome" xml:space="preserve">
+    <value>主页</value>
+  </data>
+  <data name="PageTitleDecrypt" xml:space="preserve">
+    <value>消息解密</value>
+  </data>
+  <data name="PageTitleRecipientKeys" xml:space="preserve">
+    <value>接收方公钥</value>
+  </data>
+  <data name="PageTitlePrivateKeys" xml:space="preserve">
+    <value>我的私钥</value>
+  </data>
+  <data name="PageTitleFiles" xml:space="preserve">
+    <value>文件加密</value>
+  </data>
+  <data name="PageTitleSettings" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="RecipientKeyLabel.Text" xml:space="preserve">
+    <value>接收方</value>
+  </data>
+  <data name="HomeSendMessageTitle.Text" xml:space="preserve">
+    <value>发送消息</value>
+  </data>
+  <data name="HomeSendMessageStep1.Text" xml:space="preserve">
+    <value>1. 在“接收方公钥”中导入对方提供的公钥。</value>
+  </data>
+  <data name="HomeSendMessageStep2.Text" xml:space="preserve">
+    <value>2. 在“消息加密”中选择接收方，输入要发送的消息。</value>
+  </data>
+  <data name="HomeSendMessageStep3.Text" xml:space="preserve">
+    <value>3. 点击“加密”，复制生成的密文包。</value>
+  </data>
+  <data name="HomeSendMessageStep4.Text" xml:space="preserve">
+    <value>4. 通过你信任的渠道把密文包发送给对方。</value>
+  </data>
+  <data name="HomeReceiveMessageTitle.Text" xml:space="preserve">
+    <value>接收消息</value>
+  </data>
+  <data name="HomeReceiveMessageStep1.Text" xml:space="preserve">
+    <value>1. 在“设置”中编辑并保存私钥密码。</value>
+  </data>
+  <data name="HomeReceiveMessageStep2.Text" xml:space="preserve">
+    <value>2. 在“我的私钥”中生成或选择自己的加密私钥，并把对应公钥交给发送方。</value>
+  </data>
+  <data name="HomeReceiveMessageStep3.Text" xml:space="preserve">
+    <value>3. 收到密文包后，在“消息解密”中选择自己的私钥并粘贴密文。</value>
+  </data>
+  <data name="HomeReceiveMessageStep4.Text" xml:space="preserve">
+    <value>4. 点击“解密”，认证通过后查看明文。</value>
+  </data>
+  <data name="RecipientKeyComboBox.PlaceholderText" xml:space="preserve">
+    <value>从密钥管理中选择接收方</value>
+  </data>
+  <data name="EncryptPlainTextLabel.Text" xml:space="preserve">
+    <value>待加密消息</value>
+  </data>
+  <data name="PlainTextBox.PlaceholderText" xml:space="preserve">
+    <value>输入要发送给对方的消息</value>
+  </data>
+  <data name="EncryptButton.Content" xml:space="preserve">
+    <value>加密</value>
+  </data>
+  <data name="CopyEncryptedMessageButton.Content" xml:space="preserve">
+    <value>复制密文</value>
+  </data>
+  <data name="EncryptedMessageLabel.Text" xml:space="preserve">
+    <value>加密结果</value>
+  </data>
+  <data name="EncryptedMessageTextBox.PlaceholderText" xml:space="preserve">
+    <value>这里会生成可复制的 Base64 JSON 密文包</value>
+  </data>
+  <data name="PrivateKeySelectionLabel.Text" xml:space="preserve">
+    <value>我的私钥</value>
+  </data>
+  <data name="PrivateKeyComboBox.PlaceholderText" xml:space="preserve">
+    <value>从密钥管理中选择私钥</value>
+  </data>
+  <data name="CipherTextLabel.Text" xml:space="preserve">
+    <value>待解密密文</value>
+  </data>
+  <data name="CipherTextBox.PlaceholderText" xml:space="preserve">
+    <value>粘贴收到的 Base64 JSON 密文包</value>
+  </data>
+  <data name="DecryptButton.Content" xml:space="preserve">
+    <value>解密</value>
+  </data>
+  <data name="PasteEncryptedMessageButton.Content" xml:space="preserve">
+    <value>粘贴密文</value>
+  </data>
+  <data name="DecryptedMessageLabel.Text" xml:space="preserve">
+    <value>解密结果</value>
+  </data>
+  <data name="DecryptedMessageTextBox.PlaceholderText" xml:space="preserve">
+    <value>认证通过后会在这里显示明文</value>
+  </data>
+  <data name="ImportRecipientKeyTitle.Text" xml:space="preserve">
+    <value>导入接收方公钥</value>
+  </data>
+  <data name="RecipientAliasTextBox.PlaceholderText" xml:space="preserve">
+    <value>接收方别名</value>
+  </data>
+  <data name="RecipientPublicKeyTextBox.PlaceholderText" xml:space="preserve">
+    <value>粘贴 -----BEGIN PUBLIC KEY----- 开头的公钥</value>
+  </data>
+  <data name="ImportRecipientKeyButton.Content" xml:space="preserve">
+    <value>导入接收方</value>
+  </data>
+  <data name="ImportRecipientKeyDialogTitle" xml:space="preserve">
+    <value>导入接收方公钥</value>
+  </data>
+  <data name="ImportRecipientKeyDialogPrimaryButtonText" xml:space="preserve">
+    <value>导入</value>
+  </data>
+  <data name="ImportRecipientKeyFromFileButtonText" xml:space="preserve">
+    <value>从文件导入</value>
+  </data>
+  <data name="CopySelectedRecipientKeyButton.Content" xml:space="preserve">
+    <value>复制所选公钥</value>
+  </data>
+  <data name="ExportSelectedRecipientKeyButton.Content" xml:space="preserve">
+    <value>导出所选</value>
+  </data>
+  <data name="DeleteSelectedRecipientKeyButton.Content" xml:space="preserve">
+    <value>删除所选</value>
+  </data>
+  <data name="GenerateKeyDescription.Text" xml:space="preserve">
+    <value>生成 RSA-4096 密钥对。私钥会使用设置中保存的密码加密后导出，请妥善保存。</value>
+  </data>
+  <data name="PrivateKeyAliasTextBox.PlaceholderText" xml:space="preserve">
+    <value>我的密钥别名</value>
+  </data>
+  <data name="GenerateKeyButton.Content" xml:space="preserve">
+    <value>生成密钥对</value>
+  </data>
+  <data name="GeneratePrivateKeyDialogTitle" xml:space="preserve">
+    <value>生成我的密钥</value>
+  </data>
+  <data name="GeneratePrivateKeyDialogPrimaryButtonText" xml:space="preserve">
+    <value>生成</value>
+  </data>
+  <data name="DialogCancelButtonText" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="DeleteRecipientKeyDialogTitle" xml:space="preserve">
+    <value>删除接收方</value>
+  </data>
+  <data name="DeletePrivateKeyDialogTitle" xml:space="preserve">
+    <value>删除我的私钥</value>
+  </data>
+  <data name="DeleteKeyDialogPrimaryButtonText" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="DeleteKeyDialogContent" xml:space="preserve">
+    <value>确定要删除“{0}”吗？此操作会更新本机密钥存档。</value>
+  </data>
+  <data name="CopySelectedPrivatePublicKeyButton.Content" xml:space="preserve">
+    <value>复制所选公钥</value>
+  </data>
+  <data name="ExportSelectedPrivatePublicKeyButton.Content" xml:space="preserve">
+    <value>导出公钥</value>
+  </data>
+  <data name="CopySelectedPrivateKeyButton.Content" xml:space="preserve">
+    <value>复制所选私钥</value>
+  </data>
+  <data name="ExportSelectedPrivateKeyButton.Content" xml:space="preserve">
+    <value>导出私钥</value>
+  </data>
+  <data name="DeleteSelectedPrivateKeyButton.Content" xml:space="preserve">
+    <value>删除所选</value>
+  </data>
+  <data name="RecipientKeysListTitle.Text" xml:space="preserve">
+    <value>接收方列表</value>
+  </data>
+  <data name="PrivateKeysListTitle.Text" xml:space="preserve">
+    <value>我的私钥列表</value>
+  </data>
+  <data name="FingerprintLabel.Text" xml:space="preserve">
+    <value>公钥指纹</value>
+  </data>
+  <data name="FingerprintTextBox.PlaceholderText" xml:space="preserve">
+    <value>生成或导入公钥后显示</value>
+  </data>
+  <data name="PublicKeyOutputLabel.Text" xml:space="preserve">
+    <value>公钥</value>
+  </data>
+  <data name="GeneratedPublicKeyTextBox.PlaceholderText" xml:space="preserve">
+    <value>生成后显示公钥，可发送给别人</value>
+  </data>
+  <data name="PrivateKeyOutputLabel.Text" xml:space="preserve">
+    <value>加密私钥</value>
+  </data>
+  <data name="GeneratedPrivateKeyTextBox.PlaceholderText" xml:space="preserve">
+    <value>生成后显示加密私钥，请不要发送给别人</value>
+  </data>
+  <data name="FilesNotReadyTitle.Text" xml:space="preserve">
+    <value>文件分块加密待实现</value>
+  </data>
+  <data name="FilesNotReadyDescription.Text" xml:space="preserve">
+    <value>下一步会实现 PKEF 文件格式、AES-GCM 分块、块索引认证、异步 I/O、进度反馈和分块大小选择。</value>
+  </data>
+  <data name="PrivateKeyPasswordSettingsCard.Header" xml:space="preserve">
+    <value>私钥密码</value>
+  </data>
+  <data name="ExportFolderSettingsCard.Header" xml:space="preserve">
+    <value>导出位置</value>
+  </data>
+  <data name="ExportFolderSettingsCard.Description" xml:space="preserve">
+    <value>用于保存导出的密钥文件和后续文件加密输出。</value>
+  </data>
+  <data name="ChooseExportFolderButton.Content" xml:space="preserve">
+    <value>选择位置</value>
+  </data>
+  <data name="OpenExportFolderButton.Content" xml:space="preserve">
+    <value>打开导出位置</value>
+  </data>
+  <data name="OpenSettingsExportFolderButton.Content" xml:space="preserve">
+    <value>打开位置</value>
+  </data>
+  <data name="PrivateKeyPasswordSettingsCard.Description" xml:space="preserve">
+    <value>保存到 Windows 凭据管理器，用于生成加密私钥和解密消息。</value>
+  </data>
+  <data name="PrivateKeyPasswordBox.PlaceholderText" xml:space="preserve">
+    <value>输入或更新私钥密码</value>
+  </data>
+  <data name="SavePrivateKeyPasswordDialogTitle" xml:space="preserve">
+    <value>保存私钥密码</value>
+  </data>
+  <data name="SavePrivateKeyPasswordDialogPrimaryButtonText" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="SavePrivateKeyPasswordButton.Content" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="DeletePrivateKeyPasswordButton.Content" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="DeletePrivateKeyPasswordDialogTitle" xml:space="preserve">
+    <value>删除私钥密码</value>
+  </data>
+  <data name="DeletePrivateKeyPasswordDialogContent" xml:space="preserve">
+    <value>确定要删除 Windows 凭据管理器中保存的私钥密码吗？删除后，生成密钥或解密消息前需要重新编辑保存。</value>
+  </data>
+  <data name="SecuritySummaryTitle.Text" xml:space="preserve">
+    <value>当前安全策略</value>
+  </data>
+  <data name="SecuritySummaryText.Text" xml:space="preserve">
+    <value>消息使用 RSA-4096 + OAEP-SHA256 加密 AES-256-GCM 会话密钥，再用 AES-GCM 加密正文。每次加密都会生成新的会话密钥和 nonce。私钥使用加密 PKCS#8 PEM 导出，PBKDF2 迭代次数为 600,000。</value>
+  </data>
+  <data name="StatusKeyGenerated" xml:space="preserve">
+    <value>密钥对已生成并加入我的私钥列表。</value>
+  </data>
+  <data name="StatusRecipientKeyImported" xml:space="preserve">
+    <value>接收方公钥已导入。</value>
+  </data>
+  <data name="StatusMessageEncrypted" xml:space="preserve">
+    <value>消息已加密。</value>
+  </data>
+  <data name="StatusMessageDecrypted" xml:space="preserve">
+    <value>消息已解密并通过认证。</value>
+  </data>
+  <data name="StatusEncryptedMessageCopied" xml:space="preserve">
+    <value>密文已复制到剪贴板。</value>
+  </data>
+  <data name="StatusPublicKeyCopied" xml:space="preserve">
+    <value>公钥已复制到剪贴板。</value>
+  </data>
+  <data name="StatusPrivateKeyCopied" xml:space="preserve">
+    <value>加密私钥已复制到剪贴板。</value>
+  </data>
+  <data name="StatusEncryptedMessagePasted" xml:space="preserve">
+    <value>已从剪贴板粘贴密文。</value>
+  </data>
+  <data name="StatusPrivateKeyPasswordSaved" xml:space="preserve">
+    <value>私钥密码已保存到 Windows 凭据管理器。</value>
+  </data>
+  <data name="StatusPrivateKeyPasswordDeleted" xml:space="preserve">
+    <value>已删除保存的私钥密码。</value>
+  </data>
+  <data name="StatusRecipientKeyDeleted" xml:space="preserve">
+    <value>接收方已删除。</value>
+  </data>
+  <data name="StatusPrivateKeyDeleted" xml:space="preserve">
+    <value>我的私钥已删除。</value>
+  </data>
+  <data name="StatusExportFolderSaved" xml:space="preserve">
+    <value>导出位置已保存。</value>
+  </data>
+  <data name="StatusKeyExported" xml:space="preserve">
+    <value>密钥已导出到设置中的导出位置。</value>
+  </data>
+  <data name="ErrorPasswordRequired" xml:space="preserve">
+    <value>请输入私钥密码。</value>
+  </data>
+  <data name="ErrorExportFolderRequired" xml:space="preserve">
+    <value>请选择导出位置。</value>
+  </data>
+  <data name="ErrorExportFolderOpenFailed" xml:space="preserve">
+    <value>打开导出位置失败，请检查该路径是否可用。</value>
+  </data>
+  <data name="ErrorKeyExportFailed" xml:space="preserve">
+    <value>导出密钥失败，请检查导出位置是否可写。</value>
+  </data>
+  <data name="ErrorCredentialPasswordMissing" xml:space="preserve">
+    <value>请先在设置中保存私钥密码。</value>
+  </data>
+  <data name="ErrorCredentialSaveFailed" xml:space="preserve">
+    <value>保存私钥密码失败，请检查 Windows 凭据管理器是否可用。</value>
+  </data>
+  <data name="ErrorCredentialDeleteFailed" xml:space="preserve">
+    <value>删除私钥密码失败，请稍后重试。</value>
+  </data>
+  <data name="ErrorKeyStoreLoadFailed" xml:space="preserve">
+    <value>读取密钥存档失败，请检查应用本地数据文件是否损坏。</value>
+  </data>
+  <data name="ErrorKeyStoreSaveFailed" xml:space="preserve">
+    <value>保存密钥存档失败，请检查应用本地存储是否可用。</value>
+  </data>
+  <data name="ErrorPublicKeyRequired" xml:space="preserve">
+    <value>请提供接收方公钥。</value>
+  </data>
+  <data name="ErrorPrivateKeyRequired" xml:space="preserve">
+    <value>请提供加密私钥。</value>
+  </data>
+  <data name="ErrorRecipientKeyNotSelected" xml:space="preserve">
+    <value>请先选择接收方。</value>
+  </data>
+  <data name="ErrorPrivateKeyNotSelected" xml:space="preserve">
+    <value>请先选择我的私钥。</value>
+  </data>
+  <data name="DefaultRecipientKeyAlias" xml:space="preserve">
+    <value>接收方 {0}</value>
+  </data>
+  <data name="DefaultPrivateKeyAlias" xml:space="preserve">
+    <value>我的密钥 {0}</value>
+  </data>
+  <data name="ErrorPublicKeyInvalid" xml:space="preserve">
+    <value>公钥格式无效。</value>
+  </data>
+  <data name="ErrorPublicKeyFileReadFailed" xml:space="preserve">
+    <value>读取公钥文件失败，请检查文件是否可访问。</value>
+  </data>
+  <data name="ErrorPrivateKeyInvalidOrPasswordWrong" xml:space="preserve">
+    <value>私钥格式无效，或密码不正确。</value>
+  </data>
+  <data name="ErrorPublicKeyTooSmall" xml:space="preserve">
+    <value>公钥长度不足，请使用 RSA-4096 公钥。</value>
+  </data>
+  <data name="ErrorPrivateKeyTooSmall" xml:space="preserve">
+    <value>私钥长度不足，请使用 RSA-4096 私钥。</value>
+  </data>
+  <data name="ErrorCipherTextRequired" xml:space="preserve">
+    <value>请输入待解密密文。</value>
+  </data>
+  <data name="ErrorEncryptFailed" xml:space="preserve">
+    <value>加密失败，请检查公钥格式。</value>
+  </data>
+  <data name="ErrorDecryptFailed" xml:space="preserve">
+    <value>解密失败，密文可能被篡改、格式错误、私钥不匹配或密码错误。</value>
+  </data>
+  <data name="ErrorUnsupportedMessageFormat" xml:space="preserve">
+    <value>密文格式或版本不受支持。</value>
+  </data>
+  <data name="ErrorClipboardNothingToCopy" xml:space="preserve">
+    <value>没有可复制的内容。</value>
+  </data>
+  <data name="ErrorClipboardTextMissing" xml:space="preserve">
+    <value>剪贴板中没有文本内容。</value>
+  </data>
+  <data name="ErrorClipboardUnavailable" xml:space="preserve">
+    <value>剪贴板当前不可用。</value>
+  </data>
+</root>

@@ -1,0 +1,58 @@
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using MessagesEncrypter.Models;
+
+namespace MessagesEncrypter.Views;
+
+public sealed partial class DecryptView : UserControl
+{
+    public DecryptView()
+    {
+        InitializeComponent();
+    }
+
+    public event RoutedEventHandler? DecryptRequested;
+
+    public event RoutedEventHandler? PasteEncryptedMessageRequested;
+
+    public object? PrivateKeysSource
+    {
+        get => PrivateKeyComboBox.ItemsSource;
+        set => PrivateKeyComboBox.ItemsSource = value;
+    }
+
+    public KeyEntry? SelectedPrivateKey => PrivateKeyComboBox.SelectedItem as KeyEntry;
+
+    public int SelectedPrivateKeyIndex
+    {
+        get => PrivateKeyComboBox.SelectedIndex;
+        set => PrivateKeyComboBox.SelectedIndex = value;
+    }
+
+    public string CipherText
+    {
+        get => CipherTextBox.Text;
+        set => CipherTextBox.Text = value;
+    }
+
+    public string DecryptedMessage
+    {
+        get => DecryptedMessageTextBox.Text;
+        set => DecryptedMessageTextBox.Text = value;
+    }
+
+    public void SelectPrivateKey(KeyEntry entry)
+    {
+        PrivateKeyComboBox.SelectedItem = entry;
+    }
+
+    private void DecryptButton_Click(object sender, RoutedEventArgs e)
+    {
+        DecryptRequested?.Invoke(sender, e);
+    }
+
+    private void PasteEncryptedMessageButton_Click(object sender, RoutedEventArgs e)
+    {
+        PasteEncryptedMessageRequested?.Invoke(sender, e);
+    }
+}
