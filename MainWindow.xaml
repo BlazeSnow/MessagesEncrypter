@@ -1,19 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Window
     x:Class="MessagesEncrypter.MainWindow"
+    x:Uid="MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:MessagesEncrypter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Title="MessagesEncrypter">
+    mc:Ignorable="d">
 
     <Window.SystemBackdrop>
         <MicaBackdrop />
     </Window.SystemBackdrop>
 
-    <Grid>
+    <NavigationView
+        x:Name="RootNavigation"
+        x:Uid="RootNavigation"
+        IsBackButtonVisible="Collapsed"
+        IsSettingsVisible="False"
+        PaneDisplayMode="Left"
+        SelectionChanged="RootNavigation_SelectionChanged">
+        <NavigationView.MenuItems>
+            <NavigationViewItem x:Name="EncryptNavItem" x:Uid="EncryptNavItem" Tag="Encrypt" IsSelected="True">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Mail" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem x:Name="DecryptNavItem" x:Uid="DecryptNavItem" Tag="Decrypt">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Accept" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem x:Name="KeysNavItem" x:Uid="KeysNavItem" Tag="Keys">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Permissions" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem x:Name="FilesNavItem" x:Uid="FilesNavItem" Tag="Files">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Document" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem x:Name="SecurityNavItem" x:Uid="SecurityNavItem" Tag="Security">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Help" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+        </NavigationView.MenuItems>
 
-    </Grid>
+        <Grid Padding="28" RowSpacing="16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock
+                x:Name="PageTitleText"
+                Style="{ThemeResource TitleTextBlockStyle}" />
+
+            <ScrollViewer Grid.Row="1">
+                <Grid>
+                    <StackPanel x:Name="EncryptPanel" Spacing="14" MaxWidth="900" HorizontalAlignment="Stretch">
+                        <TextBlock x:Uid="EncryptPublicKeyLabel" Style="{ThemeResource BodyStrongTextBlockStyle}" />
+                        <TextBox
+                            x:Name="EncryptPublicKeyTextBox"
+                            x:Uid="EncryptPublicKeyTextBox"
+                            AcceptsReturn="True"
+                            FontFamily="Consolas"
+                            Height="150"
+                            TextWrapping="NoWrap" />
+                        <TextBlock x:Uid="EncryptPlainTextLabel" Style="{ThemeResource BodyStrongTextBlockStyle}" />
+                        <TextBox
+                            x:Name="PlainTextBox"
+                            x:Uid="PlainTextBox"
+                            AcceptsReturn="True"
+                            Height="180"
+                            TextWrapping="Wrap" />
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Button x:Uid="EncryptButton" Click="EncryptButton_Click" />
+                            <Button x:Uid="CopyEncryptedMessageButton" Click="CopyEncryptedMessageButton_Click" />
+                        </StackPanel>
+                        <TextBlock x:Uid="EncryptedMessageLabel" Style="{ThemeResource BodyStrongTextBlockStyle}" />
+                        <TextBox
+                            x:Name="EncryptedMessageTextBox"
+                            x:Uid="EncryptedMessageTextBox"
+                            AcceptsReturn="True"
+                            FontFamily="Consolas"
+                            Height="180"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+
+                    <StackPanel x:Name="DecryptPanel" Spacing="14" MaxWidth="900" HorizontalAlignment="Stretch" Visibility="Collapsed">
+                        <TextBlock x:Uid="DecryptPrivateKeyLabel" Style="{ThemeResource BodyStrongTextBlockStyle}" />
+                        <TextBox
+                            x:Name="DecryptPrivateKeyTextBox"
+                            x:Uid="DecryptPrivateKeyTextBox"
+                            AcceptsReturn="True"
+                            FontFamily="Consolas"
+                            Height="150"
+                            TextWrapping="NoWrap" />
+                        <TextBlock x:Uid="DecryptPasswordLabel" Style="{ThemeResource BodyStrongTextBlockStyle}" />
+                        <PasswordBox x:Name="DecryptPasswordBox" x:Uid="DecryptPasswordBox" />
+                        <TextBlock x:Uid="CipherTextLabel" Style="{ThemeResource BodyStrongTextBlockStyle}" />
+                        <TextBox
+                            x:Name="CipherTextBox"
+                            x:Uid="CipherTextBox"
+                            AcceptsReturn="True"
+                            FontFamily="Consolas"
+                            Height="160"
+                            TextWrapping="Wrap" />
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Button x:Uid="DecryptButton" Click="DecryptButton_Click" />
+                            <Button x:Uid="PasteEncryptedMessageButton" Click="PasteEncryptedMessageButton_Click" />
+                        </StackPanel>
+                        <TextBlock x:Uid="DecryptedMessageLabel" Style="{ThemeResource BodyStrongTextBlockStyle}" />
+                        <TextBox
+                            x:Name="DecryptedMessageTextBox"
+                            x:Uid="DecryptedMessageTextBox"
+                            AcceptsReturn="True"
+                            Height="160"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+
+                    <StackPanel x:Name="KeysPanel" Spacing="14" MaxWidth="900" HorizontalAlignment="Stretch" Visibility="Collapsed">
+                        <TextBlock x:Uid="GenerateKeyDescription" TextWrapping="Wrap" />
+                        <TextBlock x:Uid="KeyPasswordLabel" Style="{ThemeResource BodyStrongTextBlockStyle}" />
+                        <PasswordBox x:Name="KeyPasswordBox" x:Uid="KeyPasswordBox" />
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Button x:Uid="GenerateKeyButton" Click="GenerateKeyButton_Click" />
+                            <Button x:Uid="CopyPublicKeyButton" Click="CopyPublicKeyButton_Click" />
+                            <Button x:Uid="CopyPrivateKeyButton" Click="CopyPrivateKeyButton_Click" />
+                        </StackPanel>
+                        <TextBlock x:Uid="FingerprintLabel" Style="{ThemeResource BodyStrongTextBlockStyle}" />
+                        <TextBox x:Name="FingerprintTextBox" x:Uid="FingerprintTextBox" IsReadOnly="True" />
+                        <TextBlock x:Uid="PublicKeyOutputLabel" Style="{ThemeResource BodyStrongTextBlockStyle}" />
+                        <TextBox
+                            x:Name="GeneratedPublicKeyTextBox"
+                            x:Uid="GeneratedPublicKeyTextBox"
+                            AcceptsReturn="True"
+                            FontFamily="Consolas"
+                            Height="150"
+                            TextWrapping="NoWrap" />
+                        <TextBlock x:Uid="PrivateKeyOutputLabel" Style="{ThemeResource BodyStrongTextBlockStyle}" />
+                        <TextBox
+                            x:Name="GeneratedPrivateKeyTextBox"
+                            x:Uid="GeneratedPrivateKeyTextBox"
+                            AcceptsReturn="True"
+                            FontFamily="Consolas"
+                            Height="180"
+                            TextWrapping="NoWrap" />
+                    </StackPanel>
+
+                    <StackPanel x:Name="FilesPanel" Spacing="14" MaxWidth="900" HorizontalAlignment="Stretch" Visibility="Collapsed">
+                        <TextBlock x:Uid="FilesNotReadyTitle" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                        <TextBlock x:Uid="FilesNotReadyDescription" TextWrapping="Wrap" />
+                    </StackPanel>
+
+                    <StackPanel x:Name="SecurityPanel" Spacing="14" MaxWidth="900" HorizontalAlignment="Stretch" Visibility="Collapsed">
+                        <TextBlock x:Uid="SecuritySummaryTitle" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                        <TextBlock x:Uid="SecuritySummaryText" TextWrapping="Wrap" />
+                    </StackPanel>
+                </Grid>
+            </ScrollViewer>
+
+            <InfoBar
+                x:Name="StatusInfoBar"
+                Grid.Row="2"
+                IsOpen="False"
+                IsClosable="True" />
+        </Grid>
+    </NavigationView>
 </Window>
