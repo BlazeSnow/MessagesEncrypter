@@ -30,8 +30,5 @@
                 <Button x:Uid="DeletePrivateKeyPasswordButton" Click="DeletePrivateKeyPasswordButton_Click" />
             </StackPanel>
         </controls:SettingsCard>
-
-        <TextBlock x:Uid="SecuritySummaryTitle" Style="{ThemeResource SubtitleTextBlockStyle}" />
-        <TextBlock x:Uid="SecuritySummaryText" TextWrapping="Wrap" />
     </StackPanel>
 </UserControl>

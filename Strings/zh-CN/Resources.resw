@@ -300,12 +300,6 @@
   <data name="DeletePrivateKeyPasswordDialogContent" xml:space="preserve">
     <value>确定要删除 Windows 凭据管理器中保存的私钥密码吗？删除后，生成密钥或解密消息前需要重新编辑保存。</value>
   </data>
-  <data name="SecuritySummaryTitle.Text" xml:space="preserve">
-    <value>当前安全策略</value>
-  </data>
-  <data name="SecuritySummaryText.Text" xml:space="preserve">
-    <value>消息使用 RSA-4096 + OAEP-SHA256 加密 AES-256-GCM 会话密钥，再用 AES-GCM 加密正文。每次加密都会生成新的会话密钥和 nonce。私钥使用加密 PKCS#8 PEM 导出，PBKDF2 迭代次数为 600,000。</value>
-  </data>
   <data name="StatusKeyGenerated" xml:space="preserve">
     <value>密钥对已生成并加入我的私钥列表。</value>
   </data>
