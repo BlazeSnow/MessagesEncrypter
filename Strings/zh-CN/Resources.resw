@@ -75,32 +75,32 @@
   <data name="HomeSendMessageTitle.Text" xml:space="preserve">
     <value>发送消息</value>
   </data>
-  <data name="HomeSendMessageStep1.Text" xml:space="preserve">
-    <value>1. 在“接收方公钥”中导入对方提供的公钥。</value>
+  <data name="HomeSendMessageStep1.Header" xml:space="preserve">
+    <value>在“接收方公钥”中导入对方提供的公钥。</value>
   </data>
-  <data name="HomeSendMessageStep2.Text" xml:space="preserve">
-    <value>2. 在“消息加密”中选择接收方，输入要发送的消息。</value>
+  <data name="HomeSendMessageStep2.Header" xml:space="preserve">
+    <value>在“消息加密”中选择接收方，输入要发送的消息。</value>
   </data>
-  <data name="HomeSendMessageStep3.Text" xml:space="preserve">
-    <value>3. 点击“加密”，复制生成的密文包。</value>
+  <data name="HomeSendMessageStep3.Header" xml:space="preserve">
+    <value>点击“加密”，复制生成的密文包。</value>
   </data>
-  <data name="HomeSendMessageStep4.Text" xml:space="preserve">
-    <value>4. 通过你信任的渠道把密文包发送给对方。</value>
+  <data name="HomeSendMessageStep4.Header" xml:space="preserve">
+    <value>通过你信任的渠道把密文包发送给对方。</value>
   </data>
   <data name="HomeReceiveMessageTitle.Text" xml:space="preserve">
     <value>接收消息</value>
   </data>
-  <data name="HomeReceiveMessageStep1.Text" xml:space="preserve">
-    <value>1. 在“设置”中编辑并保存私钥密码。</value>
+  <data name="HomeReceiveMessageStep1.Header" xml:space="preserve">
+    <value>在“设置”中编辑并保存私钥密码。</value>
   </data>
-  <data name="HomeReceiveMessageStep2.Text" xml:space="preserve">
-    <value>2. 在“我的私钥”中生成或选择自己的加密私钥，并把对应公钥交给发送方。</value>
+  <data name="HomeReceiveMessageStep2.Header" xml:space="preserve">
+    <value>在“我的私钥”中生成或选择自己的加密私钥，并把对应公钥交给发送方。</value>
   </data>
-  <data name="HomeReceiveMessageStep3.Text" xml:space="preserve">
-    <value>3. 收到密文包后，在“消息解密”中选择自己的私钥并粘贴密文。</value>
+  <data name="HomeReceiveMessageStep3.Header" xml:space="preserve">
+    <value>收到密文包后，在“消息解密”中选择自己的私钥并粘贴密文。</value>
   </data>
-  <data name="HomeReceiveMessageStep4.Text" xml:space="preserve">
-    <value>4. 点击“解密”，认证通过后查看明文。</value>
+  <data name="HomeReceiveMessageStep4.Header" xml:space="preserve">
+    <value>点击“解密”，认证通过后查看明文。</value>
   </data>
   <data name="RecipientKeyComboBox.PlaceholderText" xml:space="preserve">
     <value>从密钥管理中选择接收方</value>
