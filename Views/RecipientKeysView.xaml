@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="MessagesEncrypter.Views.RecipientKeysView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <StackPanel Spacing="14" MaxWidth="900" HorizontalAlignment="Stretch">
+        <TextBlock x:Uid="RecipientKeysListTitle" Style="{ThemeResource BodyStrongTextBlockStyle}" />
+        <StackPanel Orientation="Horizontal" Spacing="8">
+            <Button x:Uid="ImportRecipientKeyButton" Click="ImportRecipientKeyButton_Click" />
+            <Button x:Uid="CopySelectedRecipientKeyButton" Click="CopySelectedRecipientKeyButton_Click" />
+            <Button x:Uid="ExportSelectedRecipientKeyButton" Click="ExportSelectedRecipientKeyButton_Click" />
+            <Button x:Uid="DeleteSelectedRecipientKeyButton" Click="DeleteSelectedRecipientKeyButton_Click" />
+        </StackPanel>
+        <ListView
+            x:Name="RecipientKeysListView"
+            DisplayMemberPath="DisplayName"
+            MinHeight="320" />
+    </StackPanel>
+</UserControl>

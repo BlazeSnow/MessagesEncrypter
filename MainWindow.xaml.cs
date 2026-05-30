@@ -27,10 +27,7 @@ namespace MessagesEncrypter
             _messageCryptoService = new MessageCryptoService(_keyManagementService);
             InitializeComponent();
             Title = AppResources.GetString("MainWindowTitle");
-            RecipientKeyComboBox.ItemsSource = _recipientKeys;
-            RecipientKeysListView.ItemsSource = _recipientKeys;
-            PrivateKeyComboBox.ItemsSource = _privateKeys;
-            PrivateKeysListView.ItemsSource = _privateKeys;
+            InitializeViews();
             LoadKeyStore();
             LoadSettings();
             ShowPanel("Encrypt");
@@ -46,13 +43,43 @@ namespace MessagesEncrypter
 
         private void ShowPanel(string tag)
         {
-            EncryptPanel.Visibility = tag == "Encrypt" ? Visibility.Visible : Visibility.Collapsed;
-            DecryptPanel.Visibility = tag == "Decrypt" ? Visibility.Visible : Visibility.Collapsed;
-            RecipientKeysPanel.Visibility = tag == "RecipientKeys" ? Visibility.Visible : Visibility.Collapsed;
-            PrivateKeysPanel.Visibility = tag == "PrivateKeys" ? Visibility.Visible : Visibility.Collapsed;
-            FilesPanel.Visibility = tag == "Files" ? Visibility.Visible : Visibility.Collapsed;
-            SettingsPanel.Visibility = tag == "Settings" ? Visibility.Visible : Visibility.Collapsed;
+            EncryptView.Visibility = tag == "Encrypt" ? Visibility.Visible : Visibility.Collapsed;
+            DecryptView.Visibility = tag == "Decrypt" ? Visibility.Visible : Visibility.Collapsed;
+            RecipientKeysView.Visibility = tag == "RecipientKeys" ? Visibility.Visible : Visibility.Collapsed;
+            PrivateKeysView.Visibility = tag == "PrivateKeys" ? Visibility.Visible : Visibility.Collapsed;
+            FilesView.Visibility = tag == "Files" ? Visibility.Visible : Visibility.Collapsed;
+            SettingsView.Visibility = tag == "Settings" ? Visibility.Visible : Visibility.Collapsed;
             PageTitleText.Text = AppResources.GetString($"PageTitle{tag}");
+        }
+
+        private void InitializeViews()
+        {
+            EncryptView.RecipientKeysSource = _recipientKeys;
+            EncryptView.EncryptRequested += EncryptButton_Click;
+            EncryptView.CopyEncryptedMessageRequested += CopyEncryptedMessageButton_Click;
+
+            DecryptView.PrivateKeysSource = _privateKeys;
+            DecryptView.DecryptRequested += DecryptButton_Click;
+            DecryptView.PasteEncryptedMessageRequested += PasteEncryptedMessageButton_Click;
+
+            RecipientKeysView.ItemsSource = _recipientKeys;
+            RecipientKeysView.ImportRequested += ImportRecipientKeyButton_Click;
+            RecipientKeysView.CopyRequested += CopySelectedRecipientKeyButton_Click;
+            RecipientKeysView.ExportRequested += ExportSelectedRecipientKeyButton_Click;
+            RecipientKeysView.DeleteRequested += DeleteSelectedRecipientKeyButton_Click;
+
+            PrivateKeysView.ItemsSource = _privateKeys;
+            PrivateKeysView.GenerateRequested += GenerateKeyButton_Click;
+            PrivateKeysView.CopyPublicKeyRequested += CopySelectedPrivatePublicKeyButton_Click;
+            PrivateKeysView.ExportPublicKeyRequested += ExportSelectedPrivatePublicKeyButton_Click;
+            PrivateKeysView.CopyPrivateKeyRequested += CopySelectedPrivateKeyButton_Click;
+            PrivateKeysView.ExportPrivateKeyRequested += ExportSelectedPrivateKeyButton_Click;
+            PrivateKeysView.DeleteRequested += DeleteSelectedPrivateKeyButton_Click;
+
+            SettingsView.ChooseExportFolderRequested += ChooseExportFolderButton_Click;
+            SettingsView.OpenExportFolderRequested += OpenExportFolderButton_Click;
+            SettingsView.SavePrivateKeyPasswordRequested += SavePrivateKeyPasswordButton_Click;
+            SettingsView.DeletePrivateKeyPasswordRequested += DeletePrivateKeyPasswordButton_Click;
         }
 
         private async void GenerateKeyButton_Click(object sender, RoutedEventArgs e)
@@ -75,8 +102,8 @@ namespace MessagesEncrypter
                 string alias = GetAliasOrDefault(aliasTextBox.Text, "DefaultPrivateKeyAlias", _privateKeys.Count + 1);
                 var entry = new KeyEntry(alias, result.PublicKeyFingerprint, result.PublicKeyPem, result.EncryptedPrivateKeyPem);
                 _privateKeys.Add(entry);
-                PrivateKeyComboBox.SelectedItem = entry;
-                PrivateKeysListView.SelectedItem = entry;
+                DecryptView.SelectPrivateKey(entry);
+                PrivateKeysView.SelectKey(entry);
                 if (SaveKeyStore())
                 {
                     ShowStatus("StatusKeyGenerated", InfoBarSeverity.Success);
@@ -92,14 +119,14 @@ namespace MessagesEncrypter
         {
             try
             {
-                if (RecipientKeyComboBox.SelectedItem is not KeyEntry recipientKey || string.IsNullOrWhiteSpace(recipientKey.PublicKeyPem))
+                if (EncryptView.SelectedRecipientKey is not KeyEntry recipientKey || string.IsNullOrWhiteSpace(recipientKey.PublicKeyPem))
                 {
                     ShowStatus("ErrorRecipientKeyNotSelected", InfoBarSeverity.Warning);
                     return;
                 }
 
-                EncryptedMessageTextBox.Text = _messageCryptoService.EncryptToBase64Json(
-                    PlainTextBox.Text,
+                EncryptView.EncryptedMessage = _messageCryptoService.EncryptToBase64Json(
+                    EncryptView.PlainText,
                     recipientKey.PublicKeyPem);
                 ShowStatus("StatusMessageEncrypted", InfoBarSeverity.Success);
             }
@@ -113,28 +140,28 @@ namespace MessagesEncrypter
         {
             try
             {
-                if (PrivateKeyComboBox.SelectedItem is not KeyEntry privateKey || string.IsNullOrWhiteSpace(privateKey.EncryptedPrivateKeyPem))
+                if (DecryptView.SelectedPrivateKey is not KeyEntry privateKey || string.IsNullOrWhiteSpace(privateKey.EncryptedPrivateKeyPem))
                 {
                     ShowStatus("ErrorPrivateKeyNotSelected", InfoBarSeverity.Warning);
                     return;
                 }
 
-                DecryptedMessageTextBox.Text = _messageCryptoService.DecryptFromBase64Json(
-                    CipherTextBox.Text,
+                DecryptView.DecryptedMessage = _messageCryptoService.DecryptFromBase64Json(
+                    DecryptView.CipherText,
                     privateKey.EncryptedPrivateKeyPem,
                     _credentialManagerService.GetPrivateKeyPassword());
                 ShowStatus("StatusMessageDecrypted", InfoBarSeverity.Success);
             }
             catch (CryptoException ex)
             {
-                DecryptedMessageTextBox.Text = string.Empty;
+                DecryptView.DecryptedMessage = string.Empty;
                 ShowStatus(ex.ResourceKey, InfoBarSeverity.Error);
             }
         }
 
         private void CopyEncryptedMessageButton_Click(object sender, RoutedEventArgs e)
         {
-            CopyTextToClipboard(EncryptedMessageTextBox.Text, "StatusEncryptedMessageCopied");
+            CopyTextToClipboard(EncryptView.EncryptedMessage, "StatusEncryptedMessageCopied");
         }
 
         private async void ImportRecipientKeyButton_Click(object sender, RoutedEventArgs e)
@@ -170,8 +197,8 @@ namespace MessagesEncrypter
                 string alias = GetAliasOrDefault(aliasTextBox.Text, "DefaultRecipientKeyAlias", _recipientKeys.Count + 1);
                 var entry = new KeyEntry(alias, fingerprint, publicKeyPem, null);
                 _recipientKeys.Add(entry);
-                RecipientKeyComboBox.SelectedItem = entry;
-                RecipientKeysListView.SelectedItem = entry;
+                EncryptView.SelectRecipientKey(entry);
+                RecipientKeysView.SelectKey(entry);
                 if (SaveKeyStore())
                 {
                     ShowStatus("StatusRecipientKeyImported", InfoBarSeverity.Success);
@@ -185,7 +212,7 @@ namespace MessagesEncrypter
 
         private void CopySelectedRecipientKeyButton_Click(object sender, RoutedEventArgs e)
         {
-            if (RecipientKeysListView.SelectedItem is not KeyEntry entry)
+            if (RecipientKeysView.SelectedKey is not KeyEntry entry)
             {
                 ShowStatus("ErrorRecipientKeyNotSelected", InfoBarSeverity.Warning);
                 return;
@@ -196,7 +223,7 @@ namespace MessagesEncrypter
 
         private void ExportSelectedRecipientKeyButton_Click(object sender, RoutedEventArgs e)
         {
-            if (RecipientKeysListView.SelectedItem is not KeyEntry entry)
+            if (RecipientKeysView.SelectedKey is not KeyEntry entry)
             {
                 ShowStatus("ErrorRecipientKeyNotSelected", InfoBarSeverity.Warning);
                 return;
@@ -207,7 +234,7 @@ namespace MessagesEncrypter
 
         private async void DeleteSelectedRecipientKeyButton_Click(object sender, RoutedEventArgs e)
         {
-            if (RecipientKeysListView.SelectedItem is not KeyEntry entry)
+            if (RecipientKeysView.SelectedKey is not KeyEntry entry)
             {
                 ShowStatus("ErrorRecipientKeyNotSelected", InfoBarSeverity.Warning);
                 return;
@@ -224,7 +251,7 @@ namespace MessagesEncrypter
             }
 
             _recipientKeys.Remove(entry);
-            SelectFirstItemIfAvailable(RecipientKeyComboBox, RecipientKeysListView, _recipientKeys.Count);
+            SelectFirstRecipientKeyIfAvailable();
             if (SaveKeyStore())
             {
                 ShowStatus("StatusRecipientKeyDeleted", InfoBarSeverity.Success);
@@ -233,7 +260,7 @@ namespace MessagesEncrypter
 
         private void CopySelectedPrivatePublicKeyButton_Click(object sender, RoutedEventArgs e)
         {
-            if (PrivateKeysListView.SelectedItem is not KeyEntry entry)
+            if (PrivateKeysView.SelectedKey is not KeyEntry entry)
             {
                 ShowStatus("ErrorPrivateKeyNotSelected", InfoBarSeverity.Warning);
                 return;
@@ -244,7 +271,7 @@ namespace MessagesEncrypter
 
         private void ExportSelectedPrivatePublicKeyButton_Click(object sender, RoutedEventArgs e)
         {
-            if (PrivateKeysListView.SelectedItem is not KeyEntry entry)
+            if (PrivateKeysView.SelectedKey is not KeyEntry entry)
             {
                 ShowStatus("ErrorPrivateKeyNotSelected", InfoBarSeverity.Warning);
                 return;
@@ -255,7 +282,7 @@ namespace MessagesEncrypter
 
         private void CopySelectedPrivateKeyButton_Click(object sender, RoutedEventArgs e)
         {
-            if (PrivateKeysListView.SelectedItem is not KeyEntry entry)
+            if (PrivateKeysView.SelectedKey is not KeyEntry entry)
             {
                 ShowStatus("ErrorPrivateKeyNotSelected", InfoBarSeverity.Warning);
                 return;
@@ -266,7 +293,7 @@ namespace MessagesEncrypter
 
         private void ExportSelectedPrivateKeyButton_Click(object sender, RoutedEventArgs e)
         {
-            if (PrivateKeysListView.SelectedItem is not KeyEntry entry)
+            if (PrivateKeysView.SelectedKey is not KeyEntry entry)
             {
                 ShowStatus("ErrorPrivateKeyNotSelected", InfoBarSeverity.Warning);
                 return;
@@ -277,7 +304,7 @@ namespace MessagesEncrypter
 
         private async void DeleteSelectedPrivateKeyButton_Click(object sender, RoutedEventArgs e)
         {
-            if (PrivateKeysListView.SelectedItem is not KeyEntry entry)
+            if (PrivateKeysView.SelectedKey is not KeyEntry entry)
             {
                 ShowStatus("ErrorPrivateKeyNotSelected", InfoBarSeverity.Warning);
                 return;
@@ -294,7 +321,7 @@ namespace MessagesEncrypter
             }
 
             _privateKeys.Remove(entry);
-            SelectFirstItemIfAvailable(PrivateKeyComboBox, PrivateKeysListView, _privateKeys.Count);
+            SelectFirstPrivateKeyIfAvailable();
             if (SaveKeyStore())
             {
                 ShowStatus("StatusPrivateKeyDeleted", InfoBarSeverity.Success);
@@ -305,8 +332,8 @@ namespace MessagesEncrypter
         {
             try
             {
-                _credentialManagerService.SavePrivateKeyPassword(PrivateKeyPasswordBox.Password);
-                PrivateKeyPasswordBox.Password = string.Empty;
+                _credentialManagerService.SavePrivateKeyPassword(SettingsView.PrivateKeyPassword);
+                SettingsView.PrivateKeyPassword = string.Empty;
                 ShowStatus("StatusPrivateKeyPasswordSaved", InfoBarSeverity.Success);
             }
             catch (CryptoException ex)
@@ -320,7 +347,7 @@ namespace MessagesEncrypter
             try
             {
                 _credentialManagerService.DeletePrivateKeyPassword();
-                PrivateKeyPasswordBox.Password = string.Empty;
+                SettingsView.PrivateKeyPassword = string.Empty;
                 ShowStatus("StatusPrivateKeyPasswordDeleted", InfoBarSeverity.Success);
             }
             catch (CryptoException ex)
@@ -347,7 +374,7 @@ namespace MessagesEncrypter
             try
             {
                 _appSettingsService.SetExportFolderPath(folder.Path);
-                ExportFolderPathTextBox.Text = folder.Path;
+                SettingsView.ExportFolderPath = folder.Path;
                 ShowStatus("StatusExportFolderSaved", InfoBarSeverity.Success);
             }
             catch (CryptoException ex)
@@ -375,7 +402,7 @@ namespace MessagesEncrypter
                 DataPackageView content = Clipboard.GetContent();
                 if (content.Contains(StandardDataFormats.Text))
                 {
-                    CipherTextBox.Text = await content.GetTextAsync();
+                    DecryptView.CipherText = await content.GetTextAsync();
                     ShowStatus("StatusEncryptedMessagePasted", InfoBarSeverity.Success);
                     return;
                 }
@@ -433,14 +460,12 @@ namespace MessagesEncrypter
 
                 if (_recipientKeys.Count > 0)
                 {
-                    RecipientKeyComboBox.SelectedIndex = 0;
-                    RecipientKeysListView.SelectedIndex = 0;
+                    SelectFirstRecipientKeyIfAvailable();
                 }
 
                 if (_privateKeys.Count > 0)
                 {
-                    PrivateKeyComboBox.SelectedIndex = 0;
-                    PrivateKeysListView.SelectedIndex = 0;
+                    SelectFirstPrivateKeyIfAvailable();
                 }
             }
             catch (CryptoException ex)
@@ -453,7 +478,7 @@ namespace MessagesEncrypter
         {
             try
             {
-                ExportFolderPathTextBox.Text = _appSettingsService.GetExportFolderPath();
+                SettingsView.ExportFolderPath = _appSettingsService.GetExportFolderPath();
             }
             catch (CryptoException ex)
             {
@@ -488,11 +513,18 @@ namespace MessagesEncrypter
             }
         }
 
-        private static void SelectFirstItemIfAvailable(ComboBox comboBox, ListView listView, int itemCount)
+        private void SelectFirstRecipientKeyIfAvailable()
         {
-            int selectedIndex = itemCount > 0 ? 0 : -1;
-            comboBox.SelectedIndex = selectedIndex;
-            listView.SelectedIndex = selectedIndex;
+            int selectedIndex = _recipientKeys.Count > 0 ? 0 : -1;
+            EncryptView.SelectedRecipientIndex = selectedIndex;
+            RecipientKeysView.SelectedIndex = selectedIndex;
+        }
+
+        private void SelectFirstPrivateKeyIfAvailable()
+        {
+            int selectedIndex = _privateKeys.Count > 0 ? 0 : -1;
+            DecryptView.SelectedPrivateKeyIndex = selectedIndex;
+            PrivateKeysView.SelectedIndex = selectedIndex;
         }
 
         private static string GetAliasOrDefault(string alias, string defaultResourceKey, int index)
