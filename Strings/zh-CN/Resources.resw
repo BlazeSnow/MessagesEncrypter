@@ -300,6 +300,39 @@
   <data name="DeletePrivateKeyPasswordDialogContent" xml:space="preserve">
     <value>确定要删除 Windows 凭据管理器中保存的私钥密码吗？删除后，生成密钥或解密消息前需要重新编辑保存。</value>
   </data>
+  <data name="ProjectRepositorySettingsCard.Header" xml:space="preserve">
+    <value>项目仓库</value>
+  </data>
+  <data name="ProjectRepositorySettingsCard.Description" xml:space="preserve">
+    <value>BlazeSnow/MessagesEncrypter</value>
+  </data>
+  <data name="OpenProjectRepositoryButton.Content" xml:space="preserve">
+    <value>打开仓库</value>
+  </data>
+  <data name="ProjectWebsiteSettingsCard.Header" xml:space="preserve">
+    <value>项目官网</value>
+  </data>
+  <data name="ProjectWebsiteSettingsCard.Description" xml:space="preserve">
+    <value>https://www.blazesnow.com/messages/</value>
+  </data>
+  <data name="OpenProjectWebsiteButton.Content" xml:space="preserve">
+    <value>打开官网</value>
+  </data>
+  <data name="FeedbackEmailSettingsCard.Header" xml:space="preserve">
+    <value>反馈邮箱</value>
+  </data>
+  <data name="FeedbackEmailSettingsCard.Description" xml:space="preserve">
+    <value>messages@blazesnow.com</value>
+  </data>
+  <data name="CopyFeedbackEmailButton.Content" xml:space="preserve">
+    <value>复制邮箱</value>
+  </data>
+  <data name="FeedbackEmailCopiedDialogTitle" xml:space="preserve">
+    <value>复制成功</value>
+  </data>
+  <data name="FeedbackEmailCopiedDialogContent" xml:space="preserve">
+    <value>反馈邮箱已复制到剪贴板。</value>
+  </data>
   <data name="StatusKeyGenerated" xml:space="preserve">
     <value>密钥对已生成并加入我的私钥列表。</value>
   </data>

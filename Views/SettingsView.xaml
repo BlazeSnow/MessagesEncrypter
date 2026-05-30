@@ -30,5 +30,26 @@
                 <Button x:Uid="DeletePrivateKeyPasswordButton" Click="DeletePrivateKeyPasswordButton_Click" />
             </StackPanel>
         </controls:SettingsCard>
+
+        <controls:SettingsCard x:Uid="ProjectRepositorySettingsCard">
+            <controls:SettingsCard.HeaderIcon>
+                <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE71B;" />
+            </controls:SettingsCard.HeaderIcon>
+            <Button x:Uid="OpenProjectRepositoryButton" Click="OpenProjectRepositoryButton_Click" />
+        </controls:SettingsCard>
+
+        <controls:SettingsCard x:Uid="ProjectWebsiteSettingsCard">
+            <controls:SettingsCard.HeaderIcon>
+                <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE774;" />
+            </controls:SettingsCard.HeaderIcon>
+            <Button x:Uid="OpenProjectWebsiteButton" Click="OpenProjectWebsiteButton_Click" />
+        </controls:SettingsCard>
+
+        <controls:SettingsCard x:Uid="FeedbackEmailSettingsCard">
+            <controls:SettingsCard.HeaderIcon>
+                <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE715;" />
+            </controls:SettingsCard.HeaderIcon>
+            <Button x:Uid="CopyFeedbackEmailButton" Click="CopyFeedbackEmailButton_Click" />
+        </controls:SettingsCard>
     </StackPanel>
 </UserControl>
