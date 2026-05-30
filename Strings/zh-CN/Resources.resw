@@ -54,11 +54,11 @@
   <data name="PageTitleSettings" xml:space="preserve">
     <value>设置</value>
   </data>
-  <data name="EncryptPublicKeyLabel.Text" xml:space="preserve">
-    <value>接收方公钥</value>
+  <data name="RecipientKeyLabel.Text" xml:space="preserve">
+    <value>接收方</value>
   </data>
-  <data name="EncryptPublicKeyTextBox.PlaceholderText" xml:space="preserve">
-    <value>粘贴 -----BEGIN PUBLIC KEY----- 开头的公钥</value>
+  <data name="RecipientKeyComboBox.PlaceholderText" xml:space="preserve">
+    <value>从密钥管理中选择接收方</value>
   </data>
   <data name="EncryptPlainTextLabel.Text" xml:space="preserve">
     <value>待加密消息</value>
@@ -78,11 +78,11 @@
   <data name="EncryptedMessageTextBox.PlaceholderText" xml:space="preserve">
     <value>这里会生成可复制的 Base64 JSON 密文包</value>
   </data>
-  <data name="DecryptPrivateKeyLabel.Text" xml:space="preserve">
-    <value>自己的加密私钥</value>
+  <data name="PrivateKeySelectionLabel.Text" xml:space="preserve">
+    <value>我的私钥</value>
   </data>
-  <data name="DecryptPrivateKeyTextBox.PlaceholderText" xml:space="preserve">
-    <value>粘贴 -----BEGIN ENCRYPTED PRIVATE KEY----- 开头的私钥</value>
+  <data name="PrivateKeyComboBox.PlaceholderText" xml:space="preserve">
+    <value>从密钥管理中选择私钥</value>
   </data>
   <data name="CipherTextLabel.Text" xml:space="preserve">
     <value>待解密密文</value>
@@ -102,17 +102,41 @@
   <data name="DecryptedMessageTextBox.PlaceholderText" xml:space="preserve">
     <value>认证通过后会在这里显示明文</value>
   </data>
+  <data name="ImportRecipientKeyTitle.Text" xml:space="preserve">
+    <value>导入接收方公钥</value>
+  </data>
+  <data name="RecipientAliasTextBox.PlaceholderText" xml:space="preserve">
+    <value>接收方别名</value>
+  </data>
+  <data name="RecipientPublicKeyTextBox.PlaceholderText" xml:space="preserve">
+    <value>粘贴 -----BEGIN PUBLIC KEY----- 开头的公钥</value>
+  </data>
+  <data name="ImportRecipientKeyButton.Content" xml:space="preserve">
+    <value>导入接收方</value>
+  </data>
+  <data name="CopySelectedRecipientKeyButton.Content" xml:space="preserve">
+    <value>复制所选公钥</value>
+  </data>
   <data name="GenerateKeyDescription.Text" xml:space="preserve">
     <value>生成 RSA-4096 密钥对。私钥会使用设置中保存的密码加密后导出，请妥善保存。</value>
+  </data>
+  <data name="PrivateKeyAliasTextBox.PlaceholderText" xml:space="preserve">
+    <value>我的密钥别名</value>
   </data>
   <data name="GenerateKeyButton.Content" xml:space="preserve">
     <value>生成密钥对</value>
   </data>
-  <data name="CopyPublicKeyButton.Content" xml:space="preserve">
-    <value>复制公钥</value>
+  <data name="CopySelectedPrivatePublicKeyButton.Content" xml:space="preserve">
+    <value>复制所选公钥</value>
   </data>
-  <data name="CopyPrivateKeyButton.Content" xml:space="preserve">
-    <value>复制私钥</value>
+  <data name="CopySelectedPrivateKeyButton.Content" xml:space="preserve">
+    <value>复制所选私钥</value>
+  </data>
+  <data name="RecipientKeysListTitle.Text" xml:space="preserve">
+    <value>接收方列表</value>
+  </data>
+  <data name="PrivateKeysListTitle.Text" xml:space="preserve">
+    <value>我的私钥列表</value>
   </data>
   <data name="FingerprintLabel.Text" xml:space="preserve">
     <value>公钥指纹</value>
@@ -160,7 +184,10 @@
     <value>消息使用 RSA-4096 + OAEP-SHA256 加密 AES-256-GCM 会话密钥，再用 AES-GCM 加密正文。每次加密都会生成新的会话密钥和 nonce。私钥使用加密 PKCS#8 PEM 导出，PBKDF2 迭代次数为 600,000。</value>
   </data>
   <data name="StatusKeyGenerated" xml:space="preserve">
-    <value>密钥对已生成。</value>
+    <value>密钥对已生成并加入我的私钥列表。</value>
+  </data>
+  <data name="StatusRecipientKeyImported" xml:space="preserve">
+    <value>接收方公钥已导入。</value>
   </data>
   <data name="StatusMessageEncrypted" xml:space="preserve">
     <value>消息已加密。</value>
@@ -203,6 +230,18 @@
   </data>
   <data name="ErrorPrivateKeyRequired" xml:space="preserve">
     <value>请提供加密私钥。</value>
+  </data>
+  <data name="ErrorRecipientKeyNotSelected" xml:space="preserve">
+    <value>请先选择接收方。</value>
+  </data>
+  <data name="ErrorPrivateKeyNotSelected" xml:space="preserve">
+    <value>请先选择我的私钥。</value>
+  </data>
+  <data name="DefaultRecipientKeyAlias" xml:space="preserve">
+    <value>接收方 {0}</value>
+  </data>
+  <data name="DefaultPrivateKeyAlias" xml:space="preserve">
+    <value>我的密钥 {0}</value>
   </data>
   <data name="ErrorPublicKeyInvalid" xml:space="preserve">
     <value>公钥格式无效。</value>

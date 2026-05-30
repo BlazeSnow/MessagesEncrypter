@@ -1,7 +1,9 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using MessagesEncrypter.Models;
 using MessagesEncrypter.Services;
 using System;
+using System.Collections.ObjectModel;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 
@@ -12,12 +14,18 @@ namespace MessagesEncrypter
         private readonly KeyManagementService _keyManagementService = new();
         private readonly CredentialManagerService _credentialManagerService = new();
         private readonly MessageCryptoService _messageCryptoService;
+        private readonly ObservableCollection<KeyEntry> _recipientKeys = [];
+        private readonly ObservableCollection<KeyEntry> _privateKeys = [];
 
         public MainWindow()
         {
             _messageCryptoService = new MessageCryptoService(_keyManagementService);
             InitializeComponent();
             Title = AppResources.GetString("MainWindowTitle");
+            RecipientKeyComboBox.ItemsSource = _recipientKeys;
+            RecipientKeysListView.ItemsSource = _recipientKeys;
+            PrivateKeyComboBox.ItemsSource = _privateKeys;
+            PrivateKeysListView.ItemsSource = _privateKeys;
             ShowPanel("Encrypt");
         }
 
@@ -45,10 +53,12 @@ namespace MessagesEncrypter
             {
                 string password = _credentialManagerService.GetPrivateKeyPassword();
                 KeyPairResult result = _keyManagementService.GenerateKeyPair(password);
-                GeneratedPublicKeyTextBox.Text = result.PublicKeyPem;
-                GeneratedPrivateKeyTextBox.Text = result.EncryptedPrivateKeyPem;
-                FingerprintTextBox.Text = result.PublicKeyFingerprint;
-                DecryptPrivateKeyTextBox.Text = result.EncryptedPrivateKeyPem;
+                string alias = GetAliasOrDefault(PrivateKeyAliasTextBox.Text, "DefaultPrivateKeyAlias", _privateKeys.Count + 1);
+                var entry = new KeyEntry(alias, result.PublicKeyFingerprint, result.PublicKeyPem, result.EncryptedPrivateKeyPem);
+                _privateKeys.Add(entry);
+                PrivateKeyComboBox.SelectedItem = entry;
+                PrivateKeysListView.SelectedItem = entry;
+                PrivateKeyAliasTextBox.Text = string.Empty;
                 ShowStatus("StatusKeyGenerated", InfoBarSeverity.Success);
             }
             catch (CryptoException ex)
@@ -61,9 +71,15 @@ namespace MessagesEncrypter
         {
             try
             {
+                if (RecipientKeyComboBox.SelectedItem is not KeyEntry recipientKey || string.IsNullOrWhiteSpace(recipientKey.PublicKeyPem))
+                {
+                    ShowStatus("ErrorRecipientKeyNotSelected", InfoBarSeverity.Warning);
+                    return;
+                }
+
                 EncryptedMessageTextBox.Text = _messageCryptoService.EncryptToBase64Json(
                     PlainTextBox.Text,
-                    EncryptPublicKeyTextBox.Text);
+                    recipientKey.PublicKeyPem);
                 ShowStatus("StatusMessageEncrypted", InfoBarSeverity.Success);
             }
             catch (CryptoException ex)
@@ -76,9 +92,15 @@ namespace MessagesEncrypter
         {
             try
             {
+                if (PrivateKeyComboBox.SelectedItem is not KeyEntry privateKey || string.IsNullOrWhiteSpace(privateKey.EncryptedPrivateKeyPem))
+                {
+                    ShowStatus("ErrorPrivateKeyNotSelected", InfoBarSeverity.Warning);
+                    return;
+                }
+
                 DecryptedMessageTextBox.Text = _messageCryptoService.DecryptFromBase64Json(
                     CipherTextBox.Text,
-                    DecryptPrivateKeyTextBox.Text,
+                    privateKey.EncryptedPrivateKeyPem,
                     _credentialManagerService.GetPrivateKeyPassword());
                 ShowStatus("StatusMessageDecrypted", InfoBarSeverity.Success);
             }
@@ -94,14 +116,58 @@ namespace MessagesEncrypter
             CopyTextToClipboard(EncryptedMessageTextBox.Text, "StatusEncryptedMessageCopied");
         }
 
-        private void CopyPublicKeyButton_Click(object sender, RoutedEventArgs e)
+        private void ImportRecipientKeyButton_Click(object sender, RoutedEventArgs e)
         {
-            CopyTextToClipboard(GeneratedPublicKeyTextBox.Text, "StatusPublicKeyCopied");
+            try
+            {
+                string publicKeyPem = RecipientPublicKeyTextBox.Text;
+                string fingerprint = _keyManagementService.GetPublicKeyFingerprint(publicKeyPem);
+                string alias = GetAliasOrDefault(RecipientAliasTextBox.Text, "DefaultRecipientKeyAlias", _recipientKeys.Count + 1);
+                var entry = new KeyEntry(alias, fingerprint, publicKeyPem, null);
+                _recipientKeys.Add(entry);
+                RecipientKeyComboBox.SelectedItem = entry;
+                RecipientKeysListView.SelectedItem = entry;
+                RecipientAliasTextBox.Text = string.Empty;
+                RecipientPublicKeyTextBox.Text = string.Empty;
+                ShowStatus("StatusRecipientKeyImported", InfoBarSeverity.Success);
+            }
+            catch (CryptoException ex)
+            {
+                ShowStatus(ex.ResourceKey, InfoBarSeverity.Error);
+            }
         }
 
-        private void CopyPrivateKeyButton_Click(object sender, RoutedEventArgs e)
+        private void CopySelectedRecipientKeyButton_Click(object sender, RoutedEventArgs e)
         {
-            CopyTextToClipboard(GeneratedPrivateKeyTextBox.Text, "StatusPrivateKeyCopied");
+            if (RecipientKeysListView.SelectedItem is not KeyEntry entry)
+            {
+                ShowStatus("ErrorRecipientKeyNotSelected", InfoBarSeverity.Warning);
+                return;
+            }
+
+            CopyTextToClipboard(entry.PublicKeyPem ?? string.Empty, "StatusPublicKeyCopied");
+        }
+
+        private void CopySelectedPrivatePublicKeyButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (PrivateKeysListView.SelectedItem is not KeyEntry entry)
+            {
+                ShowStatus("ErrorPrivateKeyNotSelected", InfoBarSeverity.Warning);
+                return;
+            }
+
+            CopyTextToClipboard(entry.PublicKeyPem ?? string.Empty, "StatusPublicKeyCopied");
+        }
+
+        private void CopySelectedPrivateKeyButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (PrivateKeysListView.SelectedItem is not KeyEntry entry)
+            {
+                ShowStatus("ErrorPrivateKeyNotSelected", InfoBarSeverity.Warning);
+                return;
+            }
+
+            CopyTextToClipboard(entry.EncryptedPrivateKeyPem ?? string.Empty, "StatusPrivateKeyCopied");
         }
 
         private void SavePrivateKeyPasswordButton_Click(object sender, RoutedEventArgs e)
@@ -178,6 +244,16 @@ namespace MessagesEncrypter
             StatusInfoBar.Message = AppResources.GetString(resourceKey);
             StatusInfoBar.Severity = severity;
             StatusInfoBar.IsOpen = true;
+        }
+
+        private static string GetAliasOrDefault(string alias, string defaultResourceKey, int index)
+        {
+            if (!string.IsNullOrWhiteSpace(alias))
+            {
+                return alias.Trim();
+            }
+
+            return string.Format(AppResources.GetString(defaultResourceKey), index);
         }
     }
 }

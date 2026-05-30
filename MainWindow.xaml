@@ -62,14 +62,12 @@
             <ScrollViewer Grid.Row="1">
                 <Grid>
                     <StackPanel x:Name="EncryptPanel" Spacing="14" MaxWidth="900" HorizontalAlignment="Stretch">
-                        <TextBlock x:Uid="EncryptPublicKeyLabel" Style="{ThemeResource BodyStrongTextBlockStyle}" />
-                        <TextBox
-                            x:Name="EncryptPublicKeyTextBox"
-                            x:Uid="EncryptPublicKeyTextBox"
-                            AcceptsReturn="True"
-                            FontFamily="Consolas"
-                            Height="150"
-                            TextWrapping="NoWrap" />
+                        <TextBlock x:Uid="RecipientKeyLabel" Style="{ThemeResource BodyStrongTextBlockStyle}" />
+                        <ComboBox
+                            x:Name="RecipientKeyComboBox"
+                            x:Uid="RecipientKeyComboBox"
+                            DisplayMemberPath="DisplayName"
+                            HorizontalAlignment="Stretch" />
                         <TextBlock x:Uid="EncryptPlainTextLabel" Style="{ThemeResource BodyStrongTextBlockStyle}" />
                         <TextBox
                             x:Name="PlainTextBox"
@@ -92,14 +90,12 @@
                     </StackPanel>
 
                     <StackPanel x:Name="DecryptPanel" Spacing="14" MaxWidth="900" HorizontalAlignment="Stretch" Visibility="Collapsed">
-                        <TextBlock x:Uid="DecryptPrivateKeyLabel" Style="{ThemeResource BodyStrongTextBlockStyle}" />
-                        <TextBox
-                            x:Name="DecryptPrivateKeyTextBox"
-                            x:Uid="DecryptPrivateKeyTextBox"
-                            AcceptsReturn="True"
-                            FontFamily="Consolas"
-                            Height="150"
-                            TextWrapping="NoWrap" />
+                        <TextBlock x:Uid="PrivateKeySelectionLabel" Style="{ThemeResource BodyStrongTextBlockStyle}" />
+                        <ComboBox
+                            x:Name="PrivateKeyComboBox"
+                            x:Uid="PrivateKeyComboBox"
+                            DisplayMemberPath="DisplayName"
+                            HorizontalAlignment="Stretch" />
                         <TextBlock x:Uid="CipherTextLabel" Style="{ThemeResource BodyStrongTextBlockStyle}" />
                         <TextBox
                             x:Name="CipherTextBox"
@@ -122,30 +118,50 @@
                     </StackPanel>
 
                     <StackPanel x:Name="KeysPanel" Spacing="14" MaxWidth="900" HorizontalAlignment="Stretch" Visibility="Collapsed">
-                        <TextBlock x:Uid="GenerateKeyDescription" TextWrapping="Wrap" />
+                        <TextBlock x:Uid="ImportRecipientKeyTitle" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                        <TextBox x:Name="RecipientAliasTextBox" x:Uid="RecipientAliasTextBox" />
+                        <TextBox
+                            x:Name="RecipientPublicKeyTextBox"
+                            x:Uid="RecipientPublicKeyTextBox"
+                            AcceptsReturn="True"
+                            FontFamily="Consolas"
+                            Height="120"
+                            TextWrapping="NoWrap" />
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Button x:Uid="ImportRecipientKeyButton" Click="ImportRecipientKeyButton_Click" />
+                            <Button x:Uid="CopySelectedRecipientKeyButton" Click="CopySelectedRecipientKeyButton_Click" />
+                        </StackPanel>
+
+                        <TextBlock x:Uid="GenerateKeyDescription" TextWrapping="Wrap" Margin="0,12,0,0" />
+                        <TextBox x:Name="PrivateKeyAliasTextBox" x:Uid="PrivateKeyAliasTextBox" />
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <Button x:Uid="GenerateKeyButton" Click="GenerateKeyButton_Click" />
-                            <Button x:Uid="CopyPublicKeyButton" Click="CopyPublicKeyButton_Click" />
-                            <Button x:Uid="CopyPrivateKeyButton" Click="CopyPrivateKeyButton_Click" />
+                            <Button x:Uid="CopySelectedPrivatePublicKeyButton" Click="CopySelectedPrivatePublicKeyButton_Click" />
+                            <Button x:Uid="CopySelectedPrivateKeyButton" Click="CopySelectedPrivateKeyButton_Click" />
                         </StackPanel>
-                        <TextBlock x:Uid="FingerprintLabel" Style="{ThemeResource BodyStrongTextBlockStyle}" />
-                        <TextBox x:Name="FingerprintTextBox" x:Uid="FingerprintTextBox" IsReadOnly="True" />
-                        <TextBlock x:Uid="PublicKeyOutputLabel" Style="{ThemeResource BodyStrongTextBlockStyle}" />
-                        <TextBox
-                            x:Name="GeneratedPublicKeyTextBox"
-                            x:Uid="GeneratedPublicKeyTextBox"
-                            AcceptsReturn="True"
-                            FontFamily="Consolas"
-                            Height="150"
-                            TextWrapping="NoWrap" />
-                        <TextBlock x:Uid="PrivateKeyOutputLabel" Style="{ThemeResource BodyStrongTextBlockStyle}" />
-                        <TextBox
-                            x:Name="GeneratedPrivateKeyTextBox"
-                            x:Uid="GeneratedPrivateKeyTextBox"
-                            AcceptsReturn="True"
-                            FontFamily="Consolas"
-                            Height="180"
-                            TextWrapping="NoWrap" />
+
+                        <Grid ColumnSpacing="16" Margin="0,12,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Spacing="8">
+                                <TextBlock x:Uid="RecipientKeysListTitle" Style="{ThemeResource BodyStrongTextBlockStyle}" />
+                                <ListView
+                                    x:Name="RecipientKeysListView"
+                                    DisplayMemberPath="DisplayName"
+                                    MaxHeight="220" />
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" Spacing="8">
+                                <TextBlock x:Uid="PrivateKeysListTitle" Style="{ThemeResource BodyStrongTextBlockStyle}" />
+                                <ListView
+                                    x:Name="PrivateKeysListView"
+                                    DisplayMemberPath="DisplayName"
+                                    MaxHeight="220" />
+                            </StackPanel>
+                        </Grid>
                     </StackPanel>
 
                     <StackPanel x:Name="FilesPanel" Spacing="14" MaxWidth="900" HorizontalAlignment="Stretch" Visibility="Collapsed">
