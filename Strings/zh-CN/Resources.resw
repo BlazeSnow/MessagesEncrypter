@@ -114,6 +114,12 @@
   <data name="ImportRecipientKeyButton.Content" xml:space="preserve">
     <value>导入接收方</value>
   </data>
+  <data name="ImportRecipientKeyDialogTitle" xml:space="preserve">
+    <value>导入接收方公钥</value>
+  </data>
+  <data name="ImportRecipientKeyDialogPrimaryButtonText" xml:space="preserve">
+    <value>导入</value>
+  </data>
   <data name="CopySelectedRecipientKeyButton.Content" xml:space="preserve">
     <value>复制所选公钥</value>
   </data>
@@ -125,6 +131,15 @@
   </data>
   <data name="GenerateKeyButton.Content" xml:space="preserve">
     <value>生成密钥对</value>
+  </data>
+  <data name="GeneratePrivateKeyDialogTitle" xml:space="preserve">
+    <value>生成我的密钥</value>
+  </data>
+  <data name="GeneratePrivateKeyDialogPrimaryButtonText" xml:space="preserve">
+    <value>生成</value>
+  </data>
+  <data name="DialogCancelButtonText" xml:space="preserve">
+    <value>取消</value>
   </data>
   <data name="CopySelectedPrivatePublicKeyButton.Content" xml:space="preserve">
     <value>复制所选公钥</value>

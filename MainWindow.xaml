@@ -118,29 +118,7 @@
                     </StackPanel>
 
                     <StackPanel x:Name="KeysPanel" Spacing="14" MaxWidth="900" HorizontalAlignment="Stretch" Visibility="Collapsed">
-                        <TextBlock x:Uid="ImportRecipientKeyTitle" Style="{ThemeResource SubtitleTextBlockStyle}" />
-                        <TextBox x:Name="RecipientAliasTextBox" x:Uid="RecipientAliasTextBox" />
-                        <TextBox
-                            x:Name="RecipientPublicKeyTextBox"
-                            x:Uid="RecipientPublicKeyTextBox"
-                            AcceptsReturn="True"
-                            FontFamily="Consolas"
-                            Height="120"
-                            TextWrapping="NoWrap" />
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <Button x:Uid="ImportRecipientKeyButton" Click="ImportRecipientKeyButton_Click" />
-                            <Button x:Uid="CopySelectedRecipientKeyButton" Click="CopySelectedRecipientKeyButton_Click" />
-                        </StackPanel>
-
-                        <TextBlock x:Uid="GenerateKeyDescription" TextWrapping="Wrap" Margin="0,12,0,0" />
-                        <TextBox x:Name="PrivateKeyAliasTextBox" x:Uid="PrivateKeyAliasTextBox" />
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <Button x:Uid="GenerateKeyButton" Click="GenerateKeyButton_Click" />
-                            <Button x:Uid="CopySelectedPrivatePublicKeyButton" Click="CopySelectedPrivatePublicKeyButton_Click" />
-                            <Button x:Uid="CopySelectedPrivateKeyButton" Click="CopySelectedPrivateKeyButton_Click" />
-                        </StackPanel>
-
-                        <Grid ColumnSpacing="16" Margin="0,12,0,0">
+                        <Grid ColumnSpacing="16">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
@@ -148,6 +126,10 @@
 
                             <StackPanel Spacing="8">
                                 <TextBlock x:Uid="RecipientKeysListTitle" Style="{ThemeResource BodyStrongTextBlockStyle}" />
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <Button x:Uid="ImportRecipientKeyButton" Click="ImportRecipientKeyButton_Click" />
+                                    <Button x:Uid="CopySelectedRecipientKeyButton" Click="CopySelectedRecipientKeyButton_Click" />
+                                </StackPanel>
                                 <ListView
                                     x:Name="RecipientKeysListView"
                                     DisplayMemberPath="DisplayName"
@@ -156,6 +138,11 @@
 
                             <StackPanel Grid.Column="1" Spacing="8">
                                 <TextBlock x:Uid="PrivateKeysListTitle" Style="{ThemeResource BodyStrongTextBlockStyle}" />
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <Button x:Uid="GenerateKeyButton" Click="GenerateKeyButton_Click" />
+                                    <Button x:Uid="CopySelectedPrivatePublicKeyButton" Click="CopySelectedPrivatePublicKeyButton_Click" />
+                                    <Button x:Uid="CopySelectedPrivateKeyButton" Click="CopySelectedPrivateKeyButton_Click" />
+                                </StackPanel>
                                 <ListView
                                     x:Name="PrivateKeysListView"
                                     DisplayMemberPath="DisplayName"

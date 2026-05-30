@@ -47,18 +47,28 @@ namespace MessagesEncrypter
             PageTitleText.Text = AppResources.GetString($"PageTitle{tag}");
         }
 
-        private void GenerateKeyButton_Click(object sender, RoutedEventArgs e)
+        private async void GenerateKeyButton_Click(object sender, RoutedEventArgs e)
         {
+            TextBox aliasTextBox = CreateDialogTextBox("PrivateKeyAliasTextBox");
+            ContentDialogResult dialogResult = await ShowInputDialogAsync(
+                "GeneratePrivateKeyDialogTitle",
+                "GeneratePrivateKeyDialogPrimaryButtonText",
+                aliasTextBox);
+
+            if (dialogResult != ContentDialogResult.Primary)
+            {
+                return;
+            }
+
             try
             {
                 string password = _credentialManagerService.GetPrivateKeyPassword();
                 KeyPairResult result = _keyManagementService.GenerateKeyPair(password);
-                string alias = GetAliasOrDefault(PrivateKeyAliasTextBox.Text, "DefaultPrivateKeyAlias", _privateKeys.Count + 1);
+                string alias = GetAliasOrDefault(aliasTextBox.Text, "DefaultPrivateKeyAlias", _privateKeys.Count + 1);
                 var entry = new KeyEntry(alias, result.PublicKeyFingerprint, result.PublicKeyPem, result.EncryptedPrivateKeyPem);
                 _privateKeys.Add(entry);
                 PrivateKeyComboBox.SelectedItem = entry;
                 PrivateKeysListView.SelectedItem = entry;
-                PrivateKeyAliasTextBox.Text = string.Empty;
                 ShowStatus("StatusKeyGenerated", InfoBarSeverity.Success);
             }
             catch (CryptoException ex)
@@ -116,19 +126,41 @@ namespace MessagesEncrypter
             CopyTextToClipboard(EncryptedMessageTextBox.Text, "StatusEncryptedMessageCopied");
         }
 
-        private void ImportRecipientKeyButton_Click(object sender, RoutedEventArgs e)
+        private async void ImportRecipientKeyButton_Click(object sender, RoutedEventArgs e)
         {
+            TextBox aliasTextBox = CreateDialogTextBox("RecipientAliasTextBox");
+            TextBox publicKeyTextBox = CreateDialogTextBox("RecipientPublicKeyTextBox");
+            publicKeyTextBox.AcceptsReturn = true;
+            publicKeyTextBox.FontFamily = new Microsoft.UI.Xaml.Media.FontFamily("Consolas");
+            publicKeyTextBox.Height = 180;
+            publicKeyTextBox.TextWrapping = TextWrapping.NoWrap;
+
+            var dialogContent = new StackPanel
+            {
+                Spacing = 12
+            };
+            dialogContent.Children.Add(aliasTextBox);
+            dialogContent.Children.Add(publicKeyTextBox);
+
+            ContentDialogResult dialogResult = await ShowInputDialogAsync(
+                "ImportRecipientKeyDialogTitle",
+                "ImportRecipientKeyDialogPrimaryButtonText",
+                dialogContent);
+
+            if (dialogResult != ContentDialogResult.Primary)
+            {
+                return;
+            }
+
             try
             {
-                string publicKeyPem = RecipientPublicKeyTextBox.Text;
+                string publicKeyPem = publicKeyTextBox.Text;
                 string fingerprint = _keyManagementService.GetPublicKeyFingerprint(publicKeyPem);
-                string alias = GetAliasOrDefault(RecipientAliasTextBox.Text, "DefaultRecipientKeyAlias", _recipientKeys.Count + 1);
+                string alias = GetAliasOrDefault(aliasTextBox.Text, "DefaultRecipientKeyAlias", _recipientKeys.Count + 1);
                 var entry = new KeyEntry(alias, fingerprint, publicKeyPem, null);
                 _recipientKeys.Add(entry);
                 RecipientKeyComboBox.SelectedItem = entry;
                 RecipientKeysListView.SelectedItem = entry;
-                RecipientAliasTextBox.Text = string.Empty;
-                RecipientPublicKeyTextBox.Text = string.Empty;
                 ShowStatus("StatusRecipientKeyImported", InfoBarSeverity.Success);
             }
             catch (CryptoException ex)
@@ -254,6 +286,32 @@ namespace MessagesEncrypter
             }
 
             return string.Format(AppResources.GetString(defaultResourceKey), index);
+        }
+
+        private TextBox CreateDialogTextBox(string resourcePrefix)
+        {
+            return new TextBox
+            {
+                PlaceholderText = AppResources.GetString($"{resourcePrefix}.PlaceholderText")
+            };
+        }
+
+        private async System.Threading.Tasks.Task<ContentDialogResult> ShowInputDialogAsync(
+            string titleResourceKey,
+            string primaryButtonResourceKey,
+            object content)
+        {
+            var dialog = new ContentDialog
+            {
+                XamlRoot = RootNavigation.XamlRoot,
+                Title = AppResources.GetString(titleResourceKey),
+                PrimaryButtonText = AppResources.GetString(primaryButtonResourceKey),
+                CloseButtonText = AppResources.GetString("DialogCancelButtonText"),
+                DefaultButton = ContentDialogButton.Primary,
+                Content = content
+            };
+
+            return await dialog.ShowAsync();
         }
     }
 }
