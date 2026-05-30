@@ -226,7 +226,7 @@
     <value>选择位置</value>
   </data>
   <data name="OpenExportFolderButton.Content" xml:space="preserve">
-    <value>打开位置</value>
+    <value>打开导出位置</value>
   </data>
   <data name="PrivateKeyPasswordSettingsCard.Description" xml:space="preserve">
     <value>保存到 Windows 凭据管理器，用于生成加密私钥和解密消息。</value>
