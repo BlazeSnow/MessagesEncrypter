@@ -100,8 +100,5 @@
     <PublishReadyToRun>False</PublishReadyToRun>
     <PublishTrimmed>False</PublishTrimmed>
     <DefaultLanguage>zh-CN</DefaultLanguage>
-    <PackageCertificateThumbprint>EF5D3B59FAF49BE847A5F9966194A8984176F276</PackageCertificateThumbprint>
-    <PackageCertificateKeyFile>MessagesEncrypter_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
   </PropertyGroup>
 </Project>
