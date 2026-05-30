@@ -1,3 +1,5 @@
+using System;
+
 namespace MessagesEncrypter.Services;
 
 public sealed class CryptoException : Exception
