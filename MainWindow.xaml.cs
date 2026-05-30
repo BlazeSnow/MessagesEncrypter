@@ -4,6 +4,8 @@ using MessagesEncrypter.Models;
 using MessagesEncrypter.Services;
 using System;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Text;
 using Windows.Storage.Pickers;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
@@ -172,12 +174,18 @@ namespace MessagesEncrypter
             publicKeyTextBox.FontFamily = new Microsoft.UI.Xaml.Media.FontFamily("Consolas");
             publicKeyTextBox.Height = 180;
             publicKeyTextBox.TextWrapping = TextWrapping.NoWrap;
+            Button importFromFileButton = new()
+            {
+                Content = AppResources.GetString("ImportRecipientKeyFromFileButtonText")
+            };
+            importFromFileButton.Click += async (_, _) => await ImportRecipientPublicKeyFromFileAsync(publicKeyTextBox);
 
             var dialogContent = new StackPanel
             {
                 Spacing = 12
             };
             dialogContent.Children.Add(aliasTextBox);
+            dialogContent.Children.Add(importFromFileButton);
             dialogContent.Children.Add(publicKeyTextBox);
 
             ContentDialogResult dialogResult = await ShowInputDialogAsync(
@@ -380,6 +388,33 @@ namespace MessagesEncrypter
             catch (CryptoException ex)
             {
                 ShowStatus(ex.ResourceKey, InfoBarSeverity.Error);
+            }
+        }
+
+        private async System.Threading.Tasks.Task ImportRecipientPublicKeyFromFileAsync(TextBox publicKeyTextBox)
+        {
+            var picker = new FileOpenPicker
+            {
+                SuggestedStartLocation = PickerLocationId.DocumentsLibrary
+            };
+            picker.FileTypeFilter.Add(".pub");
+            picker.FileTypeFilter.Add(".pem");
+            picker.FileTypeFilter.Add(".txt");
+            InitializeWithWindow.Initialize(picker, WindowNative.GetWindowHandle(this));
+
+            Windows.Storage.StorageFile? file = await picker.PickSingleFileAsync();
+            if (file is null)
+            {
+                return;
+            }
+
+            try
+            {
+                publicKeyTextBox.Text = await File.ReadAllTextAsync(file.Path, Encoding.UTF8);
+            }
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+            {
+                ShowStatus("ErrorPublicKeyFileReadFailed", InfoBarSeverity.Error);
             }
         }
 

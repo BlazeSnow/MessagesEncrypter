@@ -126,6 +126,9 @@
   <data name="ImportRecipientKeyDialogPrimaryButtonText" xml:space="preserve">
     <value>导入</value>
   </data>
+  <data name="ImportRecipientKeyFromFileButtonText" xml:space="preserve">
+    <value>从文件导入</value>
+  </data>
   <data name="CopySelectedRecipientKeyButton.Content" xml:space="preserve">
     <value>复制所选公钥</value>
   </data>
@@ -335,6 +338,9 @@
   </data>
   <data name="ErrorPublicKeyInvalid" xml:space="preserve">
     <value>公钥格式无效。</value>
+  </data>
+  <data name="ErrorPublicKeyFileReadFailed" xml:space="preserve">
+    <value>读取公钥文件失败，请检查文件是否可访问。</value>
   </data>
   <data name="ErrorPrivateKeyInvalidOrPasswordWrong" xml:space="preserve">
     <value>私钥格式无效，或密码不正确。</value>
