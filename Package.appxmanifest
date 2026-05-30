@@ -6,18 +6,19 @@
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
   xmlns:systemai="http://schemas.microsoft.com/appx/manifest/systemai/windows10"
-  IgnorableNamespaces="uap rescap systemai">
+  xmlns:uap18="http://schemas.microsoft.com/appx/manifest/uap/windows10/18"
+  IgnorableNamespaces="uap rescap systemai uap18">
 
   <Identity
-    Name="875eb646-98e3-4eee-86f2-a2985c584d17"
-    Publisher="CN=huang"
-    Version="1.0.0.0" />
+    Name="BlazeSnow.MessagesEncrypter"
+    Publisher="CN=C171AF55-419C-4E73-B34E-CB98C8F1EB78"
+    Version="2026.5.30.0" />
 
   <mp:PhoneIdentity PhoneProductId="875eb646-98e3-4eee-86f2-a2985c584d17" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>MessagesEncrypter</DisplayName>
-    <PublisherDisplayName>huang</PublisherDisplayName>
+    <PublisherDisplayName>BlazeSnow</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
@@ -33,7 +34,7 @@
   <Applications>
     <Application Id="App"
       Executable="$targetnametoken$.exe"
-      EntryPoint="$targetentrypoint$">
+      EntryPoint="$targetentrypoint$" uap18:TrustLevel="mediumIL" uap18:RuntimeBehavior="packagedClassicApp">
       <uap:VisualElements
         DisplayName="MessagesEncrypter"
         Description="MessagesEncrypter"
