@@ -378,7 +378,22 @@ namespace MessagesEncrypter
             }
         }
 
-        private void DeletePrivateKeyPasswordButton_Click(object sender, RoutedEventArgs e)
+        private async void DeletePrivateKeyPasswordButton_Click(object sender, RoutedEventArgs e)
+        {
+            ContentDialogResult dialogResult = await ShowConfirmDialogAsync(
+                "DeletePrivateKeyPasswordDialogTitle",
+                "DeleteKeyDialogPrimaryButtonText",
+                AppResources.GetString("DeletePrivateKeyPasswordDialogContent"));
+
+            if (dialogResult != ContentDialogResult.Primary)
+            {
+                return;
+            }
+
+            DeletePrivateKeyPassword();
+        }
+
+        private void DeletePrivateKeyPassword()
         {
             try
             {

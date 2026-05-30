@@ -241,10 +241,16 @@
     <value>保存</value>
   </data>
   <data name="SavePrivateKeyPasswordButton.Content" xml:space="preserve">
-    <value>保存</value>
+    <value>编辑</value>
   </data>
   <data name="DeletePrivateKeyPasswordButton.Content" xml:space="preserve">
     <value>删除</value>
+  </data>
+  <data name="DeletePrivateKeyPasswordDialogTitle" xml:space="preserve">
+    <value>删除私钥密码</value>
+  </data>
+  <data name="DeletePrivateKeyPasswordDialogContent" xml:space="preserve">
+    <value>确定要删除 Windows 凭据管理器中保存的私钥密码吗？删除后，生成密钥或解密消息前需要重新编辑保存。</value>
   </data>
   <data name="SecuritySummaryTitle.Text" xml:space="preserve">
     <value>当前安全策略</value>
