@@ -68,6 +68,7 @@ namespace MessagesEncrypter
             RecipientKeysView.ImportRequested += ImportRecipientKeyButton_Click;
             RecipientKeysView.CopyRequested += CopySelectedRecipientKeyButton_Click;
             RecipientKeysView.ExportRequested += ExportSelectedRecipientKeyButton_Click;
+            RecipientKeysView.OpenExportFolderRequested += OpenExportFolderButton_Click;
             RecipientKeysView.DeleteRequested += DeleteSelectedRecipientKeyButton_Click;
 
             PrivateKeysView.ItemsSource = _privateKeys;
@@ -76,6 +77,7 @@ namespace MessagesEncrypter
             PrivateKeysView.ExportPublicKeyRequested += ExportSelectedPrivatePublicKeyButton_Click;
             PrivateKeysView.CopyPrivateKeyRequested += CopySelectedPrivateKeyButton_Click;
             PrivateKeysView.ExportPrivateKeyRequested += ExportSelectedPrivateKeyButton_Click;
+            PrivateKeysView.OpenExportFolderRequested += OpenExportFolderButton_Click;
             PrivateKeysView.DeleteRequested += DeleteSelectedPrivateKeyButton_Click;
 
             SettingsView.ChooseExportFolderRequested += ChooseExportFolderButton_Click;

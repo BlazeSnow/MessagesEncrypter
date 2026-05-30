@@ -10,6 +10,7 @@
             <Button x:Uid="ImportRecipientKeyButton" Click="ImportRecipientKeyButton_Click" />
             <Button x:Uid="CopySelectedRecipientKeyButton" Click="CopySelectedRecipientKeyButton_Click" />
             <Button x:Uid="ExportSelectedRecipientKeyButton" Click="ExportSelectedRecipientKeyButton_Click" />
+            <Button x:Uid="OpenExportFolderButton" Click="OpenExportFolderButton_Click" />
             <Button x:Uid="DeleteSelectedRecipientKeyButton" Click="DeleteSelectedRecipientKeyButton_Click" />
         </StackPanel>
         <ListView

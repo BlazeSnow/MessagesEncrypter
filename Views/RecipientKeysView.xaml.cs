@@ -17,6 +17,8 @@ public sealed partial class RecipientKeysView : UserControl
 
     public event RoutedEventHandler? ExportRequested;
 
+    public event RoutedEventHandler? OpenExportFolderRequested;
+
     public event RoutedEventHandler? DeleteRequested;
 
     public object? ItemsSource
@@ -51,6 +53,11 @@ public sealed partial class RecipientKeysView : UserControl
     private void ExportSelectedRecipientKeyButton_Click(object sender, RoutedEventArgs e)
     {
         ExportRequested?.Invoke(sender, e);
+    }
+
+    private void OpenExportFolderButton_Click(object sender, RoutedEventArgs e)
+    {
+        OpenExportFolderRequested?.Invoke(sender, e);
     }
 
     private void DeleteSelectedRecipientKeyButton_Click(object sender, RoutedEventArgs e)

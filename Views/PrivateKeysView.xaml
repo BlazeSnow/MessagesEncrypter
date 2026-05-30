@@ -12,6 +12,7 @@
             <Button x:Uid="ExportSelectedPrivatePublicKeyButton" Click="ExportSelectedPrivatePublicKeyButton_Click" />
             <Button x:Uid="CopySelectedPrivateKeyButton" Click="CopySelectedPrivateKeyButton_Click" />
             <Button x:Uid="ExportSelectedPrivateKeyButton" Click="ExportSelectedPrivateKeyButton_Click" />
+            <Button x:Uid="OpenExportFolderButton" Click="OpenExportFolderButton_Click" />
             <Button x:Uid="DeleteSelectedPrivateKeyButton" Click="DeleteSelectedPrivateKeyButton_Click" />
         </StackPanel>
         <ListView
