@@ -43,7 +43,8 @@ namespace MessagesEncrypter
         {
             EncryptPanel.Visibility = tag == "Encrypt" ? Visibility.Visible : Visibility.Collapsed;
             DecryptPanel.Visibility = tag == "Decrypt" ? Visibility.Visible : Visibility.Collapsed;
-            KeysPanel.Visibility = tag == "Keys" ? Visibility.Visible : Visibility.Collapsed;
+            RecipientKeysPanel.Visibility = tag == "RecipientKeys" ? Visibility.Visible : Visibility.Collapsed;
+            PrivateKeysPanel.Visibility = tag == "PrivateKeys" ? Visibility.Visible : Visibility.Collapsed;
             FilesPanel.Visibility = tag == "Files" ? Visibility.Visible : Visibility.Collapsed;
             SettingsPanel.Visibility = tag == "Settings" ? Visibility.Visible : Visibility.Collapsed;
             PageTitleText.Text = AppResources.GetString($"PageTitle{tag}");

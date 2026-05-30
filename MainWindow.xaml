@@ -31,9 +31,14 @@
                     <SymbolIcon Symbol="Accept" />
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
-            <NavigationViewItem x:Name="KeysNavItem" x:Uid="KeysNavItem" Tag="Keys">
+            <NavigationViewItem x:Name="RecipientKeysNavItem" x:Uid="RecipientKeysNavItem" Tag="RecipientKeys">
                 <NavigationViewItem.Icon>
                     <SymbolIcon Symbol="Permissions" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem x:Name="PrivateKeysNavItem" x:Uid="PrivateKeysNavItem" Tag="PrivateKeys">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Contact" />
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
             <NavigationViewItem x:Name="FilesNavItem" x:Uid="FilesNavItem" Tag="Files">
@@ -117,40 +122,31 @@
                             TextWrapping="Wrap" />
                     </StackPanel>
 
-                    <StackPanel x:Name="KeysPanel" Spacing="14" MaxWidth="900" HorizontalAlignment="Stretch" Visibility="Collapsed">
-                        <Grid ColumnSpacing="16">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
+                    <StackPanel x:Name="RecipientKeysPanel" Spacing="14" MaxWidth="900" HorizontalAlignment="Stretch" Visibility="Collapsed">
+                        <TextBlock x:Uid="RecipientKeysListTitle" Style="{ThemeResource BodyStrongTextBlockStyle}" />
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Button x:Uid="ImportRecipientKeyButton" Click="ImportRecipientKeyButton_Click" />
+                            <Button x:Uid="CopySelectedRecipientKeyButton" Click="CopySelectedRecipientKeyButton_Click" />
+                            <Button x:Uid="DeleteSelectedRecipientKeyButton" Click="DeleteSelectedRecipientKeyButton_Click" />
+                        </StackPanel>
+                        <ListView
+                            x:Name="RecipientKeysListView"
+                            DisplayMemberPath="DisplayName"
+                            MinHeight="320" />
+                    </StackPanel>
 
-                            <StackPanel Spacing="8">
-                                <TextBlock x:Uid="RecipientKeysListTitle" Style="{ThemeResource BodyStrongTextBlockStyle}" />
-                                <StackPanel Orientation="Horizontal" Spacing="8">
-                                    <Button x:Uid="ImportRecipientKeyButton" Click="ImportRecipientKeyButton_Click" />
-                                    <Button x:Uid="CopySelectedRecipientKeyButton" Click="CopySelectedRecipientKeyButton_Click" />
-                                    <Button x:Uid="DeleteSelectedRecipientKeyButton" Click="DeleteSelectedRecipientKeyButton_Click" />
-                                </StackPanel>
-                                <ListView
-                                    x:Name="RecipientKeysListView"
-                                    DisplayMemberPath="DisplayName"
-                                    MaxHeight="220" />
-                            </StackPanel>
-
-                            <StackPanel Grid.Column="1" Spacing="8">
-                                <TextBlock x:Uid="PrivateKeysListTitle" Style="{ThemeResource BodyStrongTextBlockStyle}" />
-                                <StackPanel Orientation="Horizontal" Spacing="8">
-                                    <Button x:Uid="GenerateKeyButton" Click="GenerateKeyButton_Click" />
-                                    <Button x:Uid="CopySelectedPrivatePublicKeyButton" Click="CopySelectedPrivatePublicKeyButton_Click" />
-                                    <Button x:Uid="CopySelectedPrivateKeyButton" Click="CopySelectedPrivateKeyButton_Click" />
-                                    <Button x:Uid="DeleteSelectedPrivateKeyButton" Click="DeleteSelectedPrivateKeyButton_Click" />
-                                </StackPanel>
-                                <ListView
-                                    x:Name="PrivateKeysListView"
-                                    DisplayMemberPath="DisplayName"
-                                    MaxHeight="220" />
-                            </StackPanel>
-                        </Grid>
+                    <StackPanel x:Name="PrivateKeysPanel" Spacing="14" MaxWidth="900" HorizontalAlignment="Stretch" Visibility="Collapsed">
+                        <TextBlock x:Uid="PrivateKeysListTitle" Style="{ThemeResource BodyStrongTextBlockStyle}" />
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Button x:Uid="GenerateKeyButton" Click="GenerateKeyButton_Click" />
+                            <Button x:Uid="CopySelectedPrivatePublicKeyButton" Click="CopySelectedPrivatePublicKeyButton_Click" />
+                            <Button x:Uid="CopySelectedPrivateKeyButton" Click="CopySelectedPrivateKeyButton_Click" />
+                            <Button x:Uid="DeleteSelectedPrivateKeyButton" Click="DeleteSelectedPrivateKeyButton_Click" />
+                        </StackPanel>
+                        <ListView
+                            x:Name="PrivateKeysListView"
+                            DisplayMemberPath="DisplayName"
+                            MinHeight="320" />
                     </StackPanel>
 
                     <StackPanel x:Name="FilesPanel" Spacing="14" MaxWidth="900" HorizontalAlignment="Stretch" Visibility="Collapsed">

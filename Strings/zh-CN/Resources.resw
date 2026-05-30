@@ -30,8 +30,11 @@
   <data name="DecryptNavItem.Content" xml:space="preserve">
     <value>消息解密</value>
   </data>
-  <data name="KeysNavItem.Content" xml:space="preserve">
-    <value>密钥管理</value>
+  <data name="RecipientKeysNavItem.Content" xml:space="preserve">
+    <value>接收方公钥</value>
+  </data>
+  <data name="PrivateKeysNavItem.Content" xml:space="preserve">
+    <value>我的私钥</value>
   </data>
   <data name="FilesNavItem.Content" xml:space="preserve">
     <value>文件加密</value>
@@ -45,8 +48,11 @@
   <data name="PageTitleDecrypt" xml:space="preserve">
     <value>消息解密</value>
   </data>
-  <data name="PageTitleKeys" xml:space="preserve">
-    <value>密钥管理</value>
+  <data name="PageTitleRecipientKeys" xml:space="preserve">
+    <value>接收方公钥</value>
+  </data>
+  <data name="PageTitlePrivateKeys" xml:space="preserve">
+    <value>我的私钥</value>
   </data>
   <data name="PageTitleFiles" xml:space="preserve">
     <value>文件加密</value>
