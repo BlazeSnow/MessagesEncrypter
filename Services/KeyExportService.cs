@@ -50,7 +50,7 @@ public sealed class KeyExportService
         try
         {
             Directory.CreateDirectory(exportFolderPath);
-            string fileName = $"{SanitizeFileName(entry.Alias)}-{entry.Fingerprint}{extension}";
+            string fileName = $"{SanitizeFileName(entry.Alias)}{extension}";
             string path = Path.Combine(exportFolderPath, fileName);
             File.WriteAllText(path, text, Encoding.UTF8);
             return path;
