@@ -178,7 +178,10 @@
     <value>删除所选</value>
   </data>
   <data name="GenerateKeyDescription.Text" xml:space="preserve">
-    <value>生成 RSA-4096 密钥对。私钥会使用本次输入的密码加密后保存，请妥善保存密码。</value>
+    <value>生成 RSA 密钥对。私钥会使用本次输入的密码加密后保存，请妥善保存密码。</value>
+  </data>
+  <data name="RsaKeySizeComboBox.Header" xml:space="preserve">
+    <value>RSA 密钥位数</value>
   </data>
   <data name="ManagePublicKeyButton.Content" xml:space="preserve">
     <value>管理公钥</value>
@@ -454,10 +457,13 @@
     <value>私钥格式无效，或密码不正确。</value>
   </data>
   <data name="ErrorPublicKeyTooSmall" xml:space="preserve">
-    <value>公钥长度不足，请使用 RSA-4096 公钥。</value>
+    <value>公钥长度不足，请使用 RSA-2048 或更高位数的公钥。</value>
   </data>
   <data name="ErrorPrivateKeyTooSmall" xml:space="preserve">
-    <value>私钥长度不足，请使用 RSA-4096 私钥。</value>
+    <value>私钥长度不足，请使用 RSA-2048 或更高位数的私钥。</value>
+  </data>
+  <data name="ErrorRsaKeySizeUnsupported" xml:space="preserve">
+    <value>请选择受支持的 RSA 密钥位数。</value>
   </data>
   <data name="ErrorCipherTextRequired" xml:space="preserve">
     <value>请输入待解密密文。</value>

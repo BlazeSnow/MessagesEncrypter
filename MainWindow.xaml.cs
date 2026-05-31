@@ -95,6 +95,7 @@ namespace MessagesEncrypter
         private async void GenerateKeyButton_Click(object sender, RoutedEventArgs e)
         {
             TextBox aliasTextBox = CreateDialogTextBox("PrivateKeyAliasTextBox");
+            ComboBox keySizeComboBox = CreateRsaKeySizeComboBox();
             PasswordBox passwordBox = CreateDialogPasswordBox("PrivateKeyPasswordBox");
             PasswordBox confirmPasswordBox = CreateDialogPasswordBox("PrivateKeyPasswordConfirmBox");
             CheckBox rememberPasswordCheckBox = CreateDialogCheckBox("RememberPrivateKeyPasswordCheckBox");
@@ -103,6 +104,7 @@ namespace MessagesEncrypter
                 Spacing = 12
             };
             dialogContent.Children.Add(aliasTextBox);
+            dialogContent.Children.Add(keySizeComboBox);
             dialogContent.Children.Add(passwordBox);
             dialogContent.Children.Add(confirmPasswordBox);
             dialogContent.Children.Add(rememberPasswordCheckBox);
@@ -130,7 +132,10 @@ namespace MessagesEncrypter
 
             try
             {
-                KeyPairResult result = _keyManagementService.GenerateKeyPair(password);
+                int keySizeBits = keySizeComboBox.SelectedItem is int selectedKeySize
+                    ? selectedKeySize
+                    : CryptoConstants.DefaultRsaKeySizeBits;
+                KeyPairResult result = _keyManagementService.GenerateKeyPair(password, keySizeBits);
                 string alias = GetAliasOrDefault(aliasTextBox.Text, "DefaultPrivateKeyAlias", _privateKeys.Count + 1);
                 var entry = new KeyEntry(alias, result.PublicKeyFingerprint, result.PublicKeyPem, result.EncryptedPrivateKeyPem);
                 if (rememberPasswordCheckBox.IsChecked == true)
@@ -840,6 +845,24 @@ namespace MessagesEncrypter
                 RequestedTheme = RootNavigation.ActualTheme,
                 Content = AppResources.GetString($"{resourcePrefix}.Content")
             };
+        }
+
+        private ComboBox CreateRsaKeySizeComboBox()
+        {
+            var comboBox = new ComboBox
+            {
+                RequestedTheme = RootNavigation.ActualTheme,
+                MinWidth = 320,
+                Header = AppResources.GetString("RsaKeySizeComboBox.Header")
+            };
+
+            foreach (int keySizeBits in CryptoConstants.SupportedRsaKeySizesBits)
+            {
+                comboBox.Items.Add(keySizeBits);
+            }
+
+            comboBox.SelectedItem = CryptoConstants.DefaultRsaKeySizeBits;
+            return comboBox;
         }
 
         private async System.Threading.Tasks.Task<ContentDialogResult> ShowInputDialogAsync(
