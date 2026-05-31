@@ -36,13 +36,9 @@
 
 ## 五、开发者信息
 
-<https://github.com/BlazeSnow>
-
-项目仓库：<https://github.com/BlazeSnow/MessagesEncrypter>
-
-项目官网：<https://www.blazesnow.com/messages/>
-
-反馈邮箱：<messages@blazesnow.com>
+- 项目仓库：<https://github.com/BlazeSnow/MessagesEncrypter>
+- 项目官网：<https://www.blazesnow.com/messages/>
+- 反馈邮箱：<messages@blazesnow.com>
 
 ## 六、版权信息
 
