@@ -90,10 +90,10 @@
                     </Grid>
                 </ScrollViewer>
 
-                <Grid Grid.Row="1">
+                <StackPanel Grid.Row="1">
                     <ProgressBar
                         x:Name="OperationProgressBar"
-                        Margin="28,16,28,28"
+                        Margin="28,16,28,0"
                         IsIndeterminate="True"
                         Visibility="Collapsed" />
                     <InfoBar
@@ -103,7 +103,7 @@
                         IsClosable="True"
                         Visibility="Collapsed"
                         Closed="StatusInfoBar_Closed" />
-                </Grid>
+                </StackPanel>
             </Grid>
         </NavigationView>
     </Grid>
