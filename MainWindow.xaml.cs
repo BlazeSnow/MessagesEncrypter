@@ -80,6 +80,7 @@ namespace MessagesEncrypter
 
             PrivateKeysView.ItemsSource = _privateKeys;
             PrivateKeysView.GenerateRequested += GenerateKeyButton_Click;
+            PrivateKeysView.ImportRequested += ImportPrivateKeyButton_Click;
             PrivateKeysView.CopyPublicKeyRequested += CopySelectedPrivatePublicKeyButton_Click;
             PrivateKeysView.ExportPublicKeyRequested += ExportSelectedPrivatePublicKeyButton_Click;
             PrivateKeysView.CopyPrivateKeyRequested += CopySelectedPrivateKeyButton_Click;
@@ -89,29 +90,54 @@ namespace MessagesEncrypter
 
             SettingsView.ChooseExportFolderRequested += ChooseExportFolderButton_Click;
             SettingsView.OpenExportFolderRequested += OpenExportFolderButton_Click;
-            SettingsView.SavePrivateKeyPasswordRequested += SavePrivateKeyPasswordButton_Click;
-            SettingsView.DeletePrivateKeyPasswordRequested += DeletePrivateKeyPasswordButton_Click;
         }
 
         private async void GenerateKeyButton_Click(object sender, RoutedEventArgs e)
         {
             TextBox aliasTextBox = CreateDialogTextBox("PrivateKeyAliasTextBox");
+            PasswordBox passwordBox = CreateDialogPasswordBox("PrivateKeyPasswordBox");
+            PasswordBox confirmPasswordBox = CreateDialogPasswordBox("PrivateKeyPasswordConfirmBox");
+            CheckBox rememberPasswordCheckBox = CreateDialogCheckBox("RememberPrivateKeyPasswordCheckBox");
+            var dialogContent = new StackPanel
+            {
+                Spacing = 12
+            };
+            dialogContent.Children.Add(aliasTextBox);
+            dialogContent.Children.Add(passwordBox);
+            dialogContent.Children.Add(confirmPasswordBox);
+            dialogContent.Children.Add(rememberPasswordCheckBox);
+
             ContentDialogResult dialogResult = await ShowInputDialogAsync(
                 "GeneratePrivateKeyDialogTitle",
                 "GeneratePrivateKeyDialogPrimaryButtonText",
-                aliasTextBox);
+                dialogContent);
 
             if (dialogResult != ContentDialogResult.Primary)
             {
                 return;
             }
 
+            string password = passwordBox.Password;
+            string confirmPassword = confirmPasswordBox.Password;
+            passwordBox.Password = string.Empty;
+            confirmPasswordBox.Password = string.Empty;
+
+            if (password != confirmPassword)
+            {
+                ShowStatus("ErrorPasswordConfirmMismatch", InfoBarSeverity.Warning);
+                return;
+            }
+
             try
             {
-                string password = _credentialManagerService.GetPrivateKeyPassword();
                 KeyPairResult result = _keyManagementService.GenerateKeyPair(password);
                 string alias = GetAliasOrDefault(aliasTextBox.Text, "DefaultPrivateKeyAlias", _privateKeys.Count + 1);
                 var entry = new KeyEntry(alias, result.PublicKeyFingerprint, result.PublicKeyPem, result.EncryptedPrivateKeyPem);
+                if (rememberPasswordCheckBox.IsChecked == true)
+                {
+                    _credentialManagerService.SavePrivateKeyPassword(entry.Fingerprint, password);
+                }
+
                 _privateKeys.Add(entry);
                 DecryptView.SelectPrivateKey(entry);
                 PrivateKeysView.SelectKey(entry);
@@ -147,7 +173,70 @@ namespace MessagesEncrypter
             }
         }
 
-        private void DecryptButton_Click(object sender, RoutedEventArgs e)
+        private async void ImportPrivateKeyButton_Click(object sender, RoutedEventArgs e)
+        {
+            TextBox aliasTextBox = CreateDialogTextBox("PrivateKeyAliasTextBox");
+            PasswordBox passwordBox = CreateDialogPasswordBox("PrivateKeyPasswordBox");
+            CheckBox rememberPasswordCheckBox = CreateDialogCheckBox("RememberPrivateKeyPasswordCheckBox");
+            TextBox privateKeyTextBox = CreateDialogTextBox("PrivateKeyTextBox");
+            privateKeyTextBox.AcceptsReturn = true;
+            privateKeyTextBox.FontFamily = new Microsoft.UI.Xaml.Media.FontFamily("Consolas");
+            privateKeyTextBox.Height = 180;
+            privateKeyTextBox.TextWrapping = TextWrapping.NoWrap;
+            Button importFromFileButton = new()
+            {
+                Content = AppResources.GetString("ImportPrivateKeyFromFileButtonText")
+            };
+            importFromFileButton.Click += async (_, _) => await ImportPrivateKeyFromFileAsync(privateKeyTextBox);
+
+            var dialogContent = new StackPanel
+            {
+                Spacing = 12
+            };
+            dialogContent.Children.Add(aliasTextBox);
+            dialogContent.Children.Add(passwordBox);
+            dialogContent.Children.Add(rememberPasswordCheckBox);
+            dialogContent.Children.Add(importFromFileButton);
+            dialogContent.Children.Add(privateKeyTextBox);
+
+            ContentDialogResult dialogResult = await ShowInputDialogAsync(
+                "ImportPrivateKeyDialogTitle",
+                "ImportPrivateKeyDialogPrimaryButtonText",
+                dialogContent);
+
+            if (dialogResult != ContentDialogResult.Primary)
+            {
+                return;
+            }
+
+            string password = passwordBox.Password;
+            passwordBox.Password = string.Empty;
+
+            try
+            {
+                KeyPairResult result = _keyManagementService.ImportKeyPair(privateKeyTextBox.Text, password);
+                string alias = GetAliasOrDefault(aliasTextBox.Text, "DefaultPrivateKeyAlias", _privateKeys.Count + 1);
+                var entry = new KeyEntry(alias, result.PublicKeyFingerprint, result.PublicKeyPem, result.EncryptedPrivateKeyPem);
+                if (rememberPasswordCheckBox.IsChecked == true)
+                {
+                    _credentialManagerService.SavePrivateKeyPassword(entry.Fingerprint, password);
+                }
+
+                _privateKeys.Add(entry);
+                DecryptView.SelectPrivateKey(entry);
+                PrivateKeysView.SelectKey(entry);
+                if (SaveKeyStore())
+                {
+                    ShowStatus("StatusPrivateKeyImported", InfoBarSeverity.Success);
+                }
+            }
+            catch (CryptoException ex)
+            {
+                ShowStatus(ex.ResourceKey, InfoBarSeverity.Error);
+            }
+        }
+
+        private async void DecryptButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -157,10 +246,21 @@ namespace MessagesEncrypter
                     return;
                 }
 
+                PrivateKeyPasswordResult passwordResult = await GetPasswordForPrivateKeyAsync(privateKey);
+                if (string.IsNullOrEmpty(passwordResult.Password))
+                {
+                    return;
+                }
+
                 DecryptView.DecryptedMessage = _messageCryptoService.DecryptFromBase64Json(
                     DecryptView.CipherText,
                     privateKey.EncryptedPrivateKeyPem,
-                    _credentialManagerService.GetPrivateKeyPassword());
+                    passwordResult.Password);
+                if (passwordResult.ShouldSave)
+                {
+                    _credentialManagerService.SavePrivateKeyPassword(privateKey.Fingerprint, passwordResult.Password);
+                }
+
                 ShowStatus("StatusMessageDecrypted", InfoBarSeverity.Success);
             }
             catch (CryptoException ex)
@@ -337,77 +437,15 @@ namespace MessagesEncrypter
                 return;
             }
 
-            _privateKeys.Remove(entry);
-            SelectFirstPrivateKeyIfAvailable();
-            if (SaveKeyStore())
-            {
-                ShowStatus("StatusPrivateKeyDeleted", InfoBarSeverity.Success);
-            }
-        }
-
-        private void SavePrivateKeyPasswordButton_Click(object sender, RoutedEventArgs e)
-        {
-            _ = SavePrivateKeyPasswordAsync();
-        }
-
-        private async System.Threading.Tasks.Task SavePrivateKeyPasswordAsync()
-        {
-            PasswordBox passwordBox = new()
-            {
-                PlaceholderText = AppResources.GetString("PrivateKeyPasswordBox.PlaceholderText"),
-                MinWidth = 320
-            };
-
-            ContentDialogResult dialogResult = await ShowInputDialogAsync(
-                "SavePrivateKeyPasswordDialogTitle",
-                "SavePrivateKeyPasswordDialogPrimaryButtonText",
-                passwordBox);
-
-            if (dialogResult != ContentDialogResult.Primary)
-            {
-                return;
-            }
-
-            string password = passwordBox.Password;
-            passwordBox.Password = string.Empty;
-
-            SavePrivateKeyPassword(password);
-        }
-
-        private void SavePrivateKeyPassword(string password)
-        {
             try
             {
-                _credentialManagerService.SavePrivateKeyPassword(password);
-                ShowStatus("StatusPrivateKeyPasswordSaved", InfoBarSeverity.Success);
-            }
-            catch (CryptoException ex)
-            {
-                ShowStatus(ex.ResourceKey, InfoBarSeverity.Error);
-            }
-        }
-
-        private async void DeletePrivateKeyPasswordButton_Click(object sender, RoutedEventArgs e)
-        {
-            ContentDialogResult dialogResult = await ShowConfirmDialogAsync(
-                "DeletePrivateKeyPasswordDialogTitle",
-                "DeleteKeyDialogPrimaryButtonText",
-                AppResources.GetString("DeletePrivateKeyPasswordDialogContent"));
-
-            if (dialogResult != ContentDialogResult.Primary)
-            {
-                return;
-            }
-
-            DeletePrivateKeyPassword();
-        }
-
-        private void DeletePrivateKeyPassword()
-        {
-            try
-            {
-                _credentialManagerService.DeletePrivateKeyPassword();
-                ShowStatus("StatusPrivateKeyPasswordDeleted", InfoBarSeverity.Success);
+                _privateKeys.Remove(entry);
+                _credentialManagerService.DeletePrivateKeyPassword(entry.Fingerprint);
+                SelectFirstPrivateKeyIfAvailable();
+                if (SaveKeyStore())
+                {
+                    ShowStatus("StatusPrivateKeyDeleted", InfoBarSeverity.Success);
+                }
             }
             catch (CryptoException ex)
             {
@@ -467,6 +505,67 @@ namespace MessagesEncrypter
             {
                 ShowStatus("ErrorPublicKeyFileReadFailed", InfoBarSeverity.Error);
             }
+        }
+
+        private async System.Threading.Tasks.Task ImportPrivateKeyFromFileAsync(TextBox privateKeyTextBox)
+        {
+            var picker = new FileOpenPicker
+            {
+                SuggestedStartLocation = PickerLocationId.DocumentsLibrary
+            };
+            picker.FileTypeFilter.Add(".pem");
+            picker.FileTypeFilter.Add(".key");
+            picker.FileTypeFilter.Add(".txt");
+            InitializeWithWindow.Initialize(picker, WindowNative.GetWindowHandle(this));
+
+            Windows.Storage.StorageFile? file = await picker.PickSingleFileAsync();
+            if (file is null)
+            {
+                return;
+            }
+
+            try
+            {
+                privateKeyTextBox.Text = await File.ReadAllTextAsync(file.Path, Encoding.UTF8);
+            }
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+            {
+                ShowStatus("ErrorPrivateKeyFileReadFailed", InfoBarSeverity.Error);
+            }
+        }
+
+        private async System.Threading.Tasks.Task<PrivateKeyPasswordResult> GetPasswordForPrivateKeyAsync(KeyEntry privateKey)
+        {
+            if (_credentialManagerService.HasPrivateKeyPassword(privateKey.Fingerprint))
+            {
+                return new PrivateKeyPasswordResult(
+                    _credentialManagerService.GetPrivateKeyPassword(privateKey.Fingerprint),
+                    false);
+            }
+
+            PasswordBox passwordBox = CreateDialogPasswordBox("PrivateKeyPasswordBox");
+            CheckBox rememberPasswordCheckBox = CreateDialogCheckBox("RememberPrivateKeyPasswordCheckBox");
+            var dialogContent = new StackPanel
+            {
+                Spacing = 12
+            };
+            dialogContent.Children.Add(passwordBox);
+            dialogContent.Children.Add(rememberPasswordCheckBox);
+
+            ContentDialogResult dialogResult = await ShowInputDialogAsync(
+                "UnlockPrivateKeyDialogTitle",
+                "UnlockPrivateKeyDialogPrimaryButtonText",
+                dialogContent);
+
+            if (dialogResult != ContentDialogResult.Primary)
+            {
+                passwordBox.Password = string.Empty;
+                return new PrivateKeyPasswordResult(string.Empty, false);
+            }
+
+            string password = passwordBox.Password;
+            passwordBox.Password = string.Empty;
+            return new PrivateKeyPasswordResult(password, rememberPasswordCheckBox.IsChecked == true);
         }
 
         private void OpenExportFolderButton_Click(object sender, RoutedEventArgs e)
@@ -632,6 +731,25 @@ namespace MessagesEncrypter
             };
         }
 
+        private PasswordBox CreateDialogPasswordBox(string resourcePrefix)
+        {
+            return new PasswordBox
+            {
+                RequestedTheme = RootNavigation.ActualTheme,
+                MinWidth = 320,
+                PlaceholderText = AppResources.GetString($"{resourcePrefix}.PlaceholderText")
+            };
+        }
+
+        private CheckBox CreateDialogCheckBox(string resourcePrefix)
+        {
+            return new CheckBox
+            {
+                RequestedTheme = RootNavigation.ActualTheme,
+                Content = AppResources.GetString($"{resourcePrefix}.Content")
+            };
+        }
+
         private async System.Threading.Tasks.Task<ContentDialogResult> ShowInputDialogAsync(
             string titleResourceKey,
             string primaryButtonResourceKey,
@@ -669,5 +787,7 @@ namespace MessagesEncrypter
 
             return await dialog.ShowAsync();
         }
+
+        private sealed record PrivateKeyPasswordResult(string Password, bool ShouldSave);
     }
 }

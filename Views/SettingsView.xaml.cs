@@ -18,10 +18,6 @@ public sealed partial class SettingsView : UserControl
 
     public event RoutedEventHandler? OpenExportFolderRequested;
 
-    public event RoutedEventHandler? SavePrivateKeyPasswordRequested;
-
-    public event RoutedEventHandler? DeletePrivateKeyPasswordRequested;
-
     public string ExportFolderPath
     {
         get => ExportFolderPathTextBlock.Text;
@@ -36,16 +32,6 @@ public sealed partial class SettingsView : UserControl
     private void OpenExportFolderButton_Click(object sender, RoutedEventArgs e)
     {
         OpenExportFolderRequested?.Invoke(sender, e);
-    }
-
-    private void SavePrivateKeyPasswordButton_Click(object sender, RoutedEventArgs e)
-    {
-        SavePrivateKeyPasswordRequested?.Invoke(sender, e);
-    }
-
-    private void DeletePrivateKeyPasswordButton_Click(object sender, RoutedEventArgs e)
-    {
-        DeletePrivateKeyPasswordRequested?.Invoke(sender, e);
     }
 
     private async void OpenProjectRepositoryButton_Click(object sender, RoutedEventArgs e)

@@ -9,10 +9,15 @@ public sealed class CredentialManagerService
 {
     private const int CredentialTypeGeneric = 1;
     private const int CredentialPersistenceLocalMachine = 2;
-    private const string TargetName = "MessagesEncrypter.PrivateKeyPassword";
+    private const string TargetNamePrefix = "MessagesEncrypter.PrivateKeyPassword.";
 
-    public void SavePrivateKeyPassword(string password)
+    public void SavePrivateKeyPassword(string fingerprint, string password)
     {
+        if (string.IsNullOrWhiteSpace(fingerprint))
+        {
+            throw new CryptoException("ErrorPrivateKeyNotSelected");
+        }
+
         if (string.IsNullOrWhiteSpace(password))
         {
             throw new CryptoException("ErrorPasswordRequired");
@@ -29,7 +34,7 @@ public sealed class CredentialManagerService
             var credential = new NativeCredential
             {
                 Type = CredentialTypeGeneric,
-                TargetName = TargetName,
+                TargetName = GetTargetName(fingerprint),
                 CredentialBlobSize = Encoding.Unicode.GetByteCount(password),
                 CredentialBlob = passwordBlob,
                 Persist = CredentialPersistenceLocalMachine,
@@ -59,9 +64,9 @@ public sealed class CredentialManagerService
         }
     }
 
-    public string GetPrivateKeyPassword()
+    public string GetPrivateKeyPassword(string fingerprint)
     {
-        string? password = ReadPrivateKeyPassword();
+        string? password = ReadPrivateKeyPassword(fingerprint);
         if (password is null)
         {
             throw new CryptoException("ErrorCredentialPasswordMissing");
@@ -70,14 +75,14 @@ public sealed class CredentialManagerService
         return password;
     }
 
-    public bool HasPrivateKeyPassword()
+    public bool HasPrivateKeyPassword(string fingerprint)
     {
-        return ReadPrivateKeyPassword() is not null;
+        return ReadPrivateKeyPassword(fingerprint) is not null;
     }
 
-    public void DeletePrivateKeyPassword()
+    public void DeletePrivateKeyPassword(string fingerprint)
     {
-        if (!CredDeleteW(TargetName, CredentialTypeGeneric, 0))
+        if (!CredDeleteW(GetTargetName(fingerprint), CredentialTypeGeneric, 0))
         {
             int error = Marshal.GetLastWin32Error();
             if (error == 1168)
@@ -89,9 +94,14 @@ public sealed class CredentialManagerService
         }
     }
 
-    private static string? ReadPrivateKeyPassword()
+    private static string? ReadPrivateKeyPassword(string fingerprint)
     {
-        if (!CredReadW(TargetName, CredentialTypeGeneric, 0, out IntPtr credentialPointer))
+        if (string.IsNullOrWhiteSpace(fingerprint))
+        {
+            return null;
+        }
+
+        if (!CredReadW(GetTargetName(fingerprint), CredentialTypeGeneric, 0, out IntPtr credentialPointer))
         {
             return null;
         }
@@ -113,6 +123,11 @@ public sealed class CredentialManagerService
         {
             CredFree(credentialPointer);
         }
+    }
+
+    private static string GetTargetName(string fingerprint)
+    {
+        return string.Concat(TargetNamePrefix, fingerprint.Trim());
     }
 
     [DllImport("Advapi32.dll", EntryPoint = "CredWriteW", SetLastError = true, CharSet = CharSet.Unicode)]

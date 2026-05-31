@@ -13,6 +13,8 @@ public sealed partial class PrivateKeysView : UserControl
 
     public event RoutedEventHandler? GenerateRequested;
 
+    public event RoutedEventHandler? ImportRequested;
+
     public event RoutedEventHandler? CopyPublicKeyRequested;
 
     public event RoutedEventHandler? ExportPublicKeyRequested;
@@ -47,6 +49,11 @@ public sealed partial class PrivateKeysView : UserControl
     private void GenerateKeyButton_Click(object sender, RoutedEventArgs e)
     {
         GenerateRequested?.Invoke(sender, e);
+    }
+
+    private void ImportPrivateKeyButton_Click(object sender, RoutedEventArgs e)
+    {
+        ImportRequested?.Invoke(sender, e);
     }
 
     private void CopySelectedPrivatePublicKeyButton_Click(object sender, RoutedEventArgs e)
