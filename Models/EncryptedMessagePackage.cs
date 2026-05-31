@@ -2,7 +2,7 @@ namespace MessagesEncrypter.Models;
 
 public sealed record EncryptedMessagePackage(
     int Ver,
-    string EncryptedKey,
+    string Ek,
     string Nonce,
     string Tag,
-    string Ciphertext);
+    string Ct);

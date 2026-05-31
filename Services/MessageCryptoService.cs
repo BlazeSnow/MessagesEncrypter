@@ -77,10 +77,18 @@ public sealed class MessageCryptoService
                 throw new CryptoException("ErrorUnsupportedMessageFormat");
             }
 
-            byte[] encryptedKey = Convert.FromBase64String(package.EncryptedKey);
+            if (string.IsNullOrWhiteSpace(package.Ek)
+                || string.IsNullOrWhiteSpace(package.Nonce)
+                || string.IsNullOrWhiteSpace(package.Tag)
+                || string.IsNullOrWhiteSpace(package.Ct))
+            {
+                throw new CryptoException("ErrorUnsupportedMessageFormat");
+            }
+
+            byte[] encryptedKey = Convert.FromBase64String(package.Ek);
             byte[] nonce = Convert.FromBase64String(package.Nonce);
             byte[] tag = Convert.FromBase64String(package.Tag);
-            byte[] ciphertext = Convert.FromBase64String(package.Ciphertext);
+            byte[] ciphertext = Convert.FromBase64String(package.Ct);
 
             if (nonce.Length != CryptoConstants.AesGcmNonceSizeBytes || tag.Length != CryptoConstants.AesGcmTagSizeBytes)
             {
