@@ -23,6 +23,8 @@ public sealed partial class PrivateKeysView : UserControl
 
     public event RoutedEventHandler? ExportPrivateKeyRequested;
 
+    public event RoutedEventHandler? ChangePasswordRequested;
+
     public event RoutedEventHandler? OpenExportFolderRequested;
 
     public event RoutedEventHandler? DeleteRequested;
@@ -74,6 +76,11 @@ public sealed partial class PrivateKeysView : UserControl
     private void ExportSelectedPrivateKeyButton_Click(object sender, RoutedEventArgs e)
     {
         ExportPrivateKeyRequested?.Invoke(sender, e);
+    }
+
+    private void ChangePrivateKeyPasswordButton_Click(object sender, RoutedEventArgs e)
+    {
+        ChangePasswordRequested?.Invoke(sender, e);
     }
 
     private void OpenExportFolderButton_Click(object sender, RoutedEventArgs e)

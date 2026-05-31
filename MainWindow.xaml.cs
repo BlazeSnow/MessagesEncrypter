@@ -85,6 +85,7 @@ namespace MessagesEncrypter
             PrivateKeysView.ExportPublicKeyRequested += ExportSelectedPrivatePublicKeyButton_Click;
             PrivateKeysView.CopyPrivateKeyRequested += CopySelectedPrivateKeyButton_Click;
             PrivateKeysView.ExportPrivateKeyRequested += ExportSelectedPrivateKeyButton_Click;
+            PrivateKeysView.ChangePasswordRequested += ChangePrivateKeyPasswordButton_Click;
             PrivateKeysView.OpenExportFolderRequested += OpenExportFolderButton_Click;
             PrivateKeysView.DeleteRequested += DeleteSelectedPrivateKeyButton_Click;
 
@@ -417,6 +418,91 @@ namespace MessagesEncrypter
             }
 
             ExportKey(() => _keyExportService.ExportPrivateKey(entry, _appSettingsService.GetExportFolderPath()));
+        }
+
+        private async void ChangePrivateKeyPasswordButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (PrivateKeysView.SelectedKey is not KeyEntry entry || string.IsNullOrWhiteSpace(entry.EncryptedPrivateKeyPem))
+            {
+                ShowStatus("ErrorPrivateKeyNotSelected", InfoBarSeverity.Warning);
+                return;
+            }
+
+            PasswordBox oldPasswordBox = CreateDialogPasswordBox("OldPrivateKeyPasswordBox");
+            PasswordBox newPasswordBox = CreateDialogPasswordBox("NewPrivateKeyPasswordBox");
+            PasswordBox confirmPasswordBox = CreateDialogPasswordBox("NewPrivateKeyPasswordConfirmBox");
+            CheckBox rememberPasswordCheckBox = CreateDialogCheckBox("RememberPrivateKeyPasswordCheckBox");
+            var dialogContent = new StackPanel
+            {
+                Spacing = 12
+            };
+            dialogContent.Children.Add(oldPasswordBox);
+            dialogContent.Children.Add(newPasswordBox);
+            dialogContent.Children.Add(confirmPasswordBox);
+            dialogContent.Children.Add(rememberPasswordCheckBox);
+
+            ContentDialogResult dialogResult = await ShowInputDialogAsync(
+                "ChangePrivateKeyPasswordDialogTitle",
+                "ChangePrivateKeyPasswordDialogPrimaryButtonText",
+                dialogContent);
+
+            if (dialogResult != ContentDialogResult.Primary)
+            {
+                return;
+            }
+
+            string oldPassword = oldPasswordBox.Password;
+            string newPassword = newPasswordBox.Password;
+            string confirmPassword = confirmPasswordBox.Password;
+            oldPasswordBox.Password = string.Empty;
+            newPasswordBox.Password = string.Empty;
+            confirmPasswordBox.Password = string.Empty;
+
+            if (newPassword != confirmPassword)
+            {
+                ShowStatus("ErrorPasswordConfirmMismatch", InfoBarSeverity.Warning);
+                return;
+            }
+
+            try
+            {
+                string encryptedPrivateKeyPem = _keyManagementService.ChangePrivateKeyPassword(
+                    entry.EncryptedPrivateKeyPem,
+                    oldPassword,
+                    newPassword);
+                var updatedEntry = new KeyEntry(
+                    entry.Alias,
+                    entry.Fingerprint,
+                    entry.PublicKeyPem,
+                    encryptedPrivateKeyPem);
+                int index = _privateKeys.IndexOf(entry);
+                if (index < 0)
+                {
+                    ShowStatus("ErrorPrivateKeyNotSelected", InfoBarSeverity.Warning);
+                    return;
+                }
+
+                _privateKeys[index] = updatedEntry;
+                DecryptView.SelectPrivateKey(updatedEntry);
+                PrivateKeysView.SelectKey(updatedEntry);
+                if (rememberPasswordCheckBox.IsChecked == true)
+                {
+                    _credentialManagerService.SavePrivateKeyPassword(updatedEntry.Fingerprint, newPassword);
+                }
+                else
+                {
+                    _credentialManagerService.DeletePrivateKeyPassword(updatedEntry.Fingerprint);
+                }
+
+                if (SaveKeyStore())
+                {
+                    ShowStatus("StatusPrivateKeyPasswordChanged", InfoBarSeverity.Success);
+                }
+            }
+            catch (CryptoException ex)
+            {
+                ShowStatus(ex.ResourceKey, InfoBarSeverity.Error);
+            }
         }
 
         private async void DeleteSelectedPrivateKeyButton_Click(object sender, RoutedEventArgs e)

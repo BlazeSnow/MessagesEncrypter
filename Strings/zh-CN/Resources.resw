@@ -222,6 +222,24 @@
   <data name="RememberPrivateKeyPasswordCheckBox.Content" xml:space="preserve">
     <value>记住此私钥密码</value>
   </data>
+  <data name="OldPrivateKeyPasswordBox.PlaceholderText" xml:space="preserve">
+    <value>输入当前私钥密码</value>
+  </data>
+  <data name="NewPrivateKeyPasswordBox.PlaceholderText" xml:space="preserve">
+    <value>输入新的私钥密码</value>
+  </data>
+  <data name="NewPrivateKeyPasswordConfirmBox.PlaceholderText" xml:space="preserve">
+    <value>再次输入新的私钥密码</value>
+  </data>
+  <data name="ChangePrivateKeyPasswordButton.Content" xml:space="preserve">
+    <value>修改密码</value>
+  </data>
+  <data name="ChangePrivateKeyPasswordDialogTitle" xml:space="preserve">
+    <value>修改私钥密码</value>
+  </data>
+  <data name="ChangePrivateKeyPasswordDialogPrimaryButtonText" xml:space="preserve">
+    <value>修改</value>
+  </data>
   <data name="UnlockPrivateKeyDialogTitle" xml:space="preserve">
     <value>输入私钥密码</value>
   </data>
@@ -344,6 +362,9 @@
   </data>
   <data name="StatusPrivateKeyImported" xml:space="preserve">
     <value>私钥已导入，并已生成对应公钥。</value>
+  </data>
+  <data name="StatusPrivateKeyPasswordChanged" xml:space="preserve">
+    <value>私钥密码已修改。</value>
   </data>
   <data name="StatusRecipientKeyImported" xml:space="preserve">
     <value>接收方公钥已导入。</value>

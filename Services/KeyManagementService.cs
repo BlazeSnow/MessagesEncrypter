@@ -31,6 +31,22 @@ public sealed class KeyManagementService
         return new KeyPairResult(publicKeyPem, encryptedPrivateKeyPem, GetPublicKeyFingerprint(publicKeyPem));
     }
 
+    public string ChangePrivateKeyPassword(string encryptedPrivateKeyPem, string oldPassword, string newPassword)
+    {
+        if (string.IsNullOrWhiteSpace(newPassword))
+        {
+            throw new CryptoException("ErrorPasswordRequired");
+        }
+
+        using RSA rsa = ImportPrivateKey(encryptedPrivateKeyPem, oldPassword);
+        return rsa.ExportEncryptedPkcs8PrivateKeyPem(
+            newPassword,
+            new PbeParameters(
+                PbeEncryptionAlgorithm.Aes256Cbc,
+                HashAlgorithmName.SHA256,
+                CryptoConstants.PrivateKeyPbkdf2Iterations));
+    }
+
     public RSA ImportPublicKey(string publicKeyPem)
     {
         if (string.IsNullOrWhiteSpace(publicKeyPem))
