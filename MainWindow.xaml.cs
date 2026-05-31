@@ -780,7 +780,8 @@ namespace MessagesEncrypter
         {
             try
             {
-                exportAction();
+                string exportedFilePath = exportAction();
+                _keyExportService.SelectFile(exportedFilePath);
                 ShowStatus("StatusKeyExported", InfoBarSeverity.Success);
             }
             catch (CryptoException ex)

@@ -45,6 +45,23 @@ public sealed class KeyExportService
         }
     }
 
+    public void SelectFile(string filePath)
+    {
+        try
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "explorer.exe",
+                Arguments = $"/select,\"{filePath}\"",
+                UseShellExecute = true
+            });
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or System.ComponentModel.Win32Exception)
+        {
+            throw new CryptoException("ErrorExportFolderOpenFailed", ex);
+        }
+    }
+
     private static string ExportText(string text, KeyEntry entry, string exportFolderPath, string extension)
     {
         try
