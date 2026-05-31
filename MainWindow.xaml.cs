@@ -731,7 +731,8 @@ namespace MessagesEncrypter
 
         private void ShowOperationProgress(bool isVisible)
         {
-            OperationProgressBar.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
+            OperationProgressRing.IsActive = isVisible;
+            OperationProgressRing.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void LoadKeyStore()
