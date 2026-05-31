@@ -42,9 +42,6 @@
   <data name="PrivateKeysNavItem.Content" xml:space="preserve">
     <value>我的私钥</value>
   </data>
-  <data name="FilesNavItem.Content" xml:space="preserve">
-    <value>文件加密</value>
-  </data>
   <data name="SettingsNavItem.Content" xml:space="preserve">
     <value>设置</value>
   </data>
@@ -62,9 +59,6 @@
   </data>
   <data name="PageTitlePrivateKeys" xml:space="preserve">
     <value>我的私钥</value>
-  </data>
-  <data name="PageTitleFiles" xml:space="preserve">
-    <value>文件加密</value>
   </data>
   <data name="PageTitleSettings" xml:space="preserve">
     <value>设置</value>
@@ -309,17 +303,11 @@
   <data name="GeneratedPrivateKeyTextBox.PlaceholderText" xml:space="preserve">
     <value>生成后显示加密私钥，请不要发送给别人</value>
   </data>
-  <data name="FilesNotReadyTitle.Text" xml:space="preserve">
-    <value>文件分块加密待实现</value>
-  </data>
-  <data name="FilesNotReadyDescription.Text" xml:space="preserve">
-    <value>下一步会实现 PKEF 文件格式、AES-GCM 分块、块索引认证、异步 I/O、进度反馈和分块大小选择。</value>
-  </data>
   <data name="ExportFolderSettingsCard.Header" xml:space="preserve">
     <value>导出位置</value>
   </data>
   <data name="ExportFolderSettingsCard.Description" xml:space="preserve">
-    <value>用于保存导出的密钥文件和后续文件加密输出。</value>
+    <value>用于保存导出的密钥文件。</value>
   </data>
   <data name="ChooseExportFolderButton.Content" xml:space="preserve">
     <value>选择位置</value>

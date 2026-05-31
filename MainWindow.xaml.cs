@@ -57,7 +57,6 @@ namespace MessagesEncrypter
             DecryptView.Visibility = tag == "Decrypt" ? Visibility.Visible : Visibility.Collapsed;
             RecipientKeysView.Visibility = tag == "RecipientKeys" ? Visibility.Visible : Visibility.Collapsed;
             PrivateKeysView.Visibility = tag == "PrivateKeys" ? Visibility.Visible : Visibility.Collapsed;
-            FilesView.Visibility = tag == "Files" ? Visibility.Visible : Visibility.Collapsed;
             SettingsView.Visibility = tag == "Settings" ? Visibility.Visible : Visibility.Collapsed;
         }
 

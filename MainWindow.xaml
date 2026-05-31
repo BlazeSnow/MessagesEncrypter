@@ -66,11 +66,6 @@
                         <SymbolIcon Symbol="Contact" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem x:Name="FilesNavItem" x:Uid="FilesNavItem" Tag="Files">
-                    <NavigationViewItem.Icon>
-                        <SymbolIcon Symbol="Document" />
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
                 <NavigationViewItem x:Name="SettingsNavItem" x:Uid="SettingsNavItem" Tag="Settings">
                     <NavigationViewItem.Icon>
                         <SymbolIcon Symbol="Setting" />
@@ -91,7 +86,6 @@
                         <views:DecryptView x:Name="DecryptView" Visibility="Collapsed" />
                         <views:RecipientKeysView x:Name="RecipientKeysView" Visibility="Collapsed" />
                         <views:PrivateKeysView x:Name="PrivateKeysView" Visibility="Collapsed" />
-                        <views:FilesView x:Name="FilesView" Visibility="Collapsed" />
                         <views:SettingsView x:Name="SettingsView" Visibility="Collapsed" />
                     </Grid>
                 </ScrollViewer>
