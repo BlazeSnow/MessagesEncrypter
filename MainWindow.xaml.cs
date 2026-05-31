@@ -134,7 +134,9 @@ namespace MessagesEncrypter
                 int keySizeBits = keySizeComboBox.SelectedItem is int selectedKeySize
                     ? selectedKeySize
                     : CryptoConstants.DefaultRsaKeySizeBits;
-                KeyPairResult result = _keyManagementService.GenerateKeyPair(password, keySizeBits);
+                ShowOperationProgress(true);
+                KeyPairResult result = await System.Threading.Tasks.Task.Run(() =>
+                    _keyManagementService.GenerateKeyPair(password, keySizeBits));
                 string alias = GetAliasOrDefault(aliasTextBox.Text, "DefaultPrivateKeyAlias", _privateKeys.Count + 1);
                 var entry = new KeyEntry(alias, result.PublicKeyFingerprint, result.PublicKeyPem, result.EncryptedPrivateKeyPem);
                 if (rememberPasswordCheckBox.IsChecked == true)
@@ -153,6 +155,10 @@ namespace MessagesEncrypter
             catch (CryptoException ex)
             {
                 ShowStatus(ex.ResourceKey, InfoBarSeverity.Error);
+            }
+            finally
+            {
+                ShowOperationProgress(false);
             }
         }
 
@@ -721,6 +727,11 @@ namespace MessagesEncrypter
         private void StatusInfoBar_Closed(InfoBar sender, InfoBarClosedEventArgs args)
         {
             StatusInfoBar.Visibility = Visibility.Collapsed;
+        }
+
+        private void ShowOperationProgress(bool isVisible)
+        {
+            OperationProgressBar.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void LoadKeyStore()

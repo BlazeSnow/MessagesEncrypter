@@ -90,14 +90,20 @@
                     </Grid>
                 </ScrollViewer>
 
-                <InfoBar
-                    x:Name="StatusInfoBar"
-                    Grid.Row="1"
-                    Margin="28,16,28,28"
-                    IsOpen="False"
-                    IsClosable="True"
-                    Visibility="Collapsed"
-                    Closed="StatusInfoBar_Closed" />
+                <Grid Grid.Row="1">
+                    <ProgressBar
+                        x:Name="OperationProgressBar"
+                        Margin="28,16,28,28"
+                        IsIndeterminate="True"
+                        Visibility="Collapsed" />
+                    <InfoBar
+                        x:Name="StatusInfoBar"
+                        Margin="28,16,28,28"
+                        IsOpen="False"
+                        IsClosable="True"
+                        Visibility="Collapsed"
+                        Closed="StatusInfoBar_Closed" />
+                </Grid>
             </Grid>
         </NavigationView>
     </Grid>

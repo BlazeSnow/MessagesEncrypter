@@ -19,6 +19,11 @@ public sealed class MessageCryptoService
 
     public string EncryptToBase64Json(string plaintext, string publicKeyPem)
     {
+        if (string.IsNullOrWhiteSpace(plaintext))
+        {
+            throw new CryptoException("ErrorPlainTextRequired");
+        }
+
         byte[] key = RandomNumberGenerator.GetBytes(CryptoConstants.AesKeySizeBytes);
         byte[] nonce = RandomNumberGenerator.GetBytes(CryptoConstants.AesGcmNonceSizeBytes);
         byte[] plaintextBytes = Encoding.UTF8.GetBytes(plaintext);

@@ -468,6 +468,9 @@
   <data name="ErrorCipherTextRequired" xml:space="preserve">
     <value>请输入待解密密文。</value>
   </data>
+  <data name="ErrorPlainTextRequired" xml:space="preserve">
+    <value>请输入待加密消息。</value>
+  </data>
   <data name="ErrorEncryptFailed" xml:space="preserve">
     <value>加密失败，请检查公钥格式。</value>
   </data>
