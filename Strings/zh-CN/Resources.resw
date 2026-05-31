@@ -186,6 +186,12 @@
   <data name="GenerateKeyDescription.Text" xml:space="preserve">
     <value>生成 RSA-4096 密钥对。私钥会使用本次输入的密码加密后保存，请妥善保存密码。</value>
   </data>
+  <data name="ManagePublicKeyExpander.Header" xml:space="preserve">
+    <value>管理公钥</value>
+  </data>
+  <data name="ManagePrivateKeyExpander.Header" xml:space="preserve">
+    <value>管理私钥</value>
+  </data>
   <data name="PrivateKeyAliasTextBox.PlaceholderText" xml:space="preserve">
     <value>我的密钥别名</value>
   </data>
