@@ -1,8 +1,8 @@
+using MessagesEncrypter.Models;
 using System;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
-using MessagesEncrypter.Models;
 
 namespace MessagesEncrypter.Services;
 
@@ -19,6 +19,11 @@ public sealed class MessageCryptoService
 
     public string EncryptToBase64Json(string plaintext, string publicKeyPem)
     {
+        if (string.IsNullOrWhiteSpace(plaintext))
+        {
+            throw new CryptoException("ErrorPlainTextRequired");
+        }
+
         byte[] key = RandomNumberGenerator.GetBytes(CryptoConstants.AesKeySizeBytes);
         byte[] nonce = RandomNumberGenerator.GetBytes(CryptoConstants.AesGcmNonceSizeBytes);
         byte[] plaintextBytes = Encoding.UTF8.GetBytes(plaintext);
@@ -77,10 +82,18 @@ public sealed class MessageCryptoService
                 throw new CryptoException("ErrorUnsupportedMessageFormat");
             }
 
-            byte[] encryptedKey = Convert.FromBase64String(package.EncryptedKey);
+            if (string.IsNullOrWhiteSpace(package.Ek)
+                || string.IsNullOrWhiteSpace(package.Nonce)
+                || string.IsNullOrWhiteSpace(package.Tag)
+                || string.IsNullOrWhiteSpace(package.Ct))
+            {
+                throw new CryptoException("ErrorUnsupportedMessageFormat");
+            }
+
+            byte[] encryptedKey = Convert.FromBase64String(package.Ek);
             byte[] nonce = Convert.FromBase64String(package.Nonce);
             byte[] tag = Convert.FromBase64String(package.Tag);
-            byte[] ciphertext = Convert.FromBase64String(package.Ciphertext);
+            byte[] ciphertext = Convert.FromBase64String(package.Ct);
 
             if (nonce.Length != CryptoConstants.AesGcmNonceSizeBytes || tag.Length != CryptoConstants.AesGcmTagSizeBytes)
             {

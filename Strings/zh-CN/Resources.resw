@@ -42,9 +42,6 @@
   <data name="PrivateKeysNavItem.Content" xml:space="preserve">
     <value>我的私钥</value>
   </data>
-  <data name="FilesNavItem.Content" xml:space="preserve">
-    <value>文件加密</value>
-  </data>
   <data name="SettingsNavItem.Content" xml:space="preserve">
     <value>设置</value>
   </data>
@@ -62,9 +59,6 @@
   </data>
   <data name="PageTitlePrivateKeys" xml:space="preserve">
     <value>我的私钥</value>
-  </data>
-  <data name="PageTitleFiles" xml:space="preserve">
-    <value>文件加密</value>
   </data>
   <data name="PageTitleSettings" xml:space="preserve">
     <value>设置</value>
@@ -91,10 +85,10 @@
     <value>接收消息</value>
   </data>
   <data name="HomeReceiveMessageStep1.Header" xml:space="preserve">
-    <value>在“设置”中编辑并保存私钥密码。</value>
+    <value>在“我的私钥”中生成或导入自己的私钥，并按需记住该私钥密码。</value>
   </data>
   <data name="HomeReceiveMessageStep2.Header" xml:space="preserve">
-    <value>在“我的私钥”中生成或选择自己的加密私钥，并把对应公钥交给发送方。</value>
+    <value>把该私钥对应的公钥交给发送方。</value>
   </data>
   <data name="HomeReceiveMessageStep3.Header" xml:space="preserve">
     <value>收到密文包后，在“消息解密”中选择自己的私钥并粘贴密文。</value>
@@ -184,7 +178,16 @@
     <value>删除所选</value>
   </data>
   <data name="GenerateKeyDescription.Text" xml:space="preserve">
-    <value>生成 RSA-4096 密钥对。私钥会使用设置中保存的密码加密后导出，请妥善保存。</value>
+    <value>生成 RSA 密钥对。私钥会使用本次输入的密码加密后保存，请妥善保存密码。</value>
+  </data>
+  <data name="RsaKeySizeComboBox.Header" xml:space="preserve">
+    <value>RSA 密钥位数</value>
+  </data>
+  <data name="ManagePublicKeyButton.Content" xml:space="preserve">
+    <value>管理公钥</value>
+  </data>
+  <data name="ManagePrivateKeyButton.Content" xml:space="preserve">
+    <value>管理私钥</value>
   </data>
   <data name="PrivateKeyAliasTextBox.PlaceholderText" xml:space="preserve">
     <value>我的密钥别名</value>
@@ -192,11 +195,59 @@
   <data name="GenerateKeyButton.Content" xml:space="preserve">
     <value>生成密钥对</value>
   </data>
+  <data name="ImportPrivateKeyButton.Content" xml:space="preserve">
+    <value>导入私钥</value>
+  </data>
   <data name="GeneratePrivateKeyDialogTitle" xml:space="preserve">
     <value>生成我的密钥</value>
   </data>
   <data name="GeneratePrivateKeyDialogPrimaryButtonText" xml:space="preserve">
     <value>生成</value>
+  </data>
+  <data name="ImportPrivateKeyDialogTitle" xml:space="preserve">
+    <value>导入我的私钥</value>
+  </data>
+  <data name="ImportPrivateKeyDialogPrimaryButtonText" xml:space="preserve">
+    <value>导入</value>
+  </data>
+  <data name="ImportPrivateKeyFromFileButtonText" xml:space="preserve">
+    <value>从文件导入</value>
+  </data>
+  <data name="PrivateKeyTextBox.PlaceholderText" xml:space="preserve">
+    <value>粘贴 PEM 私钥，支持加密私钥或未加密私钥</value>
+  </data>
+  <data name="PrivateKeyPasswordBox.PlaceholderText" xml:space="preserve">
+    <value>输入此私钥的密码</value>
+  </data>
+  <data name="PrivateKeyPasswordConfirmBox.PlaceholderText" xml:space="preserve">
+    <value>再次输入此私钥的密码</value>
+  </data>
+  <data name="RememberPrivateKeyPasswordCheckBox.Content" xml:space="preserve">
+    <value>记住此私钥密码</value>
+  </data>
+  <data name="OldPrivateKeyPasswordBox.PlaceholderText" xml:space="preserve">
+    <value>输入当前私钥密码</value>
+  </data>
+  <data name="NewPrivateKeyPasswordBox.PlaceholderText" xml:space="preserve">
+    <value>输入新的私钥密码</value>
+  </data>
+  <data name="NewPrivateKeyPasswordConfirmBox.PlaceholderText" xml:space="preserve">
+    <value>再次输入新的私钥密码</value>
+  </data>
+  <data name="ChangePrivateKeyPasswordButton.Content" xml:space="preserve">
+    <value>修改密码</value>
+  </data>
+  <data name="ChangePrivateKeyPasswordDialogTitle" xml:space="preserve">
+    <value>修改私钥密码</value>
+  </data>
+  <data name="ChangePrivateKeyPasswordDialogPrimaryButtonText" xml:space="preserve">
+    <value>修改</value>
+  </data>
+  <data name="UnlockPrivateKeyDialogTitle" xml:space="preserve">
+    <value>输入私钥密码</value>
+  </data>
+  <data name="UnlockPrivateKeyDialogPrimaryButtonText" xml:space="preserve">
+    <value>解锁</value>
   </data>
   <data name="DialogCancelButtonText" xml:space="preserve">
     <value>取消</value>
@@ -255,20 +306,11 @@
   <data name="GeneratedPrivateKeyTextBox.PlaceholderText" xml:space="preserve">
     <value>生成后显示加密私钥，请不要发送给别人</value>
   </data>
-  <data name="FilesNotReadyTitle.Text" xml:space="preserve">
-    <value>文件分块加密待实现</value>
-  </data>
-  <data name="FilesNotReadyDescription.Text" xml:space="preserve">
-    <value>下一步会实现 PKEF 文件格式、AES-GCM 分块、块索引认证、异步 I/O、进度反馈和分块大小选择。</value>
-  </data>
-  <data name="PrivateKeyPasswordSettingsCard.Header" xml:space="preserve">
-    <value>私钥密码</value>
-  </data>
   <data name="ExportFolderSettingsCard.Header" xml:space="preserve">
     <value>导出位置</value>
   </data>
   <data name="ExportFolderSettingsCard.Description" xml:space="preserve">
-    <value>用于保存导出的密钥文件和后续文件加密输出。</value>
+    <value>用于保存导出的密钥文件。</value>
   </data>
   <data name="ChooseExportFolderButton.Content" xml:space="preserve">
     <value>选择位置</value>
@@ -278,30 +320,6 @@
   </data>
   <data name="OpenSettingsExportFolderButton.Content" xml:space="preserve">
     <value>打开位置</value>
-  </data>
-  <data name="PrivateKeyPasswordSettingsCard.Description" xml:space="preserve">
-    <value>保存到 Windows 凭据管理器，用于生成加密私钥和解密消息。</value>
-  </data>
-  <data name="PrivateKeyPasswordBox.PlaceholderText" xml:space="preserve">
-    <value>输入或更新私钥密码</value>
-  </data>
-  <data name="SavePrivateKeyPasswordDialogTitle" xml:space="preserve">
-    <value>保存私钥密码</value>
-  </data>
-  <data name="SavePrivateKeyPasswordDialogPrimaryButtonText" xml:space="preserve">
-    <value>保存</value>
-  </data>
-  <data name="SavePrivateKeyPasswordButton.Content" xml:space="preserve">
-    <value>编辑</value>
-  </data>
-  <data name="DeletePrivateKeyPasswordButton.Content" xml:space="preserve">
-    <value>删除</value>
-  </data>
-  <data name="DeletePrivateKeyPasswordDialogTitle" xml:space="preserve">
-    <value>删除私钥密码</value>
-  </data>
-  <data name="DeletePrivateKeyPasswordDialogContent" xml:space="preserve">
-    <value>确定要删除 Windows 凭据管理器中保存的私钥密码吗？删除后，生成密钥或解密消息前需要重新编辑保存。</value>
   </data>
   <data name="ProjectRepositorySettingsCard.Header" xml:space="preserve">
     <value>项目仓库</value>
@@ -339,6 +357,12 @@
   <data name="StatusKeyGenerated" xml:space="preserve">
     <value>密钥对已生成并加入我的私钥列表。</value>
   </data>
+  <data name="StatusPrivateKeyImported" xml:space="preserve">
+    <value>私钥已导入，并已生成对应公钥。</value>
+  </data>
+  <data name="StatusPrivateKeyPasswordChanged" xml:space="preserve">
+    <value>私钥密码已修改。</value>
+  </data>
   <data name="StatusRecipientKeyImported" xml:space="preserve">
     <value>接收方公钥已导入。</value>
   </data>
@@ -359,12 +383,6 @@
   </data>
   <data name="StatusEncryptedMessagePasted" xml:space="preserve">
     <value>已从剪贴板粘贴密文。</value>
-  </data>
-  <data name="StatusPrivateKeyPasswordSaved" xml:space="preserve">
-    <value>私钥密码已保存到 Windows 凭据管理器。</value>
-  </data>
-  <data name="StatusPrivateKeyPasswordDeleted" xml:space="preserve">
-    <value>已删除保存的私钥密码。</value>
   </data>
   <data name="StatusRecipientKeyDeleted" xml:space="preserve">
     <value>接收方已删除。</value>
@@ -391,7 +409,7 @@
     <value>导出密钥失败，请检查导出位置是否可写。</value>
   </data>
   <data name="ErrorCredentialPasswordMissing" xml:space="preserve">
-    <value>请先在设置中保存私钥密码。</value>
+    <value>请输入此私钥的密码。</value>
   </data>
   <data name="ErrorCredentialSaveFailed" xml:space="preserve">
     <value>保存私钥密码失败，请检查 Windows 凭据管理器是否可用。</value>
@@ -429,17 +447,29 @@
   <data name="ErrorPublicKeyFileReadFailed" xml:space="preserve">
     <value>读取公钥文件失败，请检查文件是否可访问。</value>
   </data>
+  <data name="ErrorPrivateKeyFileReadFailed" xml:space="preserve">
+    <value>读取私钥文件失败，请检查文件是否可访问。</value>
+  </data>
+  <data name="ErrorPasswordConfirmMismatch" xml:space="preserve">
+    <value>两次输入的私钥密码不一致。</value>
+  </data>
   <data name="ErrorPrivateKeyInvalidOrPasswordWrong" xml:space="preserve">
     <value>私钥格式无效，或密码不正确。</value>
   </data>
   <data name="ErrorPublicKeyTooSmall" xml:space="preserve">
-    <value>公钥长度不足，请使用 RSA-4096 公钥。</value>
+    <value>公钥长度不足，请使用 RSA-2048 或更高位数的公钥。</value>
   </data>
   <data name="ErrorPrivateKeyTooSmall" xml:space="preserve">
-    <value>私钥长度不足，请使用 RSA-4096 私钥。</value>
+    <value>私钥长度不足，请使用 RSA-2048 或更高位数的私钥。</value>
+  </data>
+  <data name="ErrorRsaKeySizeUnsupported" xml:space="preserve">
+    <value>请选择受支持的 RSA 密钥位数。</value>
   </data>
   <data name="ErrorCipherTextRequired" xml:space="preserve">
     <value>请输入待解密密文。</value>
+  </data>
+  <data name="ErrorPlainTextRequired" xml:space="preserve">
+    <value>请输入待加密消息。</value>
   </data>
   <data name="ErrorEncryptFailed" xml:space="preserve">
     <value>加密失败，请检查公钥格式。</value>

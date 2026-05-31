@@ -66,11 +66,6 @@
                         <SymbolIcon Symbol="Contact" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem x:Name="FilesNavItem" x:Uid="FilesNavItem" Tag="Files">
-                    <NavigationViewItem.Icon>
-                        <SymbolIcon Symbol="Document" />
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
                 <NavigationViewItem x:Name="SettingsNavItem" x:Uid="SettingsNavItem" Tag="Settings">
                     <NavigationViewItem.Icon>
                         <SymbolIcon Symbol="Setting" />
@@ -78,7 +73,7 @@
                 </NavigationViewItem>
             </NavigationView.MenuItems>
 
-            <Grid RowSpacing="16">
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
@@ -91,17 +86,24 @@
                         <views:DecryptView x:Name="DecryptView" Visibility="Collapsed" />
                         <views:RecipientKeysView x:Name="RecipientKeysView" Visibility="Collapsed" />
                         <views:PrivateKeysView x:Name="PrivateKeysView" Visibility="Collapsed" />
-                        <views:FilesView x:Name="FilesView" Visibility="Collapsed" />
                         <views:SettingsView x:Name="SettingsView" Visibility="Collapsed" />
                     </Grid>
                 </ScrollViewer>
 
-                <InfoBar
-                    x:Name="StatusInfoBar"
-                    Grid.Row="1"
-                    Margin="28,0,28,28"
-                    IsOpen="False"
-                    IsClosable="True" />
+                <StackPanel Grid.Row="1">
+                    <ProgressBar
+                        x:Name="OperationProgressBar"
+                        Margin="28,16,28,0"
+                        IsIndeterminate="True"
+                        Visibility="Collapsed" />
+                    <InfoBar
+                        x:Name="StatusInfoBar"
+                        Margin="28,16,28,28"
+                        IsOpen="False"
+                        IsClosable="True"
+                        Visibility="Collapsed"
+                        Closed="StatusInfoBar_Closed" />
+                </StackPanel>
             </Grid>
         </NavigationView>
     </Grid>

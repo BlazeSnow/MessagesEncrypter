@@ -1,8 +1,8 @@
+using MessagesEncrypter.Models;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-using MessagesEncrypter.Models;
 
 namespace MessagesEncrypter.Services;
 
@@ -45,12 +45,29 @@ public sealed class KeyExportService
         }
     }
 
+    public void SelectFile(string filePath)
+    {
+        try
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "explorer.exe",
+                Arguments = $"/select,\"{filePath}\"",
+                UseShellExecute = true
+            });
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or System.ComponentModel.Win32Exception)
+        {
+            throw new CryptoException("ErrorExportFolderOpenFailed", ex);
+        }
+    }
+
     private static string ExportText(string text, KeyEntry entry, string exportFolderPath, string extension)
     {
         try
         {
             Directory.CreateDirectory(exportFolderPath);
-            string fileName = $"{SanitizeFileName(entry.Alias)}-{entry.Fingerprint}{extension}";
+            string fileName = $"{SanitizeFileName(entry.Alias)}{extension}";
             string path = Path.Combine(exportFolderPath, fileName);
             File.WriteAllText(path, text, Encoding.UTF8);
             return path;

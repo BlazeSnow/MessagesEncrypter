@@ -1,6 +1,6 @@
+using MessagesEncrypter.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using MessagesEncrypter.Models;
 
 namespace MessagesEncrypter.Views;
 
@@ -13,6 +13,8 @@ public sealed partial class PrivateKeysView : UserControl
 
     public event RoutedEventHandler? GenerateRequested;
 
+    public event RoutedEventHandler? ImportRequested;
+
     public event RoutedEventHandler? CopyPublicKeyRequested;
 
     public event RoutedEventHandler? ExportPublicKeyRequested;
@@ -20,6 +22,8 @@ public sealed partial class PrivateKeysView : UserControl
     public event RoutedEventHandler? CopyPrivateKeyRequested;
 
     public event RoutedEventHandler? ExportPrivateKeyRequested;
+
+    public event RoutedEventHandler? ChangePasswordRequested;
 
     public event RoutedEventHandler? OpenExportFolderRequested;
 
@@ -49,6 +53,11 @@ public sealed partial class PrivateKeysView : UserControl
         GenerateRequested?.Invoke(sender, e);
     }
 
+    private void ImportPrivateKeyButton_Click(object sender, RoutedEventArgs e)
+    {
+        ImportRequested?.Invoke(sender, e);
+    }
+
     private void CopySelectedPrivatePublicKeyButton_Click(object sender, RoutedEventArgs e)
     {
         CopyPublicKeyRequested?.Invoke(sender, e);
@@ -67,6 +76,11 @@ public sealed partial class PrivateKeysView : UserControl
     private void ExportSelectedPrivateKeyButton_Click(object sender, RoutedEventArgs e)
     {
         ExportPrivateKeyRequested?.Invoke(sender, e);
+    }
+
+    private void ChangePrivateKeyPasswordButton_Click(object sender, RoutedEventArgs e)
+    {
+        ChangePasswordRequested?.Invoke(sender, e);
     }
 
     private void OpenExportFolderButton_Click(object sender, RoutedEventArgs e)

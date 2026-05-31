@@ -1,6 +1,6 @@
+using MessagesEncrypter.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using MessagesEncrypter.Models;
 
 namespace MessagesEncrypter.Views;
 
