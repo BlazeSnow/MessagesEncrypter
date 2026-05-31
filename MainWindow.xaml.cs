@@ -297,7 +297,7 @@ namespace MessagesEncrypter
             {
                 Content = AppResources.GetString("ImportRecipientKeyFromFileButtonText")
             };
-            importFromFileButton.Click += async (_, _) => await ImportRecipientPublicKeyFromFileAsync(publicKeyTextBox);
+            importFromFileButton.Click += async (_, _) => await ImportRecipientPublicKeyFromFileAsync(aliasTextBox, publicKeyTextBox);
 
             var dialogContent = new StackPanel
             {
@@ -575,7 +575,7 @@ namespace MessagesEncrypter
             }
         }
 
-        private async System.Threading.Tasks.Task ImportRecipientPublicKeyFromFileAsync(TextBox publicKeyTextBox)
+        private async System.Threading.Tasks.Task ImportRecipientPublicKeyFromFileAsync(TextBox aliasTextBox, TextBox publicKeyTextBox)
         {
             var picker = new FileOpenPicker
             {
@@ -595,6 +595,10 @@ namespace MessagesEncrypter
             try
             {
                 publicKeyTextBox.Text = await File.ReadAllTextAsync(file.Path, Encoding.UTF8);
+                if (string.IsNullOrWhiteSpace(aliasTextBox.Text))
+                {
+                    aliasTextBox.Text = Path.GetFileNameWithoutExtension(file.Name);
+                }
             }
             catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
             {
