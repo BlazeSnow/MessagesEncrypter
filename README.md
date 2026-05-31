@@ -14,7 +14,9 @@
 
 ## 三、软件截图
 
-![main](./images/main.png)
+![encryption](./images/encryption.png)
+
+![decryption](./images/decryption.png)
 
 ## 四、使用说明
 
