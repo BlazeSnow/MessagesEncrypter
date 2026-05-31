@@ -710,7 +710,13 @@ namespace MessagesEncrypter
         {
             StatusInfoBar.Message = AppResources.GetString(resourceKey);
             StatusInfoBar.Severity = severity;
+            StatusInfoBar.Visibility = Visibility.Visible;
             StatusInfoBar.IsOpen = true;
+        }
+
+        private void StatusInfoBar_Closed(InfoBar sender, InfoBarClosedEventArgs args)
+        {
+            StatusInfoBar.Visibility = Visibility.Collapsed;
         }
 
         private void LoadKeyStore()
