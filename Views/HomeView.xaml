@@ -2,61 +2,138 @@
 <UserControl
     x:Class="MessagesEncrypter.Views.HomeView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="using:CommunityToolkit.WinUI.Controls">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Grid MaxWidth="900" HorizontalAlignment="Stretch" RowSpacing="18">
+    <Grid
+        MaxWidth="960"
+        HorizontalAlignment="Stretch"
+        ColumnSpacing="18"
+        RowSpacing="14">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="180" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <StackPanel Spacing="8">
-            <TextBlock x:Uid="HomeSendMessageTitle" Style="{ThemeResource SubtitleTextBlockStyle}" />
-            <controls:SettingsCard x:Uid="HomeSendMessageStep1">
-                <controls:SettingsCard.HeaderIcon>
-                    <FontIcon FontFamily="Segoe UI" Glyph="1" />
-                </controls:SettingsCard.HeaderIcon>
-            </controls:SettingsCard>
-            <controls:SettingsCard x:Uid="HomeSendMessageStep2">
-                <controls:SettingsCard.HeaderIcon>
-                    <FontIcon FontFamily="Segoe UI" Glyph="2" />
-                </controls:SettingsCard.HeaderIcon>
-            </controls:SettingsCard>
-            <controls:SettingsCard x:Uid="HomeSendMessageStep3">
-                <controls:SettingsCard.HeaderIcon>
-                    <FontIcon FontFamily="Segoe UI" Glyph="3" />
-                </controls:SettingsCard.HeaderIcon>
-            </controls:SettingsCard>
-            <controls:SettingsCard x:Uid="HomeSendMessageStep4">
-                <controls:SettingsCard.HeaderIcon>
-                    <FontIcon FontFamily="Segoe UI" Glyph="4" />
-                </controls:SettingsCard.HeaderIcon>
-            </controls:SettingsCard>
-        </StackPanel>
+        <Border
+            Grid.RowSpan="3"
+            Padding="18"
+            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="8">
+            <StackPanel Spacing="14">
+                <StackPanel Orientation="Horizontal" Spacing="10">
+                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE77B;" />
+                    <TextBlock x:Uid="HomeDiagramReceiverTitle" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                </StackPanel>
 
-        <StackPanel Grid.Row="1" Spacing="8">
-            <TextBlock x:Uid="HomeReceiveMessageTitle" Style="{ThemeResource SubtitleTextBlockStyle}" />
-            <controls:SettingsCard x:Uid="HomeReceiveMessageStep1">
-                <controls:SettingsCard.HeaderIcon>
-                    <FontIcon FontFamily="Segoe UI" Glyph="1" />
-                </controls:SettingsCard.HeaderIcon>
-            </controls:SettingsCard>
-            <controls:SettingsCard x:Uid="HomeReceiveMessageStep2">
-                <controls:SettingsCard.HeaderIcon>
-                    <FontIcon FontFamily="Segoe UI" Glyph="2" />
-                </controls:SettingsCard.HeaderIcon>
-            </controls:SettingsCard>
-            <controls:SettingsCard x:Uid="HomeReceiveMessageStep3">
-                <controls:SettingsCard.HeaderIcon>
-                    <FontIcon FontFamily="Segoe UI" Glyph="3" />
-                </controls:SettingsCard.HeaderIcon>
-            </controls:SettingsCard>
-            <controls:SettingsCard x:Uid="HomeReceiveMessageStep4">
-                <controls:SettingsCard.HeaderIcon>
-                    <FontIcon FontFamily="Segoe UI" Glyph="4" />
-                </controls:SettingsCard.HeaderIcon>
-            </controls:SettingsCard>
+                <StackPanel Spacing="16">
+                    <Grid ColumnSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8D7;" />
+                        <TextBlock Grid.Column="1" x:Uid="HomeDiagramReceiverPrivateKey" TextWrapping="Wrap" />
+                    </Grid>
+                    <Grid ColumnSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8B7;" />
+                        <TextBlock Grid.Column="1" x:Uid="HomeDiagramReceiverPublicKey" TextWrapping="Wrap" />
+                    </Grid>
+                    <Grid ColumnSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE785;" />
+                        <TextBlock Grid.Column="1" x:Uid="HomeDiagramReceiverDecrypt" TextWrapping="Wrap" />
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <Border
+            Grid.Column="2"
+            Grid.RowSpan="3"
+            Padding="18"
+            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="8">
+            <StackPanel Spacing="14">
+                <StackPanel Orientation="Horizontal" Spacing="10">
+                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE13D;" />
+                    <TextBlock x:Uid="HomeDiagramSenderTitle" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                </StackPanel>
+
+                <StackPanel Spacing="16">
+                    <Grid ColumnSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8B5;" />
+                        <TextBlock Grid.Column="1" x:Uid="HomeDiagramSenderImportKey" TextWrapping="Wrap" />
+                    </Grid>
+                    <Grid ColumnSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE72E;" />
+                        <TextBlock Grid.Column="1" x:Uid="HomeDiagramSenderEncrypt" TextWrapping="Wrap" />
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <StackPanel
+            Grid.Column="1"
+            VerticalAlignment="Center"
+            Spacing="18">
+            <Border
+                Padding="12"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <StackPanel HorizontalAlignment="Center" Spacing="8">
+                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8D7;" />
+                    <TextBlock
+                        x:Uid="HomeDiagramPublicKeyFlow"
+                        HorizontalAlignment="Center"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE72A;" />
+                </StackPanel>
+            </Border>
+
+            <Border
+                Padding="12"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <StackPanel HorizontalAlignment="Center" Spacing="8">
+                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE715;" />
+                    <TextBlock
+                        x:Uid="HomeDiagramCipherFlow"
+                        HorizontalAlignment="Center"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE72B;" />
+                </StackPanel>
+            </Border>
         </StackPanel>
     </Grid>
 </UserControl>

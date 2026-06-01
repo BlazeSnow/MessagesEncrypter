@@ -96,6 +96,33 @@
   <data name="HomeReceiveMessageStep4.Header" xml:space="preserve">
     <value>点击“解密”，认证通过后查看明文。</value>
   </data>
+  <data name="HomeDiagramReceiverTitle.Text" xml:space="preserve">
+    <value>接收方</value>
+  </data>
+  <data name="HomeDiagramReceiverPrivateKey.Text" xml:space="preserve">
+    <value>先生成或导入自己的私钥，私钥只保存在本机。</value>
+  </data>
+  <data name="HomeDiagramReceiverPublicKey.Text" xml:space="preserve">
+    <value>把对应公钥导出并发给发送方。</value>
+  </data>
+  <data name="HomeDiagramReceiverDecrypt.Text" xml:space="preserve">
+    <value>收到密文包后，选择私钥进行解密。</value>
+  </data>
+  <data name="HomeDiagramSenderTitle.Text" xml:space="preserve">
+    <value>发送方</value>
+  </data>
+  <data name="HomeDiagramSenderImportKey.Text" xml:space="preserve">
+    <value>导入接收方提供的公钥。</value>
+  </data>
+  <data name="HomeDiagramSenderEncrypt.Text" xml:space="preserve">
+    <value>选择接收方，输入消息并生成密文包。</value>
+  </data>
+  <data name="HomeDiagramPublicKeyFlow.Text" xml:space="preserve">
+    <value>公钥给发送方</value>
+  </data>
+  <data name="HomeDiagramCipherFlow.Text" xml:space="preserve">
+    <value>密文包给接收方</value>
+  </data>
   <data name="RecipientKeyComboBox.PlaceholderText" xml:space="preserve">
     <value>从密钥管理中选择接收方</value>
   </data>
