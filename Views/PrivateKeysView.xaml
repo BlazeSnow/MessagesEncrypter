@@ -8,9 +8,24 @@
     <StackPanel Spacing="14" MaxWidth="900" HorizontalAlignment="Stretch">
         <TextBlock x:Uid="PrivateKeysListTitle" Style="{ThemeResource BodyStrongTextBlockStyle}" />
         <StackPanel Orientation="Horizontal" Spacing="8">
-            <Button x:Uid="GenerateKeyButton" Click="GenerateKeyButton_Click" />
-            <Button x:Uid="ImportPrivateKeyButton" Click="ImportPrivateKeyButton_Click" />
-            <Button x:Uid="OpenExportFolderButton" Click="OpenExportFolderButton_Click" />
+            <Button Click="GenerateKeyButton_Click">
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE710;" />
+                    <TextBlock x:Uid="GenerateKeyButton" />
+                </StackPanel>
+            </Button>
+            <Button Click="ImportPrivateKeyButton_Click">
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8B5;" />
+                    <TextBlock x:Uid="ImportPrivateKeyButton" />
+                </StackPanel>
+            </Button>
+            <Button Click="OpenExportFolderButton_Click">
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE838;" />
+                    <TextBlock x:Uid="OpenExportFolderButton" />
+                </StackPanel>
+            </Button>
         </StackPanel>
         <ItemsControl
             x:Name="PrivateKeysItemsControl"
@@ -37,12 +52,42 @@
                                 <Button.Flyout>
                                     <Flyout Placement="BottomEdgeAlignedRight">
                                         <StackPanel MinWidth="180" Spacing="8">
-                                            <Button x:Uid="CopySelectedPrivatePublicKeyButton" HorizontalAlignment="Stretch" Tag="{Binding}" Click="CopySelectedPrivatePublicKeyButton_Click" />
-                                            <Button x:Uid="ExportSelectedPrivatePublicKeyButton" HorizontalAlignment="Stretch" Tag="{Binding}" Click="ExportSelectedPrivatePublicKeyButton_Click" />
-                                            <Button x:Uid="CopySelectedPrivateKeyButton" HorizontalAlignment="Stretch" Tag="{Binding}" Click="CopySelectedPrivateKeyButton_Click" />
-                                            <Button x:Uid="ExportSelectedPrivateKeyButton" HorizontalAlignment="Stretch" Tag="{Binding}" Click="ExportSelectedPrivateKeyButton_Click" />
-                                            <Button x:Uid="ChangePrivateKeyPasswordButton" HorizontalAlignment="Stretch" Tag="{Binding}" Click="ChangePrivateKeyPasswordButton_Click" />
-                                            <Button x:Uid="DeleteSelectedPrivateKeyButton" HorizontalAlignment="Stretch" Tag="{Binding}" Click="DeleteSelectedPrivateKeyButton_Click" />
+                                            <Button HorizontalAlignment="Stretch" Tag="{Binding}" Click="CopySelectedPrivatePublicKeyButton_Click">
+                                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8C8;" />
+                                                    <TextBlock x:Uid="CopySelectedPrivatePublicKeyButton" />
+                                                </StackPanel>
+                                            </Button>
+                                            <Button HorizontalAlignment="Stretch" Tag="{Binding}" Click="ExportSelectedPrivatePublicKeyButton_Click">
+                                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE896;" />
+                                                    <TextBlock x:Uid="ExportSelectedPrivatePublicKeyButton" />
+                                                </StackPanel>
+                                            </Button>
+                                            <Button HorizontalAlignment="Stretch" Tag="{Binding}" Click="CopySelectedPrivateKeyButton_Click">
+                                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8C8;" />
+                                                    <TextBlock x:Uid="CopySelectedPrivateKeyButton" />
+                                                </StackPanel>
+                                            </Button>
+                                            <Button HorizontalAlignment="Stretch" Tag="{Binding}" Click="ExportSelectedPrivateKeyButton_Click">
+                                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE896;" />
+                                                    <TextBlock x:Uid="ExportSelectedPrivateKeyButton" />
+                                                </StackPanel>
+                                            </Button>
+                                            <Button HorizontalAlignment="Stretch" Tag="{Binding}" Click="ChangePrivateKeyPasswordButton_Click">
+                                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8D7;" />
+                                                    <TextBlock x:Uid="ChangePrivateKeyPasswordButton" />
+                                                </StackPanel>
+                                            </Button>
+                                            <Button HorizontalAlignment="Stretch" Tag="{Binding}" Click="DeleteSelectedPrivateKeyButton_Click">
+                                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE74D;" />
+                                                    <TextBlock x:Uid="DeleteSelectedPrivateKeyButton" />
+                                                </StackPanel>
+                                            </Button>
                                         </StackPanel>
                                     </Flyout>
                                 </Button.Flyout>

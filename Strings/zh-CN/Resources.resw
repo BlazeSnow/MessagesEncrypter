@@ -105,13 +105,13 @@
   <data name="PlainTextBox.PlaceholderText" xml:space="preserve">
     <value>输入要发送给对方的消息</value>
   </data>
-  <data name="EncryptButton.Content" xml:space="preserve">
+  <data name="EncryptButton.Text" xml:space="preserve">
     <value>加密</value>
   </data>
-  <data name="CopyEncryptedMessageButton.Content" xml:space="preserve">
+  <data name="CopyEncryptedMessageButton.Text" xml:space="preserve">
     <value>复制密文</value>
   </data>
-  <data name="ClearEncryptContentButton.Content" xml:space="preserve">
+  <data name="ClearEncryptContentButton.Text" xml:space="preserve">
     <value>清空内容</value>
   </data>
   <data name="EncryptedMessageLabel.Text" xml:space="preserve">
@@ -132,13 +132,13 @@
   <data name="CipherTextBox.PlaceholderText" xml:space="preserve">
     <value>粘贴收到的 Base64 JSON 密文包</value>
   </data>
-  <data name="DecryptButton.Content" xml:space="preserve">
+  <data name="DecryptButton.Text" xml:space="preserve">
     <value>解密</value>
   </data>
-  <data name="PasteEncryptedMessageButton.Content" xml:space="preserve">
+  <data name="PasteEncryptedMessageButton.Text" xml:space="preserve">
     <value>粘贴密文</value>
   </data>
-  <data name="ClearDecryptContentButton.Content" xml:space="preserve">
+  <data name="ClearDecryptContentButton.Text" xml:space="preserve">
     <value>清空内容</value>
   </data>
   <data name="DecryptedMessageLabel.Text" xml:space="preserve">
@@ -156,7 +156,7 @@
   <data name="RecipientPublicKeyTextBox.PlaceholderText" xml:space="preserve">
     <value>粘贴 -----BEGIN PUBLIC KEY----- 开头的公钥</value>
   </data>
-  <data name="ImportRecipientKeyButton.Content" xml:space="preserve">
+  <data name="ImportRecipientKeyButton.Text" xml:space="preserve">
     <value>导入接收方</value>
   </data>
   <data name="ImportRecipientKeyDialogTitle" xml:space="preserve">
@@ -168,13 +168,13 @@
   <data name="ImportRecipientKeyFromFileButtonText" xml:space="preserve">
     <value>从文件导入</value>
   </data>
-  <data name="CopySelectedRecipientKeyButton.Content" xml:space="preserve">
+  <data name="CopySelectedRecipientKeyButton.Text" xml:space="preserve">
     <value>复制公钥</value>
   </data>
-  <data name="ExportSelectedRecipientKeyButton.Content" xml:space="preserve">
+  <data name="ExportSelectedRecipientKeyButton.Text" xml:space="preserve">
     <value>导出公钥</value>
   </data>
-  <data name="DeleteSelectedRecipientKeyButton.Content" xml:space="preserve">
+  <data name="DeleteSelectedRecipientKeyButton.Text" xml:space="preserve">
     <value>删除</value>
   </data>
   <data name="GenerateKeyDescription.Text" xml:space="preserve">
@@ -192,10 +192,10 @@
   <data name="PrivateKeyAliasTextBox.PlaceholderText" xml:space="preserve">
     <value>我的密钥别名</value>
   </data>
-  <data name="GenerateKeyButton.Content" xml:space="preserve">
+  <data name="GenerateKeyButton.Text" xml:space="preserve">
     <value>生成密钥对</value>
   </data>
-  <data name="ImportPrivateKeyButton.Content" xml:space="preserve">
+  <data name="ImportPrivateKeyButton.Text" xml:space="preserve">
     <value>导入私钥</value>
   </data>
   <data name="GeneratePrivateKeyDialogTitle" xml:space="preserve">
@@ -234,7 +234,7 @@
   <data name="NewPrivateKeyPasswordConfirmBox.PlaceholderText" xml:space="preserve">
     <value>再次输入新的私钥密码</value>
   </data>
-  <data name="ChangePrivateKeyPasswordButton.Content" xml:space="preserve">
+  <data name="ChangePrivateKeyPasswordButton.Text" xml:space="preserve">
     <value>修改密码</value>
   </data>
   <data name="ChangePrivateKeyPasswordDialogTitle" xml:space="preserve">
@@ -267,19 +267,19 @@
   <data name="DeleteKeyDialogContent" xml:space="preserve">
     <value>确定要删除“{0}”吗？此操作会更新本机密钥存档。</value>
   </data>
-  <data name="CopySelectedPrivatePublicKeyButton.Content" xml:space="preserve">
+  <data name="CopySelectedPrivatePublicKeyButton.Text" xml:space="preserve">
     <value>复制公钥</value>
   </data>
-  <data name="ExportSelectedPrivatePublicKeyButton.Content" xml:space="preserve">
+  <data name="ExportSelectedPrivatePublicKeyButton.Text" xml:space="preserve">
     <value>导出公钥</value>
   </data>
-  <data name="CopySelectedPrivateKeyButton.Content" xml:space="preserve">
+  <data name="CopySelectedPrivateKeyButton.Text" xml:space="preserve">
     <value>复制私钥</value>
   </data>
-  <data name="ExportSelectedPrivateKeyButton.Content" xml:space="preserve">
+  <data name="ExportSelectedPrivateKeyButton.Text" xml:space="preserve">
     <value>导出私钥</value>
   </data>
-  <data name="DeleteSelectedPrivateKeyButton.Content" xml:space="preserve">
+  <data name="DeleteSelectedPrivateKeyButton.Text" xml:space="preserve">
     <value>删除</value>
   </data>
   <data name="RecipientKeysListTitle.Text" xml:space="preserve">
@@ -312,13 +312,13 @@
   <data name="ExportFolderSettingsCard.Description" xml:space="preserve">
     <value>用于保存导出的密钥文件。</value>
   </data>
-  <data name="ChooseExportFolderButton.Content" xml:space="preserve">
+  <data name="ChooseExportFolderButton.Text" xml:space="preserve">
     <value>选择位置</value>
   </data>
-  <data name="OpenExportFolderButton.Content" xml:space="preserve">
+  <data name="OpenExportFolderButton.Text" xml:space="preserve">
     <value>打开导出位置</value>
   </data>
-  <data name="OpenSettingsExportFolderButton.Content" xml:space="preserve">
+  <data name="OpenSettingsExportFolderButton.Text" xml:space="preserve">
     <value>打开位置</value>
   </data>
   <data name="ProjectRepositorySettingsCard.Header" xml:space="preserve">
@@ -327,7 +327,7 @@
   <data name="ProjectRepositorySettingsCard.Description" xml:space="preserve">
     <value>BlazeSnow/MessagesEncrypter</value>
   </data>
-  <data name="OpenProjectRepositoryButton.Content" xml:space="preserve">
+  <data name="OpenProjectRepositoryButton.Text" xml:space="preserve">
     <value>打开仓库</value>
   </data>
   <data name="ProjectWebsiteSettingsCard.Header" xml:space="preserve">
@@ -336,7 +336,7 @@
   <data name="ProjectWebsiteSettingsCard.Description" xml:space="preserve">
     <value>https://www.blazesnow.com/messages/</value>
   </data>
-  <data name="OpenProjectWebsiteButton.Content" xml:space="preserve">
+  <data name="OpenProjectWebsiteButton.Text" xml:space="preserve">
     <value>打开官网</value>
   </data>
   <data name="FeedbackEmailSettingsCard.Header" xml:space="preserve">
@@ -345,7 +345,7 @@
   <data name="FeedbackEmailSettingsCard.Description" xml:space="preserve">
     <value>messages@blazesnow.com</value>
   </data>
-  <data name="CopyFeedbackEmailButton.Content" xml:space="preserve">
+  <data name="CopyFeedbackEmailButton.Text" xml:space="preserve">
     <value>复制邮箱</value>
   </data>
   <data name="FeedbackEmailCopiedDialogTitle" xml:space="preserve">

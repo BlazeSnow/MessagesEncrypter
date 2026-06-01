@@ -19,9 +19,24 @@
             Height="180"
             TextWrapping="Wrap" />
         <StackPanel Orientation="Horizontal" Spacing="8">
-            <Button x:Uid="EncryptButton" Click="EncryptButton_Click" />
-            <Button x:Uid="CopyEncryptedMessageButton" Click="CopyEncryptedMessageButton_Click" />
-            <Button x:Uid="ClearEncryptContentButton" Click="ClearEncryptContentButton_Click" />
+            <Button Click="EncryptButton_Click">
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE72E;" />
+                    <TextBlock x:Uid="EncryptButton" />
+                </StackPanel>
+            </Button>
+            <Button Click="CopyEncryptedMessageButton_Click">
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8C8;" />
+                    <TextBlock x:Uid="CopyEncryptedMessageButton" />
+                </StackPanel>
+            </Button>
+            <Button Click="ClearEncryptContentButton_Click">
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE894;" />
+                    <TextBlock x:Uid="ClearEncryptContentButton" />
+                </StackPanel>
+            </Button>
         </StackPanel>
         <TextBlock x:Uid="EncryptedMessageLabel" Style="{ThemeResource BodyStrongTextBlockStyle}" />
         <TextBox
