@@ -2,43 +2,55 @@
 <UserControl
     x:Class="MessagesEncrypter.Views.PrivateKeysView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:CommunityToolkit.WinUI.Controls">
 
     <StackPanel Spacing="14" MaxWidth="900" HorizontalAlignment="Stretch">
         <TextBlock x:Uid="PrivateKeysListTitle" Style="{ThemeResource BodyStrongTextBlockStyle}" />
         <StackPanel Orientation="Horizontal" Spacing="8">
             <Button x:Uid="GenerateKeyButton" Click="GenerateKeyButton_Click" />
-
-            <Button x:Uid="ManagePublicKeyButton">
-                <Button.Flyout>
-                    <Flyout Placement="BottomEdgeAlignedLeft">
-                        <StackPanel MinWidth="180" Spacing="8">
-                            <Button x:Uid="CopySelectedPrivatePublicKeyButton" HorizontalAlignment="Stretch" Click="CopySelectedPrivatePublicKeyButton_Click" />
-                            <Button x:Uid="ExportSelectedPrivatePublicKeyButton" HorizontalAlignment="Stretch" Click="ExportSelectedPrivatePublicKeyButton_Click" />
-                        </StackPanel>
-                    </Flyout>
-                </Button.Flyout>
-            </Button>
-
-            <Button x:Uid="ManagePrivateKeyButton">
-                <Button.Flyout>
-                    <Flyout Placement="BottomEdgeAlignedLeft">
-                        <StackPanel MinWidth="180" Spacing="8">
-                            <Button x:Uid="ImportPrivateKeyButton" HorizontalAlignment="Stretch" Click="ImportPrivateKeyButton_Click" />
-                            <Button x:Uid="CopySelectedPrivateKeyButton" HorizontalAlignment="Stretch" Click="CopySelectedPrivateKeyButton_Click" />
-                            <Button x:Uid="ExportSelectedPrivateKeyButton" HorizontalAlignment="Stretch" Click="ExportSelectedPrivateKeyButton_Click" />
-                            <Button x:Uid="ChangePrivateKeyPasswordButton" HorizontalAlignment="Stretch" Click="ChangePrivateKeyPasswordButton_Click" />
-                        </StackPanel>
-                    </Flyout>
-                </Button.Flyout>
-            </Button>
-
+            <Button x:Uid="ImportPrivateKeyButton" Click="ImportPrivateKeyButton_Click" />
             <Button x:Uid="OpenExportFolderButton" Click="OpenExportFolderButton_Click" />
-            <Button x:Uid="DeleteSelectedPrivateKeyButton" Click="DeleteSelectedPrivateKeyButton_Click" />
         </StackPanel>
-        <ListView
-            x:Name="PrivateKeysListView"
-            DisplayMemberPath="DisplayName"
-            MinHeight="320" />
+        <ItemsControl
+            x:Name="PrivateKeysItemsControl"
+            MinHeight="320">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Spacing="8" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <controls:SettingsCard
+                        Header="{Binding Alias}"
+                        Description="{Binding FingerprintDisplay}">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock
+                                MinWidth="72"
+                                VerticalAlignment="Center"
+                                Text="{Binding KeyTypeDisplay}"
+                                Style="{ThemeResource CaptionTextBlockStyle}"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                            <Button Tag="{Binding}" Click="SelectPrivateKeyButton_Click">
+                                <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE712;" />
+                                <Button.Flyout>
+                                    <Flyout Placement="BottomEdgeAlignedRight">
+                                        <StackPanel MinWidth="180" Spacing="8">
+                                            <Button x:Uid="CopySelectedPrivatePublicKeyButton" HorizontalAlignment="Stretch" Tag="{Binding}" Click="CopySelectedPrivatePublicKeyButton_Click" />
+                                            <Button x:Uid="ExportSelectedPrivatePublicKeyButton" HorizontalAlignment="Stretch" Tag="{Binding}" Click="ExportSelectedPrivatePublicKeyButton_Click" />
+                                            <Button x:Uid="CopySelectedPrivateKeyButton" HorizontalAlignment="Stretch" Tag="{Binding}" Click="CopySelectedPrivateKeyButton_Click" />
+                                            <Button x:Uid="ExportSelectedPrivateKeyButton" HorizontalAlignment="Stretch" Tag="{Binding}" Click="ExportSelectedPrivateKeyButton_Click" />
+                                            <Button x:Uid="ChangePrivateKeyPasswordButton" HorizontalAlignment="Stretch" Tag="{Binding}" Click="ChangePrivateKeyPasswordButton_Click" />
+                                            <Button x:Uid="DeleteSelectedPrivateKeyButton" HorizontalAlignment="Stretch" Tag="{Binding}" Click="DeleteSelectedPrivateKeyButton_Click" />
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                        </StackPanel>
+                    </controls:SettingsCard>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </StackPanel>
 </UserControl>

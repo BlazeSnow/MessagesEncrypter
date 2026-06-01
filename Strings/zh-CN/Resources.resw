@@ -169,13 +169,13 @@
     <value>从文件导入</value>
   </data>
   <data name="CopySelectedRecipientKeyButton.Content" xml:space="preserve">
-    <value>复制所选公钥</value>
+    <value>复制公钥</value>
   </data>
   <data name="ExportSelectedRecipientKeyButton.Content" xml:space="preserve">
-    <value>导出所选</value>
+    <value>导出</value>
   </data>
   <data name="DeleteSelectedRecipientKeyButton.Content" xml:space="preserve">
-    <value>删除所选</value>
+    <value>删除</value>
   </data>
   <data name="GenerateKeyDescription.Text" xml:space="preserve">
     <value>生成 RSA 密钥对。私钥会使用本次输入的密码加密后保存，请妥善保存密码。</value>
@@ -268,19 +268,19 @@
     <value>确定要删除“{0}”吗？此操作会更新本机密钥存档。</value>
   </data>
   <data name="CopySelectedPrivatePublicKeyButton.Content" xml:space="preserve">
-    <value>复制所选公钥</value>
+    <value>复制公钥</value>
   </data>
   <data name="ExportSelectedPrivatePublicKeyButton.Content" xml:space="preserve">
     <value>导出公钥</value>
   </data>
   <data name="CopySelectedPrivateKeyButton.Content" xml:space="preserve">
-    <value>复制所选私钥</value>
+    <value>复制私钥</value>
   </data>
   <data name="ExportSelectedPrivateKeyButton.Content" xml:space="preserve">
     <value>导出私钥</value>
   </data>
   <data name="DeleteSelectedPrivateKeyButton.Content" xml:space="preserve">
-    <value>删除所选</value>
+    <value>删除</value>
   </data>
   <data name="RecipientKeysListTitle.Text" xml:space="preserve">
     <value>接收方列表</value>
