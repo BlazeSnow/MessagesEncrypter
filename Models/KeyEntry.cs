@@ -43,7 +43,7 @@ public sealed class KeyEntry
         }
     }
 
-    public string KeyTypeDisplay => $"({KeyType})";
+    public string KeyTypeDisplay => KeyType;
 
     public string FingerprintDisplay => Fingerprint;
 
