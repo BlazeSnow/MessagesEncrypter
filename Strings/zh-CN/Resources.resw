@@ -172,7 +172,7 @@
     <value>复制公钥</value>
   </data>
   <data name="ExportSelectedRecipientKeyButton.Content" xml:space="preserve">
-    <value>导出</value>
+    <value>导出公钥</value>
   </data>
   <data name="DeleteSelectedRecipientKeyButton.Content" xml:space="preserve">
     <value>删除</value>
