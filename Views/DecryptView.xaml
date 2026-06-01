@@ -20,9 +20,24 @@
             Height="160"
             TextWrapping="Wrap" />
         <StackPanel Orientation="Horizontal" Spacing="8">
-            <Button x:Uid="DecryptButton" Click="DecryptButton_Click" />
-            <Button x:Uid="PasteEncryptedMessageButton" Click="PasteEncryptedMessageButton_Click" />
-            <Button x:Uid="ClearDecryptContentButton" Click="ClearDecryptContentButton_Click" />
+            <Button Click="DecryptButton_Click">
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE785;" />
+                    <TextBlock x:Uid="DecryptButton" />
+                </StackPanel>
+            </Button>
+            <Button Click="PasteEncryptedMessageButton_Click">
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE77F;" />
+                    <TextBlock x:Uid="PasteEncryptedMessageButton" />
+                </StackPanel>
+            </Button>
+            <Button Click="ClearDecryptContentButton_Click">
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE894;" />
+                    <TextBlock x:Uid="ClearDecryptContentButton" />
+                </StackPanel>
+            </Button>
         </StackPanel>
         <TextBlock x:Uid="DecryptedMessageLabel" Style="{ThemeResource BodyStrongTextBlockStyle}" />
         <TextBox

@@ -1,4 +1,5 @@
 using MessagesEncrypter.Models;
+using System.Collections;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
@@ -6,6 +7,8 @@ namespace MessagesEncrypter.Views;
 
 public sealed partial class RecipientKeysView : UserControl
 {
+    private KeyEntry? _selectedKey;
+
     public RecipientKeysView()
     {
         InitializeComponent();
@@ -23,21 +26,31 @@ public sealed partial class RecipientKeysView : UserControl
 
     public object? ItemsSource
     {
-        get => RecipientKeysListView.ItemsSource;
-        set => RecipientKeysListView.ItemsSource = value;
+        get => RecipientKeysItemsControl.ItemsSource;
+        set => RecipientKeysItemsControl.ItemsSource = value;
     }
 
-    public KeyEntry? SelectedKey => RecipientKeysListView.SelectedItem as KeyEntry;
+    public KeyEntry? SelectedKey => _selectedKey;
 
     public int SelectedIndex
     {
-        get => RecipientKeysListView.SelectedIndex;
-        set => RecipientKeysListView.SelectedIndex = value;
+        get => ItemsSource is IList list && _selectedKey is not null ? list.IndexOf(_selectedKey) : -1;
+        set
+        {
+            if (ItemsSource is IList list && value >= 0 && value < list.Count)
+            {
+                _selectedKey = list[value] as KeyEntry;
+            }
+            else
+            {
+                _selectedKey = null;
+            }
+        }
     }
 
     public void SelectKey(KeyEntry entry)
     {
-        RecipientKeysListView.SelectedItem = entry;
+        _selectedKey = entry;
     }
 
     private void ImportRecipientKeyButton_Click(object sender, RoutedEventArgs e)
@@ -45,13 +58,20 @@ public sealed partial class RecipientKeysView : UserControl
         ImportRequested?.Invoke(sender, e);
     }
 
+    private void SelectRecipientKeyButton_Click(object sender, RoutedEventArgs e)
+    {
+        SelectKeyFromSender(sender);
+    }
+
     private void CopySelectedRecipientKeyButton_Click(object sender, RoutedEventArgs e)
     {
+        SelectKeyFromSender(sender);
         CopyRequested?.Invoke(sender, e);
     }
 
     private void ExportSelectedRecipientKeyButton_Click(object sender, RoutedEventArgs e)
     {
+        SelectKeyFromSender(sender);
         ExportRequested?.Invoke(sender, e);
     }
 
@@ -62,6 +82,15 @@ public sealed partial class RecipientKeysView : UserControl
 
     private void DeleteSelectedRecipientKeyButton_Click(object sender, RoutedEventArgs e)
     {
+        SelectKeyFromSender(sender);
         DeleteRequested?.Invoke(sender, e);
+    }
+
+    private void SelectKeyFromSender(object sender)
+    {
+        if (sender is FrameworkElement { Tag: KeyEntry entry })
+        {
+            _selectedKey = entry;
+        }
     }
 }

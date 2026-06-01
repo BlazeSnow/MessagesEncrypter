@@ -195,7 +195,7 @@ namespace MessagesEncrypter
             privateKeyTextBox.TextWrapping = TextWrapping.NoWrap;
             Button importFromFileButton = new()
             {
-                Content = AppResources.GetString("ImportPrivateKeyFromFileButtonText")
+                Content = CreateIconTextContent("\uE8B5", AppResources.GetString("ImportPrivateKeyFromFileButtonText"))
             };
             importFromFileButton.Click += async (_, _) => await ImportPrivateKeyFromFileAsync(privateKeyTextBox);
 
@@ -295,9 +295,9 @@ namespace MessagesEncrypter
             publicKeyTextBox.TextWrapping = TextWrapping.NoWrap;
             Button importFromFileButton = new()
             {
-                Content = AppResources.GetString("ImportRecipientKeyFromFileButtonText")
+                Content = CreateIconTextContent("\uE8B5", AppResources.GetString("ImportRecipientKeyFromFileButtonText"))
             };
-            importFromFileButton.Click += async (_, _) => await ImportRecipientPublicKeyFromFileAsync(publicKeyTextBox);
+            importFromFileButton.Click += async (_, _) => await ImportRecipientPublicKeyFromFileAsync(aliasTextBox, publicKeyTextBox);
 
             var dialogContent = new StackPanel
             {
@@ -575,7 +575,7 @@ namespace MessagesEncrypter
             }
         }
 
-        private async System.Threading.Tasks.Task ImportRecipientPublicKeyFromFileAsync(TextBox publicKeyTextBox)
+        private async System.Threading.Tasks.Task ImportRecipientPublicKeyFromFileAsync(TextBox aliasTextBox, TextBox publicKeyTextBox)
         {
             var picker = new FileOpenPicker
             {
@@ -595,6 +595,10 @@ namespace MessagesEncrypter
             try
             {
                 publicKeyTextBox.Text = await File.ReadAllTextAsync(file.Path, Encoding.UTF8);
+                if (string.IsNullOrWhiteSpace(aliasTextBox.Text))
+                {
+                    aliasTextBox.Text = Path.GetFileNameWithoutExtension(file.Name);
+                }
             }
             catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
             {
@@ -731,7 +735,8 @@ namespace MessagesEncrypter
 
         private void ShowOperationProgress(bool isVisible)
         {
-            OperationProgressBar.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
+            OperationProgressRing.IsActive = isVisible;
+            OperationProgressRing.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void LoadKeyStore()
@@ -873,6 +878,25 @@ namespace MessagesEncrypter
 
             comboBox.SelectedItem = CryptoConstants.DefaultRsaKeySizeBits;
             return comboBox;
+        }
+
+        private static StackPanel CreateIconTextContent(string glyph, string text)
+        {
+            var content = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                Spacing = 6
+            };
+            content.Children.Add(new FontIcon
+            {
+                FontFamily = new Microsoft.UI.Xaml.Media.FontFamily("Segoe Fluent Icons"),
+                Glyph = glyph
+            });
+            content.Children.Add(new TextBlock
+            {
+                Text = text
+            });
+            return content;
         }
 
         private async System.Threading.Tasks.Task<ContentDialogResult> ShowInputDialogAsync(
