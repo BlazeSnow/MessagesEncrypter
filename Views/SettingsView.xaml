@@ -66,5 +66,14 @@
                 </StackPanel>
             </Button>
         </controls:SettingsCard>
+
+        <controls:SettingsCard x:Uid="AppVersionSettingsCard">
+            <controls:SettingsCard.HeaderIcon>
+                <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE946;" />
+            </controls:SettingsCard.HeaderIcon>
+            <TextBlock
+                x:Name="AppVersionTextBlock"
+                TextWrapping="WrapWholeWords" />
+        </controls:SettingsCard>
     </StackPanel>
 </UserControl>

@@ -22,11 +22,16 @@ namespace MessagesEncrypter
         private readonly MessageCryptoService _messageCryptoService;
         private readonly ObservableCollection<KeyEntry> _recipientKeys = [];
         private readonly ObservableCollection<KeyEntry> _privateKeys = [];
+        private readonly DispatcherTimer _statusDismissTimer = new()
+        {
+            Interval = TimeSpan.FromSeconds(8)
+        };
 
         public MainWindow()
         {
             _messageCryptoService = new MessageCryptoService(_keyManagementService);
             InitializeComponent();
+            _statusDismissTimer.Tick += StatusDismissTimer_Tick;
             Title = AppResources.GetString("MainWindowTitle");
             ExtendsContentIntoTitleBar = true;
             SetTitleBar(AppTitleBar);
@@ -722,14 +727,24 @@ namespace MessagesEncrypter
 
         private void ShowStatus(string resourceKey, InfoBarSeverity severity)
         {
+            _statusDismissTimer.Stop();
             StatusInfoBar.Message = AppResources.GetString(resourceKey);
             StatusInfoBar.Severity = severity;
             StatusInfoBar.Visibility = Visibility.Visible;
             StatusInfoBar.IsOpen = true;
+            _statusDismissTimer.Start();
         }
 
         private void StatusInfoBar_Closed(InfoBar sender, InfoBarClosedEventArgs args)
         {
+            _statusDismissTimer.Stop();
+            StatusInfoBar.Visibility = Visibility.Collapsed;
+        }
+
+        private void StatusDismissTimer_Tick(object? sender, object e)
+        {
+            _statusDismissTimer.Stop();
+            StatusInfoBar.IsOpen = false;
             StatusInfoBar.Visibility = Visibility.Collapsed;
         }
 

@@ -5,14 +5,13 @@
   xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
-  xmlns:systemai="http://schemas.microsoft.com/appx/manifest/systemai/windows10"
   xmlns:uap18="http://schemas.microsoft.com/appx/manifest/uap/windows10/18"
-  IgnorableNamespaces="uap rescap systemai uap18">
+  IgnorableNamespaces="uap rescap uap18">
 
   <Identity
     Name="BlazeSnow.MessagesEncrypter"
     Publisher="CN=C171AF55-419C-4E73-B34E-CB98C8F1EB78"
-    Version="2026.6.1.0" />
+    Version="2026.6.3.0" />
 
   <mp:PhoneIdentity PhoneProductId="875eb646-98e3-4eee-86f2-a2985c584d17" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
@@ -49,6 +48,5 @@
 
   <Capabilities>
     <rescap:Capability Name="runFullTrust" />
-    <systemai:Capability Name="systemAIModels"/>
   </Capabilities>
 </Package>

@@ -7,7 +7,6 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <Platforms>x86;x64;ARM64</Platforms>
     <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
-    <PublishProfile>win-$(Platform).pubxml</PublishProfile>
     <UseWinUI>true</UseWinUI>
     <WinUISDKReferences>false</WinUISDKReferences>
     <EnableMsixTooling>true</EnableMsixTooling>
@@ -31,6 +30,10 @@
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="2.1.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <TrimmerRootDescriptor Include="ILLink.Descriptors.xml" />
+  </ItemGroup>
+
   <!--
     Defining the "HasPackageAndPublishMenuAddedByProject" property here allows the Solution
     Explorer "Package and Publish" context menu entry to be enabled for this project even if
@@ -43,12 +46,22 @@
   <!-- Publish Properties -->
   <PropertyGroup>
     <PublishReadyToRun>False</PublishReadyToRun>
-    <PublishTrimmed>False</PublishTrimmed>
+    <PublishTrimmed>True</PublishTrimmed>
+    <TrimMode>full</TrimMode>
+    <EnableTrimAnalyzer>True</EnableTrimAnalyzer>
+    <SuppressTrimAnalysisWarnings>False</SuppressTrimAnalysisWarnings>
+    <TrimmerSingleWarn>True</TrimmerSingleWarn>
+    <ILLinkTreatWarningsAsErrors>False</ILLinkTreatWarningsAsErrors>
+    <PublishProtocol>FileSystem</PublishProtocol>
+    <PublishDir>bin\$(Configuration)\$(TargetFramework)\$(RuntimeIdentifier)\publish\</PublishDir>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>False</PublishSingleFile>
     <DefaultLanguage>zh-CN</DefaultLanguage>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/BlazeSnow/MessagesEncrypter</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <SignAssembly>False</SignAssembly>
   </PropertyGroup>
 </Project>

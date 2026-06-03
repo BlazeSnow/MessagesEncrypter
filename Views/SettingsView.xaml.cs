@@ -2,6 +2,7 @@ using MessagesEncrypter.Services;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
+using Windows.ApplicationModel;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.System;
 
@@ -12,6 +13,7 @@ public sealed partial class SettingsView : UserControl
     public SettingsView()
     {
         InitializeComponent();
+        AppVersionTextBlock.Text = GetAppVersion();
     }
 
     public event RoutedEventHandler? ChooseExportFolderRequested;
@@ -32,6 +34,12 @@ public sealed partial class SettingsView : UserControl
     private void OpenExportFolderButton_Click(object sender, RoutedEventArgs e)
     {
         OpenExportFolderRequested?.Invoke(sender, e);
+    }
+
+    private static string GetAppVersion()
+    {
+        PackageVersion version = Package.Current.Id.Version;
+        return $"{version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
     }
 
     private async void OpenProjectRepositoryButton_Click(object sender, RoutedEventArgs e)
