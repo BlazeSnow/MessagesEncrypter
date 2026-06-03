@@ -621,4 +621,7 @@
   <data name="ErrorClipboardUnavailable" xml:space="preserve">
     <value>剪贴板当前不可用。</value>
   </data>
+  <data name="AppVersionSettingsCard.Header" xml:space="preserve">
+    <value>软件版本</value>
+  </data>
 </root>
