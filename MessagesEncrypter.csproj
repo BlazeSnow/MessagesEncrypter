@@ -43,7 +43,11 @@
   <!-- Publish Properties -->
   <PropertyGroup>
     <PublishReadyToRun>False</PublishReadyToRun>
-    <PublishTrimmed>False</PublishTrimmed>
+    <PublishTrimmed>True</PublishTrimmed>
+    <EnableTrimAnalyzer>True</EnableTrimAnalyzer>
+    <SuppressTrimAnalysisWarnings>False</SuppressTrimAnalysisWarnings>
+    <TrimmerSingleWarn>False</TrimmerSingleWarn>
+    <ILLinkTreatWarningsAsErrors>False</ILLinkTreatWarningsAsErrors>
     <DefaultLanguage>zh-CN</DefaultLanguage>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
