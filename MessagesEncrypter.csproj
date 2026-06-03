@@ -34,18 +34,6 @@
     <TrimmerRootDescriptor Include="ILLink.Descriptors.xml" />
   </ItemGroup>
 
-  <PropertyGroup Condition="'$(Platform)'=='x86'">
-    <RuntimeIdentifier>win-x86</RuntimeIdentifier>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Platform)'=='x64'">
-    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Platform)'=='ARM64'">
-    <RuntimeIdentifier>win-arm64</RuntimeIdentifier>
-  </PropertyGroup>
-
   <!--
     Defining the "HasPackageAndPublishMenuAddedByProject" property here allows the Solution
     Explorer "Package and Publish" context menu entry to be enabled for this project even if
