@@ -12,10 +12,10 @@ public sealed class KeyStoreService
 {
     private const string StoreFileName = "keys.json";
 
-    private static readonly JsonSerializerOptions JsonOptions = new(JsonSerializerDefaults.Web)
+    private static readonly AppJsonSerializerContext JsonContext = new(new JsonSerializerOptions(JsonSerializerDefaults.Web)
     {
         WriteIndented = true
-    };
+    });
 
     public string StorePath => Path.Combine(ApplicationData.Current.LocalFolder.Path, StoreFileName);
 
@@ -29,7 +29,7 @@ public sealed class KeyStoreService
             }
 
             string json = File.ReadAllText(StorePath, Encoding.UTF8);
-            return JsonSerializer.Deserialize<KeyStoreData>(json, JsonOptions) ?? new KeyStoreData();
+            return JsonSerializer.Deserialize(json, JsonContext.KeyStoreData) ?? new KeyStoreData();
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or JsonException)
         {
@@ -49,7 +49,7 @@ public sealed class KeyStoreService
                 PrivateKeys = [.. privateKeys]
             };
 
-            string json = JsonSerializer.Serialize(data, JsonOptions);
+            string json = JsonSerializer.Serialize(data, JsonContext.KeyStoreData);
             File.WriteAllText(StorePath, json, Encoding.UTF8);
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or JsonException)

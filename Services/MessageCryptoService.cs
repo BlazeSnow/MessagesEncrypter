@@ -8,8 +8,6 @@ namespace MessagesEncrypter.Services;
 
 public sealed class MessageCryptoService
 {
-    private static readonly JsonSerializerOptions JsonOptions = new(JsonSerializerDefaults.Web);
-
     private readonly KeyManagementService _keyManagementService;
 
     public MessageCryptoService(KeyManagementService keyManagementService)
@@ -45,7 +43,7 @@ public sealed class MessageCryptoService
                 Convert.ToBase64String(tag),
                 Convert.ToBase64String(ciphertext));
 
-            byte[] jsonBytes = JsonSerializer.SerializeToUtf8Bytes(package, JsonOptions);
+            byte[] jsonBytes = JsonSerializer.SerializeToUtf8Bytes(package, AppJsonSerializerContext.Default.EncryptedMessagePackage);
             return Convert.ToBase64String(jsonBytes);
         }
         catch (CryptoException)
@@ -76,7 +74,7 @@ public sealed class MessageCryptoService
         try
         {
             byte[] jsonBytes = Convert.FromBase64String(armoredPackage.Trim());
-            EncryptedMessagePackage? package = JsonSerializer.Deserialize<EncryptedMessagePackage>(jsonBytes, JsonOptions);
+            EncryptedMessagePackage? package = JsonSerializer.Deserialize(jsonBytes, AppJsonSerializerContext.Default.EncryptedMessagePackage);
             if (package is null || package.Ver != CryptoConstants.CurrentMessageVersion)
             {
                 throw new CryptoException("ErrorUnsupportedMessageFormat");
