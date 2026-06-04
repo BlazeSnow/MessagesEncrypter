@@ -48,9 +48,9 @@ public sealed class KeyStoreService
                 IntegrityService.VerifyFile(StorePath);
             }
 
-            EnsureDatabase();
+            bool databaseSchemaMigrated = EnsureDatabase();
             bool migrated = MigrateLegacyJsonIfNeeded();
-            if (migrated || !hadDatabase || trustCurrentStore)
+            if (databaseSchemaMigrated || migrated || !hadDatabase || trustCurrentStore)
             {
                 IntegrityService.SignFile(StorePath, trustCurrentStore);
             }
@@ -124,11 +124,12 @@ public sealed class KeyStoreService
         }
     }
 
-    private void EnsureDatabase()
+    private bool EnsureDatabase()
     {
         Directory.CreateDirectory(ApplicationData.Current.LocalFolder.Path);
 
         using SqliteConnection connection = OpenConnection();
+        bool tableCreated = !KeysTableExists(connection);
         using SqliteCommand command = connection.CreateCommand();
         command.CommandText = """
             CREATE TABLE IF NOT EXISTS keys (
@@ -143,16 +144,23 @@ public sealed class KeyStoreService
             """;
         command.ExecuteNonQuery();
 
-        RemoveLegacyIdColumnIfNeeded(connection);
+        return tableCreated || RemoveLegacyIdColumnIfNeeded(connection);
     }
 
-    private static void RemoveLegacyIdColumnIfNeeded(SqliteConnection connection)
+    private static bool KeysTableExists(SqliteConnection connection)
+    {
+        using SqliteCommand command = connection.CreateCommand();
+        command.CommandText = "SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = 'keys';";
+        return Convert.ToInt32(command.ExecuteScalar()) > 0;
+    }
+
+    private static bool RemoveLegacyIdColumnIfNeeded(SqliteConnection connection)
     {
         using SqliteCommand checkCommand = connection.CreateCommand();
         checkCommand.CommandText = "SELECT COUNT(*) FROM pragma_table_info('keys') WHERE name = 'id';";
         if (Convert.ToInt32(checkCommand.ExecuteScalar()) == 0)
         {
-            return;
+            return false;
         }
 
         using SqliteTransaction transaction = connection.BeginTransaction();
@@ -190,6 +198,7 @@ public sealed class KeyStoreService
             """;
         migrateCommand.ExecuteNonQuery();
         transaction.Commit();
+        return true;
     }
 
     private bool MigrateLegacyJsonIfNeeded()

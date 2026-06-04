@@ -48,7 +48,7 @@ public sealed class KeyStoreIntegrityService
 
             return null;
         }
-        catch (Exception ex) when (ex is FormatException or CryptographicException or Win32Exception)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or FormatException or CryptographicException or Win32Exception)
         {
             return "ErrorKeyStoreIntegrityInvalid";
         }
@@ -75,7 +75,7 @@ public sealed class KeyStoreIntegrityService
             byte[] signature = ComputeSignature(filePath);
             File.WriteAllText(SignaturePath, Convert.ToBase64String(signature), Encoding.UTF8);
         }
-        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or CryptographicException or Win32Exception)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or FormatException or CryptographicException or Win32Exception)
         {
             throw new CryptoException("ErrorKeyStoreIntegritySignFailed", ex);
         }
