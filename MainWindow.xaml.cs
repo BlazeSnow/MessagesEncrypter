@@ -39,7 +39,7 @@ namespace MessagesEncrypter
             ExtendsContentIntoTitleBar = true;
             SetTitleBar(AppTitleBar);
             InitializeViews();
-            LoadKeyStore();
+            _ = LoadKeyStoreAsync();
             LoadSettings();
             ShowPanel("Home");
         }
@@ -872,11 +872,14 @@ namespace MessagesEncrypter
             OperationProgressRing.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        private void LoadKeyStore()
+        private async System.Threading.Tasks.Task LoadKeyStoreAsync(bool trustCurrentStore = false)
         {
             try
             {
-                KeyStoreData data = _keyStoreService.Load();
+                KeyStoreData data = _keyStoreService.Load(trustCurrentStore);
+                _recipientKeys.Clear();
+                _privateKeys.Clear();
+
                 foreach (KeyEntry entry in data.RecipientKeys)
                 {
                     _recipientKeys.Add(entry);
@@ -902,6 +905,17 @@ namespace MessagesEncrypter
             }
             catch (CryptoException ex)
             {
+                if (!trustCurrentStore && IsKeyStoreIntegrityError(ex))
+                {
+                    ContentDialogResult dialogResult = await ShowKeyStoreIntegrityDialogAsync(ex.ResourceKey);
+                    if (dialogResult == ContentDialogResult.Primary)
+                    {
+                        await LoadKeyStoreAsync(true);
+                    }
+
+                    return;
+                }
+
                 ShowStatus(ex.ResourceKey, InfoBarSeverity.Error);
             }
         }
@@ -1190,6 +1204,28 @@ namespace MessagesEncrypter
                 CloseButtonText = AppResources.GetString("DialogCancelButtonText"),
                 DefaultButton = ContentDialogButton.Close,
                 Content = content
+            };
+
+            return await dialog.ShowAsync();
+        }
+
+        private static bool IsKeyStoreIntegrityError(CryptoException ex)
+        {
+            return ex.ResourceKey is "ErrorKeyStoreIntegrityMissing" or "ErrorKeyStoreIntegrityInvalid";
+        }
+
+        private async System.Threading.Tasks.Task<ContentDialogResult> ShowKeyStoreIntegrityDialogAsync(string contentResourceKey)
+        {
+            var dialog = new ContentDialog
+            {
+                XamlRoot = RootNavigation.XamlRoot,
+                RequestedTheme = RootNavigation.ActualTheme,
+                Title = AppResources.GetString("KeyStoreIntegrityDialogTitle"),
+                PrimaryButtonText = AppResources.GetString("KeyStoreIntegrityDialogIgnoreButtonText"),
+                CloseButtonText = AppResources.GetString("DialogCancelButtonText"),
+                DefaultButton = ContentDialogButton.Close,
+                Content = AppResources.GetString(contentResourceKey),
+                PrimaryButtonStyle = (Style)Application.Current.Resources["DangerButtonStyle"]
             };
 
             return await dialog.ShowAsync();

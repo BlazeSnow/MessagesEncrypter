@@ -10,6 +10,11 @@
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
                 <!-- Other merged dictionaries here -->
             </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="DangerButtonStyle" TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
+                <Setter Property="Background" Value="{ThemeResource SystemFillColorCriticalBrush}" />
+                <Setter Property="Foreground" Value="{ThemeResource TextOnAccentFillColorPrimaryBrush}" />
+                <Setter Property="BorderBrush" Value="{ThemeResource SystemFillColorCriticalBrush}" />
+            </Style>
             <!-- Other app resources here -->
         </ResourceDictionary>
     </Application.Resources>

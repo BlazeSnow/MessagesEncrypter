@@ -3,6 +3,7 @@ using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using Windows.Storage;
@@ -28,12 +29,25 @@ public sealed class KeyStoreService
 
     private string LegacyMigratedStorePath => Path.Combine(ApplicationData.Current.LocalFolder.Path, LegacyMigratedStoreFileName);
 
-    public KeyStoreData Load()
+    private KeyStoreIntegrityService IntegrityService => new(ApplicationData.Current.LocalFolder.Path);
+
+    public KeyStoreData Load(bool trustCurrentStore = false)
     {
         try
         {
+            Directory.CreateDirectory(ApplicationData.Current.LocalFolder.Path);
+            bool hadDatabase = File.Exists(StorePath);
+            if (hadDatabase && !trustCurrentStore)
+            {
+                IntegrityService.VerifyFile(StorePath);
+            }
+
             EnsureDatabase();
-            MigrateLegacyJsonIfNeeded();
+            bool migrated = MigrateLegacyJsonIfNeeded();
+            if (migrated || !hadDatabase || trustCurrentStore)
+            {
+                IntegrityService.SignFile(StorePath);
+            }
 
             using SqliteConnection connection = OpenConnection();
             var data = new KeyStoreData();
@@ -66,7 +80,7 @@ public sealed class KeyStoreService
 
             return data;
         }
-        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or JsonException or SqliteException)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or JsonException or SqliteException or CryptographicException)
         {
             throw new CryptoException("ErrorKeyStoreLoadFailed", ex);
         }
@@ -78,19 +92,23 @@ public sealed class KeyStoreService
         {
             EnsureDatabase();
 
-            using SqliteConnection connection = OpenConnection();
-            using SqliteTransaction transaction = connection.BeginTransaction();
-            using SqliteCommand deleteCommand = connection.CreateCommand();
-            deleteCommand.Transaction = transaction;
-            deleteCommand.CommandText = "DELETE FROM keys;";
-            deleteCommand.ExecuteNonQuery();
+            using (SqliteConnection connection = OpenConnection())
+            {
+                using SqliteTransaction transaction = connection.BeginTransaction();
+                using SqliteCommand deleteCommand = connection.CreateCommand();
+                deleteCommand.Transaction = transaction;
+                deleteCommand.CommandText = "DELETE FROM keys;";
+                deleteCommand.ExecuteNonQuery();
 
-            InsertKeys(connection, transaction, RecipientKeyCategory, recipientKeys);
-            InsertKeys(connection, transaction, PrivateKeyCategory, privateKeys);
+                InsertKeys(connection, transaction, RecipientKeyCategory, recipientKeys);
+                InsertKeys(connection, transaction, PrivateKeyCategory, privateKeys);
 
-            transaction.Commit();
+                transaction.Commit();
+            }
+
+            IntegrityService.SignFile(StorePath);
         }
-        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or SqliteException)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or SqliteException or CryptographicException)
         {
             throw new CryptoException("ErrorKeyStoreSaveFailed", ex);
         }
@@ -124,17 +142,18 @@ public sealed class KeyStoreService
         command.ExecuteNonQuery();
     }
 
-    private void MigrateLegacyJsonIfNeeded()
+    private bool MigrateLegacyJsonIfNeeded()
     {
         if (!File.Exists(LegacyStorePath) || HasStoredKeys())
         {
-            return;
+            return false;
         }
 
         string json = File.ReadAllText(LegacyStorePath, Encoding.UTF8);
         KeyStoreData data = JsonSerializer.Deserialize(json, JsonContext.KeyStoreData) ?? new KeyStoreData();
         Save(data.RecipientKeys, data.PrivateKeys);
         File.Move(LegacyStorePath, LegacyMigratedStorePath, true);
+        return true;
     }
 
     private bool HasStoredKeys()

@@ -579,6 +579,18 @@
   <data name="ErrorKeyStoreSaveFailed" xml:space="preserve">
     <value>保存密钥存档失败，请检查应用本地存储是否可用。</value>
   </data>
+  <data name="ErrorKeyStoreIntegrityMissing" xml:space="preserve">
+    <value>密钥存档缺少完整性校验信息，已拒绝加载以避免使用可能被替换的密钥。</value>
+  </data>
+  <data name="ErrorKeyStoreIntegrityInvalid" xml:space="preserve">
+    <value>密钥存档完整性校验失败，文件可能已被外部修改，已拒绝加载。</value>
+  </data>
+  <data name="KeyStoreIntegrityDialogTitle" xml:space="preserve">
+    <value>密钥存档可能不安全</value>
+  </data>
+  <data name="KeyStoreIntegrityDialogIgnoreButtonText" xml:space="preserve">
+    <value>忽略并重新签名</value>
+  </data>
   <data name="ErrorPublicKeyRequired" xml:space="preserve">
     <value>请提供接收方公钥。</value>
   </data>
