@@ -41,7 +41,7 @@ public sealed class KeyStoreService
             command.CommandText = """
                 SELECT category, alias, fingerprint, public_key_pem, encrypted_private_key_pem
                 FROM keys
-                ORDER BY category, sort_order;
+                ORDER BY category, alias COLLATE NOCASE, fingerprint COLLATE NOCASE;
                 """;
 
             using SqliteDataReader reader = command.ExecuteReader();

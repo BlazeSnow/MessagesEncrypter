@@ -3,6 +3,7 @@ using MessagesEncrypter.Services;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
@@ -164,6 +165,7 @@ namespace MessagesEncrypter
                 }
 
                 _privateKeys.Add(entry);
+                SortKeyCollection(_privateKeys);
                 DecryptView.SelectPrivateKey(entry);
                 PrivateKeysView.SelectKey(entry);
                 if (SaveKeyStore())
@@ -258,6 +260,7 @@ namespace MessagesEncrypter
                 }
 
                 _privateKeys.Add(entry);
+                SortKeyCollection(_privateKeys);
                 DecryptView.SelectPrivateKey(entry);
                 PrivateKeysView.SelectKey(entry);
                 if (SaveKeyStore())
@@ -355,6 +358,7 @@ namespace MessagesEncrypter
                 string alias = GetAliasOrDefault(aliasTextBox.Text, "DefaultRecipientKeyAlias", _recipientKeys.Count + 1);
                 var entry = new KeyEntry(alias, fingerprint, publicKeyPem, null);
                 _recipientKeys.Add(entry);
+                SortKeyCollection(_recipientKeys);
                 EncryptView.SelectRecipientKey(entry);
                 RecipientKeysView.SelectKey(entry);
                 if (SaveKeyStore())
@@ -413,6 +417,7 @@ namespace MessagesEncrypter
             }
 
             _recipientKeys[index] = updatedEntry;
+            SortKeyCollection(_recipientKeys);
             RecipientKeysView.SelectKey(updatedEntry);
             EncryptView.SelectRecipientKey(updatedEntry);
             if (SaveKeyStore())
@@ -421,7 +426,13 @@ namespace MessagesEncrypter
             }
             else
             {
-                _recipientKeys[index] = entry;
+                int updatedIndex = _recipientKeys.IndexOf(updatedEntry);
+                if (updatedIndex >= 0)
+                {
+                    _recipientKeys[updatedIndex] = entry;
+                    SortKeyCollection(_recipientKeys);
+                }
+
                 RecipientKeysView.SelectKey(entry);
                 EncryptView.SelectRecipientKey(entry);
             }
@@ -520,6 +531,7 @@ namespace MessagesEncrypter
             }
 
             _privateKeys[index] = updatedEntry;
+            SortKeyCollection(_privateKeys);
             PrivateKeysView.SelectKey(updatedEntry);
             DecryptView.SelectPrivateKey(updatedEntry);
             if (SaveKeyStore())
@@ -528,7 +540,13 @@ namespace MessagesEncrypter
             }
             else
             {
-                _privateKeys[index] = entry;
+                int updatedIndex = _privateKeys.IndexOf(updatedEntry);
+                if (updatedIndex >= 0)
+                {
+                    _privateKeys[updatedIndex] = entry;
+                    SortKeyCollection(_privateKeys);
+                }
+
                 PrivateKeysView.SelectKey(entry);
                 DecryptView.SelectPrivateKey(entry);
             }
@@ -869,6 +887,9 @@ namespace MessagesEncrypter
                     _privateKeys.Add(entry);
                 }
 
+                SortKeyCollection(_recipientKeys);
+                SortKeyCollection(_privateKeys);
+
                 if (_recipientKeys.Count > 0)
                 {
                     SelectFirstRecipientKeyIfAvailable();
@@ -997,6 +1018,30 @@ namespace MessagesEncrypter
             }
 
             return false;
+        }
+
+        private static void SortKeyCollection(ObservableCollection<KeyEntry> keys)
+        {
+            var sortedKeys = new List<KeyEntry>(keys);
+            sortedKeys.Sort(CompareKeysByAlias);
+
+            for (int targetIndex = 0; targetIndex < sortedKeys.Count; targetIndex++)
+            {
+                KeyEntry key = sortedKeys[targetIndex];
+                int currentIndex = keys.IndexOf(key);
+                if (currentIndex >= 0 && currentIndex != targetIndex)
+                {
+                    keys.Move(currentIndex, targetIndex);
+                }
+            }
+        }
+
+        private static int CompareKeysByAlias(KeyEntry left, KeyEntry right)
+        {
+            int aliasComparison = StringComparer.CurrentCultureIgnoreCase.Compare(left.Alias, right.Alias);
+            return aliasComparison != 0
+                ? aliasComparison
+                : StringComparer.OrdinalIgnoreCase.Compare(left.Fingerprint, right.Fingerprint);
         }
 
         private static bool KeyFingerprintExists(ObservableCollection<KeyEntry> keys, string fingerprint)
