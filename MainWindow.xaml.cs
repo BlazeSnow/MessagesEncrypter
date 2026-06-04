@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.Storage;
 using Windows.Storage.Pickers;
 using WinRT.Interop;
 
@@ -23,8 +24,8 @@ namespace MessagesEncrypter
         private readonly MessageCryptoService _messageCryptoService;
         private readonly ObservableCollection<KeyEntry> _recipientKeys = [];
         private readonly ObservableCollection<KeyEntry> _privateKeys = [];
-        private string? _selectedRecipientKeyFingerprint;
-        private string? _selectedPrivateKeyFingerprint;
+        private const string SelectedRecipientKeyFingerprintSettingKey = "SelectedRecipientKeyFingerprint";
+        private const string SelectedPrivateKeyFingerprintSettingKey = "SelectedPrivateKeyFingerprint";
         private bool _isKeyStoreLoaded;
         private readonly DispatcherTimer _statusDismissTimer = new()
         {
@@ -86,12 +87,14 @@ namespace MessagesEncrypter
             EncryptView.RecipientKeysSource = _recipientKeys;
             EncryptView.EncryptRequested += EncryptButton_Click;
             EncryptView.CopyEncryptedMessageRequested += CopyEncryptedMessageButton_Click;
-            EncryptView.SelectedRecipientKeyChanged += (_, entry) => _selectedRecipientKeyFingerprint = entry?.Fingerprint;
+            EncryptView.SelectedRecipientKeyChanged += (_, entry) =>
+                SaveSelectedKeyFingerprint(SelectedRecipientKeyFingerprintSettingKey, entry?.Fingerprint);
 
             DecryptView.PrivateKeysSource = _privateKeys;
             DecryptView.DecryptRequested += DecryptButton_Click;
             DecryptView.PasteEncryptedMessageRequested += PasteEncryptedMessageButton_Click;
-            DecryptView.SelectedPrivateKeyChanged += (_, entry) => _selectedPrivateKeyFingerprint = entry?.Fingerprint;
+            DecryptView.SelectedPrivateKeyChanged += (_, entry) =>
+                SaveSelectedKeyFingerprint(SelectedPrivateKeyFingerprintSettingKey, entry?.Fingerprint);
 
             RecipientKeysView.ItemsSource = _recipientKeys;
             RecipientKeysView.ImportRequested += ImportRecipientKeyButton_Click;
@@ -924,15 +927,8 @@ namespace MessagesEncrypter
                 SortKeyCollection(_recipientKeys);
                 SortKeyCollection(_privateKeys);
 
-                if (_recipientKeys.Count > 0)
-                {
-                    SelectFirstRecipientKeyIfAvailable();
-                }
-
-                if (_privateKeys.Count > 0)
-                {
-                    SelectFirstPrivateKeyIfAvailable();
-                }
+                RestoreRecipientKeySelection();
+                RestorePrivateKeySelection();
             }
             catch (CryptoException ex)
             {
@@ -1008,7 +1004,10 @@ namespace MessagesEncrypter
 
         private void RestoreRecipientKeySelection()
         {
-            if (TrySelectKeyByFingerprint(_recipientKeys, _selectedRecipientKeyFingerprint, EncryptView.SelectRecipientKey))
+            if (TrySelectKeyByFingerprint(
+                _recipientKeys,
+                GetSelectedKeyFingerprint(SelectedRecipientKeyFingerprintSettingKey),
+                EncryptView.SelectRecipientKey))
             {
                 return;
             }
@@ -1021,7 +1020,10 @@ namespace MessagesEncrypter
 
         private void RestorePrivateKeySelection()
         {
-            if (TrySelectKeyByFingerprint(_privateKeys, _selectedPrivateKeyFingerprint, DecryptView.SelectPrivateKey))
+            if (TrySelectKeyByFingerprint(
+                _privateKeys,
+                GetSelectedKeyFingerprint(SelectedPrivateKeyFingerprintSettingKey),
+                DecryptView.SelectPrivateKey))
             {
                 return;
             }
@@ -1030,6 +1032,22 @@ namespace MessagesEncrypter
             {
                 DecryptView.SelectedPrivateKeyIndex = _privateKeys.Count > 0 ? 0 : -1;
             }
+        }
+
+        private static string? GetSelectedKeyFingerprint(string settingKey)
+        {
+            return ApplicationData.Current.LocalSettings.Values[settingKey] as string;
+        }
+
+        private static void SaveSelectedKeyFingerprint(string settingKey, string? fingerprint)
+        {
+            if (string.IsNullOrWhiteSpace(fingerprint))
+            {
+                ApplicationData.Current.LocalSettings.Values.Remove(settingKey);
+                return;
+            }
+
+            ApplicationData.Current.LocalSettings.Values[settingKey] = fingerprint;
         }
 
         private static bool TrySelectKeyByFingerprint(
