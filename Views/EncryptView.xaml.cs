@@ -1,6 +1,7 @@
 using MessagesEncrypter.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using System;
 
 namespace MessagesEncrypter.Views;
 
@@ -14,6 +15,8 @@ public sealed partial class EncryptView : UserControl
     public event RoutedEventHandler? EncryptRequested;
 
     public event RoutedEventHandler? CopyEncryptedMessageRequested;
+
+    public event EventHandler<KeyEntry?>? SelectedRecipientKeyChanged;
 
     public object? RecipientKeysSource
     {
@@ -50,6 +53,14 @@ public sealed partial class EncryptView : UserControl
     private void CopyEncryptedMessageButton_Click(object sender, RoutedEventArgs e)
     {
         CopyEncryptedMessageRequested?.Invoke(sender, e);
+    }
+
+    private void RecipientKeyComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (e.AddedItems.Count > 0 && e.AddedItems[0] is KeyEntry selectedKey)
+        {
+            SelectedRecipientKeyChanged?.Invoke(this, selectedKey);
+        }
     }
 
     private void ClearEncryptContentButton_Click(object sender, RoutedEventArgs e)

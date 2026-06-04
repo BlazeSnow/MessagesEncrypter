@@ -10,7 +10,8 @@
             x:Name="PrivateKeyComboBox"
             x:Uid="PrivateKeyComboBox"
             DisplayMemberPath="DisplayName"
-            HorizontalAlignment="Stretch" />
+            HorizontalAlignment="Stretch"
+            SelectionChanged="PrivateKeyComboBox_SelectionChanged" />
         <TextBlock x:Uid="CipherTextLabel" Style="{ThemeResource BodyStrongTextBlockStyle}" />
         <TextBox
             x:Name="CipherTextBox"

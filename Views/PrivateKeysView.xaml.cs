@@ -28,6 +28,8 @@ public sealed partial class PrivateKeysView : UserControl
 
     public event RoutedEventHandler? ChangePasswordRequested;
 
+    public event RoutedEventHandler? RenameRequested;
+
     public event RoutedEventHandler? OpenExportFolderRequested;
 
     public event RoutedEventHandler? DeleteRequested;
@@ -104,6 +106,12 @@ public sealed partial class PrivateKeysView : UserControl
     {
         SelectKeyFromSender(sender);
         ChangePasswordRequested?.Invoke(sender, e);
+    }
+
+    private void RenameSelectedPrivateKeyButton_Click(object sender, RoutedEventArgs e)
+    {
+        SelectKeyFromSender(sender);
+        RenameRequested?.Invoke(sender, e);
     }
 
     private void OpenExportFolderButton_Click(object sender, RoutedEventArgs e)

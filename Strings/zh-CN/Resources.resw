@@ -204,6 +204,9 @@
   <data name="HomeDiagramReceiverTitle.Text" xml:space="preserve">
     <value>接收方</value>
   </data>
+  <data name="HomeInstructionsTitle.Text" xml:space="preserve">
+    <value>使用说明</value>
+  </data>
   <data name="HomeDiagramReceiverPrivateKey.Text" xml:space="preserve">
     <value>先生成或导入自己的私钥，私钥只保存在本机。</value>
   </data>
@@ -309,6 +312,9 @@
   <data name="DeleteSelectedRecipientKeyButton.Text" xml:space="preserve">
     <value>删除</value>
   </data>
+  <data name="RenameSelectedKeyButton.Text" xml:space="preserve">
+    <value>修改备注名</value>
+  </data>
   <data name="GenerateKeyDescription.Text" xml:space="preserve">
     <value>生成 RSA 密钥对。私钥会使用本次输入的密码加密后保存，请妥善保存密码。</value>
   </data>
@@ -381,6 +387,15 @@
   <data name="UnlockPrivateKeyDialogPrimaryButtonText" xml:space="preserve">
     <value>解锁</value>
   </data>
+  <data name="RenameKeyDialogTitle" xml:space="preserve">
+    <value>修改备注名</value>
+  </data>
+  <data name="RenameKeyDialogPrimaryButtonText" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="RenameKeyAliasTextBox.PlaceholderText" xml:space="preserve">
+    <value>密钥备注名</value>
+  </data>
   <data name="DialogCancelButtonText" xml:space="preserve">
     <value>取消</value>
   </data>
@@ -398,6 +413,12 @@
   </data>
   <data name="DeleteKeyDialogContent" xml:space="preserve">
     <value>确定要删除“{0}”吗？此操作会更新本机密钥存档。</value>
+  </data>
+  <data name="DuplicateKeyDialogTitle" xml:space="preserve">
+    <value>密钥已存在</value>
+  </data>
+  <data name="DuplicateKeyDialogContent" xml:space="preserve">
+    <value>当前列表中已经存在指纹为“{0}”的密钥，请不要重复导入。</value>
   </data>
   <data name="CopySelectedPrivatePublicKeyButton.Text" xml:space="preserve">
     <value>复制公钥</value>
@@ -495,6 +516,9 @@
   <data name="StatusPrivateKeyPasswordChanged" xml:space="preserve">
     <value>私钥密码已修改。</value>
   </data>
+  <data name="StatusKeyAliasChanged" xml:space="preserve">
+    <value>备注名已修改。</value>
+  </data>
   <data name="StatusRecipientKeyImported" xml:space="preserve">
     <value>接收方公钥已导入。</value>
   </data>
@@ -555,6 +579,24 @@
   <data name="ErrorKeyStoreSaveFailed" xml:space="preserve">
     <value>保存密钥存档失败，请检查应用本地存储是否可用。</value>
   </data>
+  <data name="ErrorKeyStoreIntegrityMissing" xml:space="preserve">
+    <value>密钥存档缺少完整性校验信息，已拒绝加载以避免使用可能被替换的密钥。</value>
+  </data>
+  <data name="ErrorKeyStoreIntegrityInvalid" xml:space="preserve">
+    <value>密钥存档完整性校验失败，文件可能已被外部修改，已拒绝加载。</value>
+  </data>
+  <data name="ErrorKeyStoreIntegritySignFailed" xml:space="preserve">
+    <value>重新签名密钥存档失败，请检查应用本地存储或 Windows 凭据管理器是否可用。</value>
+  </data>
+  <data name="KeyStoreIntegrityDialogTitle" xml:space="preserve">
+    <value>密钥存档可能不安全</value>
+  </data>
+  <data name="KeyStoreIntegrityDialogIgnoreButtonText" xml:space="preserve">
+    <value>忽略并重新签名</value>
+  </data>
+  <data name="KeyStoreIntegrityDialogExitButtonText" xml:space="preserve">
+    <value>退出应用</value>
+  </data>
   <data name="ErrorPublicKeyRequired" xml:space="preserve">
     <value>请提供接收方公钥。</value>
   </data>
@@ -566,6 +608,9 @@
   </data>
   <data name="ErrorPrivateKeyNotSelected" xml:space="preserve">
     <value>请先选择我的私钥。</value>
+  </data>
+  <data name="ErrorKeyAliasRequired" xml:space="preserve">
+    <value>请输入密钥备注名。</value>
   </data>
   <data name="DefaultRecipientKeyAlias" xml:space="preserve">
     <value>接收方 {0}</value>

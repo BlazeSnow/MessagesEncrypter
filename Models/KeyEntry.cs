@@ -1,5 +1,6 @@
 using System;
 using System.Security.Cryptography;
+using System.Text.Json.Serialization;
 
 namespace MessagesEncrypter.Models;
 
@@ -21,6 +22,7 @@ public sealed class KeyEntry
 
     public string? EncryptedPrivateKeyPem { get; }
 
+    [JsonIgnore]
     public string KeyType
     {
         get
@@ -43,9 +45,12 @@ public sealed class KeyEntry
         }
     }
 
+    [JsonIgnore]
     public string KeyTypeDisplay => KeyType;
 
+    [JsonIgnore]
     public string FingerprintDisplay => Fingerprint;
 
+    [JsonIgnore]
     public string DisplayName => $"{Alias} ({Fingerprint})";
 }
