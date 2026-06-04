@@ -25,6 +25,7 @@ namespace MessagesEncrypter
         private readonly ObservableCollection<KeyEntry> _privateKeys = [];
         private string? _selectedRecipientKeyFingerprint;
         private string? _selectedPrivateKeyFingerprint;
+        private bool _isKeyStoreLoaded;
         private readonly DispatcherTimer _statusDismissTimer = new()
         {
             Interval = TimeSpan.FromSeconds(8)
@@ -39,9 +40,20 @@ namespace MessagesEncrypter
             ExtendsContentIntoTitleBar = true;
             SetTitleBar(AppTitleBar);
             InitializeViews();
-            _ = LoadKeyStoreAsync();
+            RootNavigation.Loaded += RootNavigation_Loaded;
             LoadSettings();
             ShowPanel("Home");
+        }
+
+        private async void RootNavigation_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (_isKeyStoreLoaded)
+            {
+                return;
+            }
+
+            _isKeyStoreLoaded = true;
+            await LoadKeyStoreAsync();
         }
 
         private void RootNavigation_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
