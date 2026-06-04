@@ -924,6 +924,10 @@ namespace MessagesEncrypter
                     {
                         await LoadKeyStoreAsync(true);
                     }
+                    else
+                    {
+                        Application.Current.Exit();
+                    }
 
                     return;
                 }
@@ -1234,7 +1238,8 @@ namespace MessagesEncrypter
                 RequestedTheme = RootNavigation.ActualTheme,
                 Title = AppResources.GetString("KeyStoreIntegrityDialogTitle"),
                 PrimaryButtonText = AppResources.GetString("KeyStoreIntegrityDialogIgnoreButtonText"),
-                DefaultButton = ContentDialogButton.Primary,
+                SecondaryButtonText = AppResources.GetString("KeyStoreIntegrityDialogExitButtonText"),
+                DefaultButton = ContentDialogButton.Secondary,
                 Content = AppResources.GetString(contentResourceKey),
                 PrimaryButtonStyle = (Style)Application.Current.Resources["DangerButtonStyle"]
             };
