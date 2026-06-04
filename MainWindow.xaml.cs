@@ -22,6 +22,8 @@ namespace MessagesEncrypter
         private readonly MessageCryptoService _messageCryptoService;
         private readonly ObservableCollection<KeyEntry> _recipientKeys = [];
         private readonly ObservableCollection<KeyEntry> _privateKeys = [];
+        private string? _selectedRecipientKeyFingerprint;
+        private string? _selectedPrivateKeyFingerprint;
         private readonly DispatcherTimer _statusDismissTimer = new()
         {
             Interval = TimeSpan.FromSeconds(8)
@@ -56,6 +58,8 @@ namespace MessagesEncrypter
 
         private void ShowPanel(string tag)
         {
+            RestoreKeySelectionForPanel(tag);
+
             HomeView.Visibility = tag == "Home" ? Visibility.Visible : Visibility.Collapsed;
             EncryptView.Visibility = tag == "Encrypt" ? Visibility.Visible : Visibility.Collapsed;
             DecryptView.Visibility = tag == "Decrypt" ? Visibility.Visible : Visibility.Collapsed;
@@ -69,10 +73,12 @@ namespace MessagesEncrypter
             EncryptView.RecipientKeysSource = _recipientKeys;
             EncryptView.EncryptRequested += EncryptButton_Click;
             EncryptView.CopyEncryptedMessageRequested += CopyEncryptedMessageButton_Click;
+            EncryptView.SelectedRecipientKeyChanged += (_, entry) => _selectedRecipientKeyFingerprint = entry?.Fingerprint;
 
             DecryptView.PrivateKeysSource = _privateKeys;
             DecryptView.DecryptRequested += DecryptButton_Click;
             DecryptView.PasteEncryptedMessageRequested += PasteEncryptedMessageButton_Click;
+            DecryptView.SelectedPrivateKeyChanged += (_, entry) => _selectedPrivateKeyFingerprint = entry?.Fingerprint;
 
             RecipientKeysView.ItemsSource = _recipientKeys;
             RecipientKeysView.ImportRequested += ImportRecipientKeyButton_Click;
@@ -837,6 +843,66 @@ namespace MessagesEncrypter
             int selectedIndex = _privateKeys.Count > 0 ? 0 : -1;
             DecryptView.SelectedPrivateKeyIndex = selectedIndex;
             PrivateKeysView.SelectedIndex = selectedIndex;
+        }
+
+        private void RestoreKeySelectionForPanel(string tag)
+        {
+            if (tag == "Encrypt")
+            {
+                RestoreRecipientKeySelection();
+            }
+            else if (tag == "Decrypt")
+            {
+                RestorePrivateKeySelection();
+            }
+        }
+
+        private void RestoreRecipientKeySelection()
+        {
+            if (TrySelectKeyByFingerprint(_recipientKeys, _selectedRecipientKeyFingerprint, EncryptView.SelectRecipientKey))
+            {
+                return;
+            }
+
+            if (EncryptView.SelectedRecipientKey is null)
+            {
+                EncryptView.SelectedRecipientIndex = _recipientKeys.Count > 0 ? 0 : -1;
+            }
+        }
+
+        private void RestorePrivateKeySelection()
+        {
+            if (TrySelectKeyByFingerprint(_privateKeys, _selectedPrivateKeyFingerprint, DecryptView.SelectPrivateKey))
+            {
+                return;
+            }
+
+            if (DecryptView.SelectedPrivateKey is null)
+            {
+                DecryptView.SelectedPrivateKeyIndex = _privateKeys.Count > 0 ? 0 : -1;
+            }
+        }
+
+        private static bool TrySelectKeyByFingerprint(
+            ObservableCollection<KeyEntry> keys,
+            string? fingerprint,
+            Action<KeyEntry> selectKey)
+        {
+            if (string.IsNullOrEmpty(fingerprint))
+            {
+                return false;
+            }
+
+            foreach (KeyEntry key in keys)
+            {
+                if (key.Fingerprint == fingerprint)
+                {
+                    selectKey(key);
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private static string GetAliasOrDefault(string alias, string defaultResourceKey, int index)

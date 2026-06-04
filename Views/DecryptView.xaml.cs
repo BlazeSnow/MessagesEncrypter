@@ -1,6 +1,7 @@
 using MessagesEncrypter.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using System;
 
 namespace MessagesEncrypter.Views;
 
@@ -14,6 +15,8 @@ public sealed partial class DecryptView : UserControl
     public event RoutedEventHandler? DecryptRequested;
 
     public event RoutedEventHandler? PasteEncryptedMessageRequested;
+
+    public event EventHandler<KeyEntry?>? SelectedPrivateKeyChanged;
 
     public object? PrivateKeysSource
     {
@@ -54,6 +57,11 @@ public sealed partial class DecryptView : UserControl
     private void PasteEncryptedMessageButton_Click(object sender, RoutedEventArgs e)
     {
         PasteEncryptedMessageRequested?.Invoke(sender, e);
+    }
+
+    private void PrivateKeyComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        SelectedPrivateKeyChanged?.Invoke(this, SelectedPrivateKey);
     }
 
     private void ClearDecryptContentButton_Click(object sender, RoutedEventArgs e)

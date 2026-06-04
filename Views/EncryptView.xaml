@@ -10,7 +10,8 @@
             x:Name="RecipientKeyComboBox"
             x:Uid="RecipientKeyComboBox"
             DisplayMemberPath="DisplayName"
-            HorizontalAlignment="Stretch" />
+            HorizontalAlignment="Stretch"
+            SelectionChanged="RecipientKeyComboBox_SelectionChanged" />
         <TextBlock x:Uid="EncryptPlainTextLabel" Style="{ThemeResource BodyStrongTextBlockStyle}" />
         <TextBox
             x:Name="PlainTextBox"
