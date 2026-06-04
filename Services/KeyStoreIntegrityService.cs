@@ -24,18 +24,18 @@ public sealed class KeyStoreIntegrityService
 
     public string SignaturePath => Path.Combine(_folderPath, SignatureFileName);
 
-    public void VerifyFile(string filePath)
+    public string? GetIntegrityErrorResourceKey(string filePath)
     {
         try
         {
             if (!File.Exists(filePath))
             {
-                return;
+                return null;
             }
 
             if (!File.Exists(SignaturePath))
             {
-                throw new CryptoException("ErrorKeyStoreIntegrityMissing");
+                return "ErrorKeyStoreIntegrityMissing";
             }
 
             byte[] expectedSignature = Convert.FromBase64String(File.ReadAllText(SignaturePath, Encoding.UTF8));
@@ -43,12 +43,23 @@ public sealed class KeyStoreIntegrityService
             if (expectedSignature.Length != actualSignature.Length ||
                 !CryptographicOperations.FixedTimeEquals(expectedSignature, actualSignature))
             {
-                throw new CryptoException("ErrorKeyStoreIntegrityInvalid");
+                return "ErrorKeyStoreIntegrityInvalid";
             }
+
+            return null;
         }
         catch (Exception ex) when (ex is FormatException or CryptographicException or Win32Exception)
         {
-            throw new CryptoException("ErrorKeyStoreIntegrityInvalid", ex);
+            return "ErrorKeyStoreIntegrityInvalid";
+        }
+    }
+
+    public void VerifyFile(string filePath)
+    {
+        string? errorResourceKey = GetIntegrityErrorResourceKey(filePath);
+        if (errorResourceKey is not null)
+        {
+            throw new CryptoException(errorResourceKey);
         }
     }
 

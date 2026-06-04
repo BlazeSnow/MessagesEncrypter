@@ -888,6 +888,25 @@ namespace MessagesEncrypter
         {
             try
             {
+                if (!trustCurrentStore)
+                {
+                    string? integrityErrorResourceKey = _keyStoreService.GetIntegrityErrorResourceKey();
+                    if (integrityErrorResourceKey is not null)
+                    {
+                        ContentDialogResult dialogResult = await ShowKeyStoreIntegrityDialogAsync(integrityErrorResourceKey);
+                        if (dialogResult == ContentDialogResult.Primary)
+                        {
+                            await LoadKeyStoreAsync(true);
+                        }
+                        else
+                        {
+                            Application.Current.Exit();
+                        }
+
+                        return;
+                    }
+                }
+
                 KeyStoreData data = _keyStoreService.Load(trustCurrentStore);
                 _recipientKeys.Clear();
                 _privateKeys.Clear();
@@ -917,21 +936,6 @@ namespace MessagesEncrypter
             }
             catch (CryptoException ex)
             {
-                if (!trustCurrentStore && IsKeyStoreIntegrityError(ex))
-                {
-                    ContentDialogResult dialogResult = await ShowKeyStoreIntegrityDialogAsync(ex.ResourceKey);
-                    if (dialogResult == ContentDialogResult.Primary)
-                    {
-                        await LoadKeyStoreAsync(true);
-                    }
-                    else
-                    {
-                        Application.Current.Exit();
-                    }
-
-                    return;
-                }
-
                 ShowStatus(ex.ResourceKey, InfoBarSeverity.Error);
             }
         }
@@ -1223,11 +1227,6 @@ namespace MessagesEncrypter
             };
 
             return await dialog.ShowAsync();
-        }
-
-        private static bool IsKeyStoreIntegrityError(CryptoException ex)
-        {
-            return ex.ResourceKey is "ErrorKeyStoreIntegrityMissing" or "ErrorKeyStoreIntegrityInvalid";
         }
 
         private async System.Threading.Tasks.Task<ContentDialogResult> ShowKeyStoreIntegrityDialogAsync(string contentResourceKey)

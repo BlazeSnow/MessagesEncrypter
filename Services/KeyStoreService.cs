@@ -31,6 +31,12 @@ public sealed class KeyStoreService
 
     private KeyStoreIntegrityService IntegrityService => new(ApplicationData.Current.LocalFolder.Path);
 
+    public string? GetIntegrityErrorResourceKey()
+    {
+        Directory.CreateDirectory(ApplicationData.Current.LocalFolder.Path);
+        return IntegrityService.GetIntegrityErrorResourceKey(StorePath);
+    }
+
     public KeyStoreData Load(bool trustCurrentStore = false)
     {
         try
@@ -126,24 +132,64 @@ public sealed class KeyStoreService
         using SqliteCommand command = connection.CreateCommand();
         command.CommandText = """
             CREATE TABLE IF NOT EXISTS keys (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
                 category TEXT NOT NULL,
                 sort_order INTEGER NOT NULL,
                 alias TEXT NOT NULL,
                 fingerprint TEXT NOT NULL,
                 public_key_pem TEXT NULL,
-                encrypted_private_key_pem TEXT NULL
+                encrypted_private_key_pem TEXT NULL,
+                PRIMARY KEY (category, fingerprint)
             );
-            DELETE FROM keys
-            WHERE id NOT IN (
-                SELECT MIN(id)
-                FROM keys
-                GROUP BY category, fingerprint
-            );
-            CREATE UNIQUE INDEX IF NOT EXISTS ux_keys_category_fingerprint
-            ON keys (category, fingerprint);
             """;
         command.ExecuteNonQuery();
+
+        RemoveLegacyIdColumnIfNeeded(connection);
+    }
+
+    private static void RemoveLegacyIdColumnIfNeeded(SqliteConnection connection)
+    {
+        using SqliteCommand checkCommand = connection.CreateCommand();
+        checkCommand.CommandText = "SELECT COUNT(*) FROM pragma_table_info('keys') WHERE name = 'id';";
+        if (Convert.ToInt32(checkCommand.ExecuteScalar()) == 0)
+        {
+            return;
+        }
+
+        using SqliteTransaction transaction = connection.BeginTransaction();
+        using SqliteCommand migrateCommand = connection.CreateCommand();
+        migrateCommand.Transaction = transaction;
+        migrateCommand.CommandText = """
+            CREATE TABLE keys_new (
+                category TEXT NOT NULL,
+                sort_order INTEGER NOT NULL,
+                alias TEXT NOT NULL,
+                fingerprint TEXT NOT NULL,
+                public_key_pem TEXT NULL,
+                encrypted_private_key_pem TEXT NULL,
+                PRIMARY KEY (category, fingerprint)
+            );
+            INSERT OR IGNORE INTO keys_new (
+                category,
+                sort_order,
+                alias,
+                fingerprint,
+                public_key_pem,
+                encrypted_private_key_pem
+            )
+            SELECT
+                category,
+                sort_order,
+                alias,
+                fingerprint,
+                public_key_pem,
+                encrypted_private_key_pem
+            FROM keys
+            ORDER BY category, sort_order;
+            DROP TABLE keys;
+            ALTER TABLE keys_new RENAME TO keys;
+            """;
+        migrateCommand.ExecuteNonQuery();
+        transaction.Commit();
     }
 
     private bool MigrateLegacyJsonIfNeeded()
