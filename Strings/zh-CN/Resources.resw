@@ -204,6 +204,9 @@
   <data name="HomeDiagramReceiverTitle.Text" xml:space="preserve">
     <value>接收方</value>
   </data>
+  <data name="HomeInstructionsTitle.Text" xml:space="preserve">
+    <value>使用说明</value>
+  </data>
   <data name="HomeDiagramReceiverPrivateKey.Text" xml:space="preserve">
     <value>先生成或导入自己的私钥，私钥只保存在本机。</value>
   </data>

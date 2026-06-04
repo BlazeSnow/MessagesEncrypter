@@ -11,17 +11,20 @@
         RowSpacing="14">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="0.45*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
+        <TextBlock
+            Grid.ColumnSpan="2"
+            x:Uid="HomeInstructionsTitle"
+            Style="{ThemeResource BodyStrongTextBlockStyle}" />
+
         <Border
-            Grid.RowSpan="3"
+            Grid.Row="1"
             Padding="18"
             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
@@ -63,8 +66,8 @@
         </Border>
 
         <Border
-            Grid.Column="2"
-            Grid.RowSpan="3"
+            Grid.Column="1"
+            Grid.Row="1"
             Padding="18"
             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
@@ -96,44 +99,5 @@
                 </StackPanel>
             </StackPanel>
         </Border>
-
-        <StackPanel
-            Grid.Column="1"
-            VerticalAlignment="Center"
-            Spacing="18">
-            <Border
-                Padding="12"
-                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                BorderThickness="1"
-                CornerRadius="8">
-                <StackPanel HorizontalAlignment="Center" Spacing="8">
-                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8D7;" />
-                    <TextBlock
-                        x:Uid="HomeDiagramPublicKeyFlow"
-                        HorizontalAlignment="Center"
-                        TextAlignment="Center"
-                        TextWrapping="Wrap" />
-                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE72A;" />
-                </StackPanel>
-            </Border>
-
-            <Border
-                Padding="12"
-                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                BorderThickness="1"
-                CornerRadius="8">
-                <StackPanel HorizontalAlignment="Center" Spacing="8">
-                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE715;" />
-                    <TextBlock
-                        x:Uid="HomeDiagramCipherFlow"
-                        HorizontalAlignment="Center"
-                        TextAlignment="Center"
-                        TextWrapping="Wrap" />
-                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE72B;" />
-                </StackPanel>
-            </Border>
-        </StackPanel>
     </Grid>
 </UserControl>
