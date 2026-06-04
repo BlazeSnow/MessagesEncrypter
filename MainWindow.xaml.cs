@@ -26,7 +26,6 @@ namespace MessagesEncrypter
         private string? _selectedRecipientKeyFingerprint;
         private string? _selectedPrivateKeyFingerprint;
         private bool _isKeyStoreLoaded;
-        private bool _isKeyStoreBlocked;
         private readonly DispatcherTimer _statusDismissTimer = new()
         {
             Interval = TimeSpan.FromSeconds(8)
@@ -120,11 +119,6 @@ namespace MessagesEncrypter
 
         private async void GenerateKeyButton_Click(object sender, RoutedEventArgs e)
         {
-            if (IsKeyStoreBlocked())
-            {
-                return;
-            }
-
             TextBox aliasTextBox = CreateDialogTextBox("PrivateKeyAliasTextBox");
             ComboBox keySizeComboBox = CreateRsaKeySizeComboBox();
             PasswordBox passwordBox = CreateDialogPasswordBox("PrivateKeyPasswordBox");
@@ -224,11 +218,6 @@ namespace MessagesEncrypter
 
         private async void ImportPrivateKeyButton_Click(object sender, RoutedEventArgs e)
         {
-            if (IsKeyStoreBlocked())
-            {
-                return;
-            }
-
             TextBox aliasTextBox = CreateDialogTextBox("PrivateKeyAliasTextBox");
             PasswordBox passwordBox = CreateDialogPasswordBox("PrivateKeyPasswordBox");
             CheckBox rememberPasswordCheckBox = CreateDialogCheckBox("RememberPrivateKeyPasswordCheckBox");
@@ -338,11 +327,6 @@ namespace MessagesEncrypter
 
         private async void ImportRecipientKeyButton_Click(object sender, RoutedEventArgs e)
         {
-            if (IsKeyStoreBlocked())
-            {
-                return;
-            }
-
             TextBox aliasTextBox = CreateDialogTextBox("RecipientAliasTextBox");
             TextBox publicKeyTextBox = CreateDialogTextBox("RecipientPublicKeyTextBox");
             publicKeyTextBox.AcceptsReturn = true;
@@ -424,11 +408,6 @@ namespace MessagesEncrypter
 
         private async void RenameSelectedRecipientKeyButton_Click(object sender, RoutedEventArgs e)
         {
-            if (IsKeyStoreBlocked())
-            {
-                return;
-            }
-
             if (RecipientKeysView.SelectedKey is not KeyEntry entry)
             {
                 ShowStatus("ErrorRecipientKeyNotSelected", InfoBarSeverity.Warning);
@@ -473,11 +452,6 @@ namespace MessagesEncrypter
 
         private async void DeleteSelectedRecipientKeyButton_Click(object sender, RoutedEventArgs e)
         {
-            if (IsKeyStoreBlocked())
-            {
-                return;
-            }
-
             if (RecipientKeysView.SelectedKey is not KeyEntry entry)
             {
                 ShowStatus("ErrorRecipientKeyNotSelected", InfoBarSeverity.Warning);
@@ -548,11 +522,6 @@ namespace MessagesEncrypter
 
         private async void RenameSelectedPrivateKeyButton_Click(object sender, RoutedEventArgs e)
         {
-            if (IsKeyStoreBlocked())
-            {
-                return;
-            }
-
             if (PrivateKeysView.SelectedKey is not KeyEntry entry)
             {
                 ShowStatus("ErrorPrivateKeyNotSelected", InfoBarSeverity.Warning);
@@ -597,11 +566,6 @@ namespace MessagesEncrypter
 
         private async void ChangePrivateKeyPasswordButton_Click(object sender, RoutedEventArgs e)
         {
-            if (IsKeyStoreBlocked())
-            {
-                return;
-            }
-
             if (PrivateKeysView.SelectedKey is not KeyEntry entry || string.IsNullOrWhiteSpace(entry.EncryptedPrivateKeyPem))
             {
                 ShowStatus("ErrorPrivateKeyNotSelected", InfoBarSeverity.Warning);
@@ -687,11 +651,6 @@ namespace MessagesEncrypter
 
         private async void DeleteSelectedPrivateKeyButton_Click(object sender, RoutedEventArgs e)
         {
-            if (IsKeyStoreBlocked())
-            {
-                return;
-            }
-
             if (PrivateKeysView.SelectedKey is not KeyEntry entry)
             {
                 ShowStatus("ErrorPrivateKeyNotSelected", InfoBarSeverity.Warning);
@@ -930,7 +889,6 @@ namespace MessagesEncrypter
             try
             {
                 KeyStoreData data = _keyStoreService.Load(trustCurrentStore);
-                _isKeyStoreBlocked = false;
                 _recipientKeys.Clear();
                 _privateKeys.Clear();
 
@@ -966,10 +924,6 @@ namespace MessagesEncrypter
                     {
                         await LoadKeyStoreAsync(true);
                     }
-                    else
-                    {
-                        _isKeyStoreBlocked = true;
-                    }
 
                     return;
                 }
@@ -992,11 +946,6 @@ namespace MessagesEncrypter
 
         private bool SaveKeyStore()
         {
-            if (IsKeyStoreBlocked())
-            {
-                return false;
-            }
-
             try
             {
                 _keyStoreService.Save(_recipientKeys, _privateKeys);
@@ -1007,17 +956,6 @@ namespace MessagesEncrypter
                 ShowStatus(ex.ResourceKey, InfoBarSeverity.Error);
                 return false;
             }
-        }
-
-        private bool IsKeyStoreBlocked()
-        {
-            if (!_isKeyStoreBlocked)
-            {
-                return false;
-            }
-
-            ShowStatus("ErrorKeyStoreBlocked", InfoBarSeverity.Warning);
-            return true;
         }
 
         private void ExportKey(Func<string> exportAction)
@@ -1296,8 +1234,7 @@ namespace MessagesEncrypter
                 RequestedTheme = RootNavigation.ActualTheme,
                 Title = AppResources.GetString("KeyStoreIntegrityDialogTitle"),
                 PrimaryButtonText = AppResources.GetString("KeyStoreIntegrityDialogIgnoreButtonText"),
-                CloseButtonText = AppResources.GetString("DialogCancelButtonText"),
-                DefaultButton = ContentDialogButton.Close,
+                DefaultButton = ContentDialogButton.Primary,
                 Content = AppResources.GetString(contentResourceKey),
                 PrimaryButtonStyle = (Style)Application.Current.Resources["DangerButtonStyle"]
             };
