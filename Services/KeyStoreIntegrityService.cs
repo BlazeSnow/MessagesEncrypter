@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -71,13 +72,155 @@ public sealed class KeyStoreIntegrityService
     {
         if (File.Exists(IntegrityKeyPath))
         {
-            byte[] protectedKey = File.ReadAllBytes(IntegrityKeyPath);
-            return ProtectedData.Unprotect(protectedKey, OptionalEntropy, DataProtectionScope.CurrentUser);
+            byte[] encryptedKey = File.ReadAllBytes(IntegrityKeyPath);
+            return UnprotectForCurrentUser(encryptedKey);
         }
 
         byte[] key = RandomNumberGenerator.GetBytes(IntegrityKeyLength);
-        byte[] protectedKey = ProtectedData.Protect(key, OptionalEntropy, DataProtectionScope.CurrentUser);
-        File.WriteAllBytes(IntegrityKeyPath, protectedKey);
+        byte[] encryptedNewKey = ProtectForCurrentUser(key);
+        File.WriteAllBytes(IntegrityKeyPath, encryptedNewKey);
         return key;
+    }
+
+    private static byte[] ProtectForCurrentUser(byte[] data)
+    {
+        DataBlob dataBlob = CreateBlob(data);
+        DataBlob entropyBlob = CreateBlob(OptionalEntropy);
+        try
+        {
+            if (!CryptProtectData(
+                ref dataBlob,
+                null,
+                ref entropyBlob,
+                IntPtr.Zero,
+                IntPtr.Zero,
+                CryptProtectUiForbidden,
+                out DataBlob protectedBlob))
+            {
+                throw CreateDpapiException();
+            }
+
+            try
+            {
+                return CopyBlob(protectedBlob);
+            }
+            finally
+            {
+                FreeLocalBlob(protectedBlob);
+            }
+        }
+        finally
+        {
+            FreeHGlobalBlob(dataBlob);
+            FreeHGlobalBlob(entropyBlob);
+        }
+    }
+
+    private static byte[] UnprotectForCurrentUser(byte[] data)
+    {
+        DataBlob dataBlob = CreateBlob(data);
+        DataBlob entropyBlob = CreateBlob(OptionalEntropy);
+        try
+        {
+            if (!CryptUnprotectData(
+                ref dataBlob,
+                IntPtr.Zero,
+                ref entropyBlob,
+                IntPtr.Zero,
+                IntPtr.Zero,
+                CryptProtectUiForbidden,
+                out DataBlob unprotectedBlob))
+            {
+                throw CreateDpapiException();
+            }
+
+            try
+            {
+                return CopyBlob(unprotectedBlob);
+            }
+            finally
+            {
+                FreeLocalBlob(unprotectedBlob);
+            }
+        }
+        finally
+        {
+            FreeHGlobalBlob(dataBlob);
+            FreeHGlobalBlob(entropyBlob);
+        }
+    }
+
+    private static DataBlob CreateBlob(byte[] data)
+    {
+        IntPtr dataPointer = Marshal.AllocHGlobal(data.Length);
+        Marshal.Copy(data, 0, dataPointer, data.Length);
+        return new DataBlob(data.Length, dataPointer);
+    }
+
+    private static byte[] CopyBlob(DataBlob blob)
+    {
+        byte[] data = new byte[blob.Size];
+        Marshal.Copy(blob.Data, data, 0, blob.Size);
+        return data;
+    }
+
+    private static void FreeHGlobalBlob(DataBlob blob)
+    {
+        if (blob.Data != IntPtr.Zero)
+        {
+            Marshal.FreeHGlobal(blob.Data);
+        }
+    }
+
+    private static void FreeLocalBlob(DataBlob blob)
+    {
+        if (blob.Data != IntPtr.Zero)
+        {
+            _ = LocalFree(blob.Data);
+        }
+    }
+
+    private static CryptographicException CreateDpapiException()
+    {
+        return new CryptographicException(Marshal.GetLastWin32Error());
+    }
+
+    private const int CryptProtectUiForbidden = 0x1;
+
+    [DllImport("crypt32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
+    private static extern bool CryptProtectData(
+        ref DataBlob dataIn,
+        string? dataDescription,
+        ref DataBlob optionalEntropy,
+        IntPtr reserved,
+        IntPtr promptStruct,
+        int flags,
+        out DataBlob dataOut);
+
+    [DllImport("crypt32.dll", SetLastError = true)]
+    private static extern bool CryptUnprotectData(
+        ref DataBlob dataIn,
+        IntPtr dataDescription,
+        ref DataBlob optionalEntropy,
+        IntPtr reserved,
+        IntPtr promptStruct,
+        int flags,
+        out DataBlob dataOut);
+
+    [DllImport("kernel32.dll")]
+    private static extern IntPtr LocalFree(IntPtr memory);
+
+    [StructLayout(LayoutKind.Sequential)]
+    private readonly struct DataBlob
+    {
+        public DataBlob(int size, IntPtr data)
+        {
+            Size = size;
+            Data = data;
+        }
+
+        public readonly int Size;
+
+        public readonly IntPtr Data;
     }
 }
