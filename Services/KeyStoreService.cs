@@ -84,6 +84,10 @@ public sealed class KeyStoreService
         {
             throw new CryptoException("ErrorKeyStoreLoadFailed", ex);
         }
+        catch (CryptoException)
+        {
+            throw;
+        }
     }
 
     public void Save(IEnumerable<KeyEntry> recipientKeys, IEnumerable<KeyEntry> privateKeys)

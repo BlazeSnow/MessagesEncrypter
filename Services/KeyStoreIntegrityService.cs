@@ -59,14 +59,17 @@ public sealed class KeyStoreIntegrityService
     {
         try
         {
+            if (resetIntegrityKeyOnFailure)
+            {
+                ResetIntegrityKey();
+            }
+
             byte[] signature = ComputeSignature(filePath);
             File.WriteAllText(SignaturePath, Convert.ToBase64String(signature), Encoding.UTF8);
         }
-        catch (CryptographicException) when (resetIntegrityKeyOnFailure)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or CryptographicException)
         {
-            ResetIntegrityKey();
-            byte[] signature = ComputeSignature(filePath);
-            File.WriteAllText(SignaturePath, Convert.ToBase64String(signature), Encoding.UTF8);
+            throw new CryptoException("ErrorKeyStoreIntegritySignFailed", ex);
         }
     }
 

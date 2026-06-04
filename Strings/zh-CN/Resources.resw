@@ -585,6 +585,9 @@
   <data name="ErrorKeyStoreIntegrityInvalid" xml:space="preserve">
     <value>密钥存档完整性校验失败，文件可能已被外部修改，已拒绝加载。</value>
   </data>
+  <data name="ErrorKeyStoreIntegritySignFailed" xml:space="preserve">
+    <value>重新签名密钥存档失败，请检查应用本地存储是否可写。</value>
+  </data>
   <data name="KeyStoreIntegrityDialogTitle" xml:space="preserve">
     <value>密钥存档可能不安全</value>
   </data>
