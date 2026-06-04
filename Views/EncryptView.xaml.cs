@@ -57,7 +57,10 @@ public sealed partial class EncryptView : UserControl
 
     private void RecipientKeyComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        SelectedRecipientKeyChanged?.Invoke(this, SelectedRecipientKey);
+        if (e.AddedItems.Count > 0 && e.AddedItems[0] is KeyEntry selectedKey)
+        {
+            SelectedRecipientKeyChanged?.Invoke(this, selectedKey);
+        }
     }
 
     private void ClearEncryptContentButton_Click(object sender, RoutedEventArgs e)

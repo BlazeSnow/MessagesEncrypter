@@ -235,7 +235,7 @@ public sealed class KeyStoreService
             using SqliteCommand command = connection.CreateCommand();
             command.Transaction = transaction;
             command.CommandText = """
-                INSERT INTO keys (
+                INSERT OR IGNORE INTO keys (
                     category,
                     sort_order,
                     alias,

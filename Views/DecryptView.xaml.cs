@@ -61,7 +61,10 @@ public sealed partial class DecryptView : UserControl
 
     private void PrivateKeyComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        SelectedPrivateKeyChanged?.Invoke(this, SelectedPrivateKey);
+        if (e.AddedItems.Count > 0 && e.AddedItems[0] is KeyEntry selectedKey)
+        {
+            SelectedPrivateKeyChanged?.Invoke(this, selectedKey);
+        }
     }
 
     private void ClearDecryptContentButton_Click(object sender, RoutedEventArgs e)
