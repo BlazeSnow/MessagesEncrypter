@@ -55,10 +55,19 @@ public sealed class KeyStoreIntegrityService
         }
     }
 
-    public void SignFile(string filePath)
+    public void SignFile(string filePath, bool resetIntegrityKeyOnFailure = false)
     {
-        byte[] signature = ComputeSignature(filePath);
-        File.WriteAllText(SignaturePath, Convert.ToBase64String(signature), Encoding.UTF8);
+        try
+        {
+            byte[] signature = ComputeSignature(filePath);
+            File.WriteAllText(SignaturePath, Convert.ToBase64String(signature), Encoding.UTF8);
+        }
+        catch (CryptographicException) when (resetIntegrityKeyOnFailure)
+        {
+            ResetIntegrityKey();
+            byte[] signature = ComputeSignature(filePath);
+            File.WriteAllText(SignaturePath, Convert.ToBase64String(signature), Encoding.UTF8);
+        }
     }
 
     private byte[] ComputeSignature(string filePath)
@@ -80,6 +89,14 @@ public sealed class KeyStoreIntegrityService
         byte[] encryptedNewKey = ProtectForCurrentUser(key);
         File.WriteAllBytes(IntegrityKeyPath, encryptedNewKey);
         return key;
+    }
+
+    private void ResetIntegrityKey()
+    {
+        if (File.Exists(IntegrityKeyPath))
+        {
+            File.Delete(IntegrityKeyPath);
+        }
     }
 
     private static byte[] ProtectForCurrentUser(byte[] data)

@@ -46,7 +46,7 @@ public sealed class KeyStoreService
             bool migrated = MigrateLegacyJsonIfNeeded();
             if (migrated || !hadDatabase || trustCurrentStore)
             {
-                IntegrityService.SignFile(StorePath);
+                IntegrityService.SignFile(StorePath, trustCurrentStore);
             }
 
             using SqliteConnection connection = OpenConnection();
