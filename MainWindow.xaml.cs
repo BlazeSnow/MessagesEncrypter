@@ -84,6 +84,7 @@ namespace MessagesEncrypter
             RecipientKeysView.ImportRequested += ImportRecipientKeyButton_Click;
             RecipientKeysView.CopyRequested += CopySelectedRecipientKeyButton_Click;
             RecipientKeysView.ExportRequested += ExportSelectedRecipientKeyButton_Click;
+            RecipientKeysView.RenameRequested += RenameSelectedRecipientKeyButton_Click;
             RecipientKeysView.OpenExportFolderRequested += OpenExportFolderButton_Click;
             RecipientKeysView.DeleteRequested += DeleteSelectedRecipientKeyButton_Click;
 
@@ -95,6 +96,7 @@ namespace MessagesEncrypter
             PrivateKeysView.CopyPrivateKeyRequested += CopySelectedPrivateKeyButton_Click;
             PrivateKeysView.ExportPrivateKeyRequested += ExportSelectedPrivateKeyButton_Click;
             PrivateKeysView.ChangePasswordRequested += ChangePrivateKeyPasswordButton_Click;
+            PrivateKeysView.RenameRequested += RenameSelectedPrivateKeyButton_Click;
             PrivateKeysView.OpenExportFolderRequested += OpenExportFolderButton_Click;
             PrivateKeysView.DeleteRequested += DeleteSelectedPrivateKeyButton_Click;
 
@@ -370,6 +372,43 @@ namespace MessagesEncrypter
             ExportKey(() => _keyExportService.ExportPublicKey(entry, _appSettingsService.GetExportFolderPath()));
         }
 
+        private async void RenameSelectedRecipientKeyButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (RecipientKeysView.SelectedKey is not KeyEntry entry)
+            {
+                ShowStatus("ErrorRecipientKeyNotSelected", InfoBarSeverity.Warning);
+                return;
+            }
+
+            string? alias = await PromptKeyAliasAsync(entry.Alias);
+            if (alias is null)
+            {
+                return;
+            }
+
+            var updatedEntry = new KeyEntry(alias, entry.Fingerprint, entry.PublicKeyPem, entry.EncryptedPrivateKeyPem);
+            int index = _recipientKeys.IndexOf(entry);
+            if (index < 0)
+            {
+                ShowStatus("ErrorRecipientKeyNotSelected", InfoBarSeverity.Warning);
+                return;
+            }
+
+            _recipientKeys[index] = updatedEntry;
+            RecipientKeysView.SelectKey(updatedEntry);
+            EncryptView.SelectRecipientKey(updatedEntry);
+            if (SaveKeyStore())
+            {
+                ShowStatus("StatusKeyAliasChanged", InfoBarSeverity.Success);
+            }
+            else
+            {
+                _recipientKeys[index] = entry;
+                RecipientKeysView.SelectKey(entry);
+                EncryptView.SelectRecipientKey(entry);
+            }
+        }
+
         private async void DeleteSelectedRecipientKeyButton_Click(object sender, RoutedEventArgs e)
         {
             if (RecipientKeysView.SelectedKey is not KeyEntry entry)
@@ -438,6 +477,43 @@ namespace MessagesEncrypter
             }
 
             ExportKey(() => _keyExportService.ExportPrivateKey(entry, _appSettingsService.GetExportFolderPath()));
+        }
+
+        private async void RenameSelectedPrivateKeyButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (PrivateKeysView.SelectedKey is not KeyEntry entry)
+            {
+                ShowStatus("ErrorPrivateKeyNotSelected", InfoBarSeverity.Warning);
+                return;
+            }
+
+            string? alias = await PromptKeyAliasAsync(entry.Alias);
+            if (alias is null)
+            {
+                return;
+            }
+
+            var updatedEntry = new KeyEntry(alias, entry.Fingerprint, entry.PublicKeyPem, entry.EncryptedPrivateKeyPem);
+            int index = _privateKeys.IndexOf(entry);
+            if (index < 0)
+            {
+                ShowStatus("ErrorPrivateKeyNotSelected", InfoBarSeverity.Warning);
+                return;
+            }
+
+            _privateKeys[index] = updatedEntry;
+            PrivateKeysView.SelectKey(updatedEntry);
+            DecryptView.SelectPrivateKey(updatedEntry);
+            if (SaveKeyStore())
+            {
+                ShowStatus("StatusKeyAliasChanged", InfoBarSeverity.Success);
+            }
+            else
+            {
+                _privateKeys[index] = entry;
+                PrivateKeysView.SelectKey(entry);
+                DecryptView.SelectPrivateKey(entry);
+            }
         }
 
         private async void ChangePrivateKeyPasswordButton_Click(object sender, RoutedEventArgs e)
@@ -959,6 +1035,31 @@ namespace MessagesEncrypter
 
             comboBox.SelectedItem = CryptoConstants.DefaultRsaKeySizeBits;
             return comboBox;
+        }
+
+        private async System.Threading.Tasks.Task<string?> PromptKeyAliasAsync(string currentAlias)
+        {
+            TextBox aliasTextBox = CreateDialogTextBox("RenameKeyAliasTextBox");
+            aliasTextBox.Text = currentAlias;
+
+            ContentDialogResult dialogResult = await ShowInputDialogAsync(
+                "RenameKeyDialogTitle",
+                "RenameKeyDialogPrimaryButtonText",
+                aliasTextBox);
+
+            if (dialogResult != ContentDialogResult.Primary)
+            {
+                return null;
+            }
+
+            string alias = aliasTextBox.Text.Trim();
+            if (string.IsNullOrWhiteSpace(alias))
+            {
+                ShowStatus("ErrorKeyAliasRequired", InfoBarSeverity.Warning);
+                return null;
+            }
+
+            return alias;
         }
 
         private static StackPanel CreateIconTextContent(string glyph, string text)

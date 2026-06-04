@@ -20,6 +20,8 @@ public sealed partial class RecipientKeysView : UserControl
 
     public event RoutedEventHandler? ExportRequested;
 
+    public event RoutedEventHandler? RenameRequested;
+
     public event RoutedEventHandler? OpenExportFolderRequested;
 
     public event RoutedEventHandler? DeleteRequested;
@@ -73,6 +75,12 @@ public sealed partial class RecipientKeysView : UserControl
     {
         SelectKeyFromSender(sender);
         ExportRequested?.Invoke(sender, e);
+    }
+
+    private void RenameSelectedRecipientKeyButton_Click(object sender, RoutedEventArgs e)
+    {
+        SelectKeyFromSender(sender);
+        RenameRequested?.Invoke(sender, e);
     }
 
     private void OpenExportFolderButton_Click(object sender, RoutedEventArgs e)

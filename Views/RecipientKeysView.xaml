@@ -58,6 +58,12 @@
                                                     <TextBlock x:Uid="ExportSelectedRecipientKeyButton" />
                                                 </StackPanel>
                                             </Button>
+                                            <Button HorizontalAlignment="Stretch" Tag="{Binding}" Click="RenameSelectedRecipientKeyButton_Click">
+                                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE70F;" />
+                                                    <TextBlock x:Uid="RenameSelectedKeyButton" />
+                                                </StackPanel>
+                                            </Button>
                                             <Button HorizontalAlignment="Stretch" Tag="{Binding}" Click="DeleteSelectedRecipientKeyButton_Click">
                                                 <StackPanel Orientation="Horizontal" Spacing="6">
                                                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE74D;" />

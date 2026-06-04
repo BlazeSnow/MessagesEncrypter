@@ -312,6 +312,9 @@
   <data name="DeleteSelectedRecipientKeyButton.Text" xml:space="preserve">
     <value>删除</value>
   </data>
+  <data name="RenameSelectedKeyButton.Text" xml:space="preserve">
+    <value>修改备注名</value>
+  </data>
   <data name="GenerateKeyDescription.Text" xml:space="preserve">
     <value>生成 RSA 密钥对。私钥会使用本次输入的密码加密后保存，请妥善保存密码。</value>
   </data>
@@ -383,6 +386,15 @@
   </data>
   <data name="UnlockPrivateKeyDialogPrimaryButtonText" xml:space="preserve">
     <value>解锁</value>
+  </data>
+  <data name="RenameKeyDialogTitle" xml:space="preserve">
+    <value>修改备注名</value>
+  </data>
+  <data name="RenameKeyDialogPrimaryButtonText" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="RenameKeyAliasTextBox.PlaceholderText" xml:space="preserve">
+    <value>密钥备注名</value>
   </data>
   <data name="DialogCancelButtonText" xml:space="preserve">
     <value>取消</value>
@@ -498,6 +510,9 @@
   <data name="StatusPrivateKeyPasswordChanged" xml:space="preserve">
     <value>私钥密码已修改。</value>
   </data>
+  <data name="StatusKeyAliasChanged" xml:space="preserve">
+    <value>备注名已修改。</value>
+  </data>
   <data name="StatusRecipientKeyImported" xml:space="preserve">
     <value>接收方公钥已导入。</value>
   </data>
@@ -569,6 +584,9 @@
   </data>
   <data name="ErrorPrivateKeyNotSelected" xml:space="preserve">
     <value>请先选择我的私钥。</value>
+  </data>
+  <data name="ErrorKeyAliasRequired" xml:space="preserve">
+    <value>请输入密钥备注名。</value>
   </data>
   <data name="DefaultRecipientKeyAlias" xml:space="preserve">
     <value>接收方 {0}</value>
