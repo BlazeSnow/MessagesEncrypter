@@ -414,6 +414,12 @@
   <data name="DeleteKeyDialogContent" xml:space="preserve">
     <value>确定要删除“{0}”吗？此操作会更新本机密钥存档。</value>
   </data>
+  <data name="DuplicateKeyDialogTitle" xml:space="preserve">
+    <value>密钥已存在</value>
+  </data>
+  <data name="DuplicateKeyDialogContent" xml:space="preserve">
+    <value>当前列表中已经存在指纹为“{0}”的密钥，请不要重复导入。</value>
+  </data>
   <data name="CopySelectedPrivatePublicKeyButton.Text" xml:space="preserve">
     <value>复制公钥</value>
   </data>

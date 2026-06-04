@@ -152,6 +152,12 @@ namespace MessagesEncrypter
                     _keyManagementService.GenerateKeyPair(password, keySizeBits));
                 string alias = GetAliasOrDefault(aliasTextBox.Text, "DefaultPrivateKeyAlias", _privateKeys.Count + 1);
                 var entry = new KeyEntry(alias, result.PublicKeyFingerprint, result.PublicKeyPem, result.EncryptedPrivateKeyPem);
+                if (KeyFingerprintExists(_privateKeys, entry.Fingerprint))
+                {
+                    await ShowDuplicateKeyDialogAsync(entry.Fingerprint);
+                    return;
+                }
+
                 if (rememberPasswordCheckBox.IsChecked == true)
                 {
                     _credentialManagerService.SavePrivateKeyPassword(entry.Fingerprint, password);
@@ -240,6 +246,12 @@ namespace MessagesEncrypter
                 KeyPairResult result = _keyManagementService.ImportKeyPair(privateKeyTextBox.Text, password);
                 string alias = GetAliasOrDefault(aliasTextBox.Text, "DefaultPrivateKeyAlias", _privateKeys.Count + 1);
                 var entry = new KeyEntry(alias, result.PublicKeyFingerprint, result.PublicKeyPem, result.EncryptedPrivateKeyPem);
+                if (KeyFingerprintExists(_privateKeys, entry.Fingerprint))
+                {
+                    await ShowDuplicateKeyDialogAsync(entry.Fingerprint);
+                    return;
+                }
+
                 if (rememberPasswordCheckBox.IsChecked == true)
                 {
                     _credentialManagerService.SavePrivateKeyPassword(entry.Fingerprint, password);
@@ -334,6 +346,12 @@ namespace MessagesEncrypter
             {
                 string publicKeyPem = publicKeyTextBox.Text;
                 string fingerprint = _keyManagementService.GetPublicKeyFingerprint(publicKeyPem);
+                if (KeyFingerprintExists(_recipientKeys, fingerprint))
+                {
+                    await ShowDuplicateKeyDialogAsync(fingerprint);
+                    return;
+                }
+
                 string alias = GetAliasOrDefault(aliasTextBox.Text, "DefaultRecipientKeyAlias", _recipientKeys.Count + 1);
                 var entry = new KeyEntry(alias, fingerprint, publicKeyPem, null);
                 _recipientKeys.Add(entry);
@@ -981,6 +999,19 @@ namespace MessagesEncrypter
             return false;
         }
 
+        private static bool KeyFingerprintExists(ObservableCollection<KeyEntry> keys, string fingerprint)
+        {
+            foreach (KeyEntry key in keys)
+            {
+                if (key.Fingerprint == fingerprint)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         private static string GetAliasOrDefault(string alias, string defaultResourceKey, int index)
         {
             if (!string.IsNullOrWhiteSpace(alias))
@@ -1117,6 +1148,21 @@ namespace MessagesEncrypter
             };
 
             return await dialog.ShowAsync();
+        }
+
+        private async System.Threading.Tasks.Task ShowDuplicateKeyDialogAsync(string fingerprint)
+        {
+            var dialog = new ContentDialog
+            {
+                XamlRoot = RootNavigation.XamlRoot,
+                RequestedTheme = RootNavigation.ActualTheme,
+                Title = AppResources.GetString("DuplicateKeyDialogTitle"),
+                CloseButtonText = AppResources.GetString("DialogOkButtonText"),
+                DefaultButton = ContentDialogButton.Close,
+                Content = string.Format(AppResources.GetString("DuplicateKeyDialogContent"), fingerprint)
+            };
+
+            await dialog.ShowAsync();
         }
 
         private sealed record PrivateKeyPasswordResult(string Password, bool ShouldSave);
