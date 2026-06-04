@@ -73,8 +73,12 @@ public sealed class KeyStoreIntegrityService
     private byte[] ComputeSignature(string filePath)
     {
         byte[] key = GetOrCreateIntegrityKey();
-        byte[] content = File.ReadAllBytes(filePath);
-        return HMACSHA256.HashData(key, content);
+        using FileStream stream = new(
+            filePath,
+            FileMode.Open,
+            FileAccess.Read,
+            FileShare.ReadWrite);
+        return HMACSHA256.HashData(key, stream);
     }
 
     private static byte[] GetOrCreateIntegrityKey()
