@@ -73,5 +73,6 @@
     <RepositoryUrl>https://github.com/BlazeSnow/MessagesEncrypter</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <SignAssembly>False</SignAssembly>
+    <GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
   </PropertyGroup>
 </Project>
