@@ -66,7 +66,7 @@
     <PublishDir>bin\$(Configuration)\$(TargetFramework)\$(RuntimeIdentifier)\publish\</PublishDir>
     <SelfContained>true</SelfContained>
     <PublishSingleFile>False</PublishSingleFile>
-    <DefaultLanguage>zh-CN</DefaultLanguage>
+    <DefaultLanguage>zh-Hans</DefaultLanguage>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>
