@@ -11,7 +11,7 @@
   <Identity
     Name="BlazeSnow.MessagesEncrypter"
     Publisher="CN=C171AF55-419C-4E73-B34E-CB98C8F1EB78"
-    Version="2026.6.4.0" />
+    Version="2026.7.20.0" />
 
   <mp:PhoneIdentity PhoneProductId="875eb646-98e3-4eee-86f2-a2985c584d17" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
