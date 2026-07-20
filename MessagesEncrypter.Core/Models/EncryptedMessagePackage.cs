@@ -1,4 +1,4 @@
-namespace MessagesEncrypter.Models;
+namespace MessagesEncrypter.Core.Models;
 
 public sealed record EncryptedMessagePackage(
     int Ver,

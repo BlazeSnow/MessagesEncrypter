@@ -1,10 +1,10 @@
-using MessagesEncrypter.Models;
+using MessagesEncrypter.Core.Models;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
 
-namespace MessagesEncrypter.Services;
+namespace MessagesEncrypter.Core.Services;
 
 public sealed class KeyExportService
 {

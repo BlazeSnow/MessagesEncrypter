@@ -1,4 +1,4 @@
-namespace MessagesEncrypter.Services;
+namespace MessagesEncrypter.Core.Services;
 
 public sealed record KeyPairResult(
     string PublicKeyPem,

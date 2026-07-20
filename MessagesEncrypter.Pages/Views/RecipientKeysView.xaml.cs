@@ -1,9 +1,9 @@
-using MessagesEncrypter.Models;
+using MessagesEncrypter.Core.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System.Collections;
 
-namespace MessagesEncrypter.Views;
+namespace MessagesEncrypter.Pages.Views;
 
 public sealed partial class RecipientKeysView : UserControl
 {

@@ -1,6 +1,6 @@
 using Microsoft.UI.Xaml.Controls;
 
-namespace MessagesEncrypter.Views;
+namespace MessagesEncrypter.Pages.Views;
 
 public sealed partial class HomeView : UserControl
 {

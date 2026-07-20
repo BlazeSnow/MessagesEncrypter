@@ -1,10 +1,10 @@
-using MessagesEncrypter.Models;
+using MessagesEncrypter.Core.Models;
 using System;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 
-namespace MessagesEncrypter.Services;
+namespace MessagesEncrypter.Core.Services;
 
 public sealed class MessageCryptoService
 {

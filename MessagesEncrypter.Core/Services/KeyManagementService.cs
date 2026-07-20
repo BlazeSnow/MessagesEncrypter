@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Security.Cryptography;
 
-namespace MessagesEncrypter.Services;
+namespace MessagesEncrypter.Core.Services;
 
 public sealed class KeyManagementService
 {

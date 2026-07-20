@@ -1,4 +1,6 @@
-using MessagesEncrypter.Models;
+using MessagesEncrypter.Core.Models;
+using MessagesEncrypter.Core.Services;
+using MessagesEncrypter.Pages.Views;
 using MessagesEncrypter.Services;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -118,6 +120,7 @@ namespace MessagesEncrypter
 
             SettingsView.ChooseExportFolderRequested += ChooseExportFolderButton_Click;
             SettingsView.OpenExportFolderRequested += OpenExportFolderButton_Click;
+            SettingsView.CopyFeedbackEmailRequested += CopyFeedbackEmailButton_Click;
         }
 
         private async void GenerateKeyButton_Click(object sender, RoutedEventArgs e)
@@ -815,6 +818,25 @@ namespace MessagesEncrypter
             {
                 ShowStatus(ex.ResourceKey, InfoBarSeverity.Error);
             }
+        }
+
+        private async void CopyFeedbackEmailButton_Click(object sender, RoutedEventArgs e)
+        {
+            var package = new DataPackage();
+            package.SetText("messages@blazesnow.com");
+            Clipboard.SetContent(package);
+
+            var dialog = new ContentDialog
+            {
+                XamlRoot = SettingsView.XamlRoot,
+                RequestedTheme = SettingsView.ActualTheme,
+                Title = AppResources.GetString("FeedbackEmailCopiedDialogTitle"),
+                Content = AppResources.GetString("FeedbackEmailCopiedDialogContent"),
+                CloseButtonText = AppResources.GetString("DialogOkButtonText"),
+                DefaultButton = ContentDialogButton.Close
+            };
+
+            await dialog.ShowAsync();
         }
 
         private async void PasteEncryptedMessageButton_Click(object sender, RoutedEventArgs e)

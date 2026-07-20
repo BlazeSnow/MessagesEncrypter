@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace MessagesEncrypter.Models;
+namespace MessagesEncrypter.Core.Models;
 
 public sealed class KeyStoreData
 {

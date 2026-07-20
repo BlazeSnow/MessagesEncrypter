@@ -1,4 +1,4 @@
-using MessagesEncrypter.Models;
+using MessagesEncrypter.Core.Models;
 using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Text.Json;
 using Windows.Storage;
 
-namespace MessagesEncrypter.Services;
+namespace MessagesEncrypter.Core.Services;
 
 public sealed class KeyStoreService
 {

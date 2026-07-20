@@ -2,7 +2,7 @@ using System;
 using System.Security.Cryptography;
 using System.Text.Json.Serialization;
 
-namespace MessagesEncrypter.Models;
+namespace MessagesEncrypter.Core.Models;
 
 public sealed class KeyEntry
 {

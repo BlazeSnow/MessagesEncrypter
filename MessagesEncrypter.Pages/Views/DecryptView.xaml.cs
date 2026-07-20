@@ -1,9 +1,9 @@
-using MessagesEncrypter.Models;
+using MessagesEncrypter.Core.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
 
-namespace MessagesEncrypter.Views;
+namespace MessagesEncrypter.Pages.Views;
 
 public sealed partial class DecryptView : UserControl
 {

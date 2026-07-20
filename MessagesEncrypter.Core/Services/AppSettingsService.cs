@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using Windows.Storage;
 
-namespace MessagesEncrypter.Services;
+namespace MessagesEncrypter.Core.Services;
 
 public sealed class AppSettingsService
 {

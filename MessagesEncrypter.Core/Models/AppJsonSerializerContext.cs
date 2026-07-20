@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace MessagesEncrypter.Models;
+namespace MessagesEncrypter.Core.Models;
 
 [JsonSourceGenerationOptions(JsonSerializerDefaults.Web)]
 [JsonSerializable(typeof(EncryptedMessagePackage))]

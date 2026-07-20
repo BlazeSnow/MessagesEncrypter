@@ -1,6 +1,6 @@
 using System;
 
-namespace MessagesEncrypter.Services;
+namespace MessagesEncrypter.Core.Services;
 
 public sealed class CryptoException : Exception
 {

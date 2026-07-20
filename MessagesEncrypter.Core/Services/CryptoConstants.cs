@@ -1,6 +1,6 @@
-namespace MessagesEncrypter.Services;
+namespace MessagesEncrypter.Core.Services;
 
-internal static class CryptoConstants
+public static class CryptoConstants
 {
     public const int CurrentMessageVersion = 1;
     public const int AesKeySizeBytes = 32;
