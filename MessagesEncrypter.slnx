@@ -5,14 +5,14 @@
     <Platform Name="x86" />
   </Configurations>
   <Project Path="MessagesEncrypter.Core\MessagesEncrypter.Core.csproj">
-    <Platform Solution="*|ARM64" Project="ARM64" />
-    <Platform Solution="*|x64" Project="x64" />
-    <Platform Solution="*|x86" Project="x86" />
+    <Platform Solution="*|ARM64" Project="AnyCPU" />
+    <Platform Solution="*|x64" Project="AnyCPU" />
+    <Platform Solution="*|x86" Project="AnyCPU" />
   </Project>
   <Project Path="MessagesEncrypter.Pages\MessagesEncrypter.Pages.csproj">
-    <Platform Solution="*|ARM64" Project="ARM64" />
-    <Platform Solution="*|x64" Project="x64" />
-    <Platform Solution="*|x86" Project="x86" />
+    <Platform Solution="*|ARM64" Project="AnyCPU" />
+    <Platform Solution="*|x64" Project="AnyCPU" />
+    <Platform Solution="*|x86" Project="AnyCPU" />
   </Project>
   <Project Path="MessagesEncrypter.csproj">
     <Platform Solution="*|ARM64" Project="ARM64" />
