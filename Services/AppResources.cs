@@ -1,4 +1,5 @@
-using Windows.ApplicationModel.Resources;
+using ResourceLoader = Windows.ApplicationModel.Resources.ResourceLoader;
+using ResourceManager = Microsoft.Windows.ApplicationModel.Resources.ResourceManager;
 
 namespace MessagesEncrypter.Services;
 
@@ -25,5 +26,23 @@ internal static class AppResources
         }
 
         return string.IsNullOrEmpty(value) ? key : value;
+    }
+
+    public static string GetString(string key, string language)
+    {
+        try
+        {
+            var resourceManager = new ResourceManager();
+            var resourceMap = resourceManager.MainResourceMap
+                .GetSubtree("MessagesEncrypter.Pages")
+                .GetSubtree("Resources");
+            var context = resourceManager.CreateResourceContext();
+            context.QualifierValues["Language"] = language;
+            return resourceMap.GetValue(key, context)?.ValueAsString ?? GetString(key);
+        }
+        catch
+        {
+            return GetString(key);
+        }
     }
 }

@@ -1,15 +1,20 @@
-using MessagesEncrypter.Models;
+using MessagesEncrypter.Core.Models;
+using MessagesEncrypter.Core.Services;
+using MessagesEncrypter.Pages.Views;
 using MessagesEncrypter.Services;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.Windows.AppLifecycle;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.System.UserProfile;
 using WinRT.Interop;
 
 namespace MessagesEncrypter
@@ -118,6 +123,8 @@ namespace MessagesEncrypter
 
             SettingsView.ChooseExportFolderRequested += ChooseExportFolderButton_Click;
             SettingsView.OpenExportFolderRequested += OpenExportFolderButton_Click;
+            SettingsView.CopyFeedbackEmailRequested += CopyFeedbackEmailButton_Click;
+            SettingsView.DisplayLanguagePreferenceChanged += DisplayLanguagePreferenceChanged;
         }
 
         private async void GenerateKeyButton_Click(object sender, RoutedEventArgs e)
@@ -817,6 +824,79 @@ namespace MessagesEncrypter
             }
         }
 
+        private async void DisplayLanguagePreferenceChanged(object? sender, string preference)
+        {
+            string previousPreference = LanguageSettings.GetPreference();
+            string selectedPreference = LanguageSettings.Normalize(preference);
+            if (string.Equals(previousPreference, selectedPreference, StringComparison.OrdinalIgnoreCase))
+            {
+                return;
+            }
+
+            string targetLanguage = LanguageSettings.Resolve(
+                selectedPreference,
+                GlobalizationPreferences.Languages.FirstOrDefault());
+            var dialog = new ContentDialog
+            {
+                XamlRoot = SettingsView.XamlRoot,
+                RequestedTheme = SettingsView.ActualTheme,
+                Title = AppResources.GetString("DisplayLanguageRestartDialogTitle", targetLanguage),
+                Content = AppResources.GetString("DisplayLanguageRestartDialogContent", targetLanguage),
+                PrimaryButtonText = AppResources.GetString("DisplayLanguageRestartNowButtonText", targetLanguage),
+                CloseButtonText = AppResources.GetString("DisplayLanguageRestartLaterButtonText", targetLanguage),
+                DefaultButton = ContentDialogButton.Primary
+            };
+
+            LanguageSettings.SavePreference(selectedPreference);
+            if (await dialog.ShowAsync() != ContentDialogResult.Primary)
+            {
+                return;
+            }
+
+            try
+            {
+                if (string.Equals(AppInstance.Restart(string.Empty).ToString(), "None", StringComparison.Ordinal))
+                {
+                    return;
+                }
+            }
+            catch
+            {
+                // The saved preference will take effect the next time the app starts.
+            }
+
+            var failureDialog = new ContentDialog
+            {
+                XamlRoot = SettingsView.XamlRoot,
+                RequestedTheme = SettingsView.ActualTheme,
+                Title = AppResources.GetString("DisplayLanguageRestartFailedDialogTitle", targetLanguage),
+                Content = AppResources.GetString("DisplayLanguageRestartFailedDialogContent", targetLanguage),
+                CloseButtonText = AppResources.GetString("DialogOkButtonText", targetLanguage),
+                DefaultButton = ContentDialogButton.Close
+            };
+
+            await failureDialog.ShowAsync();
+        }
+
+        private async void CopyFeedbackEmailButton_Click(object sender, RoutedEventArgs e)
+        {
+            var package = new DataPackage();
+            package.SetText("messages@blazesnow.com");
+            Clipboard.SetContent(package);
+
+            var dialog = new ContentDialog
+            {
+                XamlRoot = SettingsView.XamlRoot,
+                RequestedTheme = SettingsView.ActualTheme,
+                Title = AppResources.GetString("FeedbackEmailCopiedDialogTitle"),
+                Content = AppResources.GetString("FeedbackEmailCopiedDialogContent"),
+                CloseButtonText = AppResources.GetString("DialogOkButtonText"),
+                DefaultButton = ContentDialogButton.Close
+            };
+
+            await dialog.ShowAsync();
+        }
+
         private async void PasteEncryptedMessageButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -941,6 +1021,7 @@ namespace MessagesEncrypter
             try
             {
                 SettingsView.ExportFolderPath = _appSettingsService.GetExportFolderPath();
+                SettingsView.DisplayLanguagePreference = LanguageSettings.GetPreference();
             }
             catch (CryptoException ex)
             {

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="MessagesEncrypter.Pages.Views.RecipientKeysView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:CommunityToolkit.WinUI.Controls">
+
+    <StackPanel Spacing="14" MaxWidth="900" HorizontalAlignment="Stretch">
+        <TextBlock x:Uid="RecipientKeysListTitle" Style="{ThemeResource BodyStrongTextBlockStyle}" />
+        <StackPanel Orientation="Horizontal" Spacing="8">
+            <Button Click="ImportRecipientKeyButton_Click">
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8B5;" />
+                    <TextBlock x:Uid="ImportRecipientKeyButton" />
+                </StackPanel>
+            </Button>
+            <Button Click="OpenExportFolderButton_Click">
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE838;" />
+                    <TextBlock x:Uid="OpenExportFolderButton" />
+                </StackPanel>
+            </Button>
+        </StackPanel>
+        <ItemsControl
+            x:Name="RecipientKeysItemsControl"
+            MinHeight="320">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Spacing="8" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <controls:SettingsCard
+                        Header="{Binding Alias}"
+                        Description="{Binding FingerprintDisplay}">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock
+                                MinWidth="72"
+                                VerticalAlignment="Center"
+                                Text="{Binding KeyTypeDisplay}"
+                                Style="{ThemeResource CaptionTextBlockStyle}"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                            <Button Tag="{Binding}" Click="SelectRecipientKeyButton_Click">
+                                <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE712;" />
+                                <Button.Flyout>
+                                    <Flyout Placement="BottomEdgeAlignedRight">
+                                        <StackPanel MinWidth="180" Spacing="8">
+                                            <Button HorizontalAlignment="Stretch" Tag="{Binding}" Click="CopySelectedRecipientKeyButton_Click">
+                                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8C8;" />
+                                                    <TextBlock x:Uid="CopySelectedRecipientKeyButton" />
+                                                </StackPanel>
+                                            </Button>
+                                            <Button HorizontalAlignment="Stretch" Tag="{Binding}" Click="ExportSelectedRecipientKeyButton_Click">
+                                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE896;" />
+                                                    <TextBlock x:Uid="ExportSelectedRecipientKeyButton" />
+                                                </StackPanel>
+                                            </Button>
+                                            <Button HorizontalAlignment="Stretch" Tag="{Binding}" Click="RenameSelectedRecipientKeyButton_Click">
+                                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE70F;" />
+                                                    <TextBlock x:Uid="RenameSelectedKeyButton" />
+                                                </StackPanel>
+                                            </Button>
+                                            <Button HorizontalAlignment="Stretch" Tag="{Binding}" Click="DeleteSelectedRecipientKeyButton_Click">
+                                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE74D;" />
+                                                    <TextBlock x:Uid="DeleteSelectedRecipientKeyButton" />
+                                                </StackPanel>
+                                            </Button>
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                        </StackPanel>
+                    </controls:SettingsCard>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </StackPanel>
+</UserControl>
