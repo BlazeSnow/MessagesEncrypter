@@ -1,23 +1,699 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
-  <resheader name="version"><value>2.0</value></resheader>
-  <data name="MainWindowTitle"><value>MessagesEncrypter</value></data>
-  <data name="AppDisplayName"><value>MessagesEncrypter</value></data>
-  <data name="AppDescription"><value>Windows desktop public-key encryption tool</value></data>
-  <data name="AppTitleBar.Title"><value>MessagesEncrypter</value></data>
-  <data name="AppTitleBar.Subtitle"><value>Public-key encryption tool</value></data>
-  <data name="HomeNavItem.Content"><value>Home</value></data><data name="EncryptNavItem.Content"><value>Encrypt</value></data><data name="DecryptNavItem.Content"><value>Decrypt</value></data><data name="RecipientKeysNavItem.Content"><value>Recipient keys</value></data><data name="PrivateKeysNavItem.Content"><value>My private keys</value></data><data name="SettingsNavItem.Content"><value>Settings</value></data>
-  <data name="PageTitleEncrypt"><value>Encrypt message</value></data><data name="PageTitleHome"><value>Home</value></data><data name="PageTitleDecrypt"><value>Decrypt message</value></data><data name="PageTitleRecipientKeys"><value>Recipient keys</value></data><data name="PageTitlePrivateKeys"><value>My private keys</value></data><data name="PageTitleSettings"><value>Settings</value></data>
-  <data name="RecipientKeyLabel.Text"><value>Recipient</value></data><data name="HomeSendMessageTitle.Text"><value>Send a message</value></data><data name="HomeSendMessageStep1.Header"><value>Import the public key provided by the recipient in Recipient keys.</value></data><data name="HomeSendMessageStep2.Header"><value>Select the recipient in Encrypt message and enter the message.</value></data><data name="HomeSendMessageStep3.Header"><value>Select Encrypt, then copy the generated encrypted package.</value></data><data name="HomeSendMessageStep4.Header"><value>Send the encrypted package through a channel you trust.</value></data><data name="HomeReceiveMessageTitle.Text"><value>Receive a message</value></data><data name="HomeReceiveMessageStep1.Header"><value>Generate or import your private key in My private keys, and optionally save its password.</value></data><data name="HomeReceiveMessageStep2.Header"><value>Give the corresponding public key to the sender.</value></data><data name="HomeReceiveMessageStep3.Header"><value>After receiving an encrypted package, select your private key in Decrypt message and paste the ciphertext.</value></data><data name="HomeReceiveMessageStep4.Header"><value>Select Decrypt to view the plaintext after authentication succeeds.</value></data>
-  <data name="HomeDiagramReceiverTitle.Text"><value>Recipient</value></data><data name="HomeInstructionsTitle.Text"><value>How it works</value></data><data name="HomeDiagramReceiverPrivateKey.Text"><value>First, generate or import your private key. It stays on this device.</value></data><data name="HomeDiagramReceiverPublicKey.Text"><value>Export the corresponding public key and send it to the sender.</value></data><data name="HomeDiagramReceiverDecrypt.Text"><value>When an encrypted package arrives, select the private key to decrypt it.</value></data><data name="HomeDiagramSenderTitle.Text"><value>Sender</value></data><data name="HomeDiagramSenderImportKey.Text"><value>Import the public key supplied by the recipient.</value></data><data name="HomeDiagramSenderEncrypt.Text"><value>Select the recipient, enter a message, and create an encrypted package.</value></data><data name="HomeDiagramPublicKeyFlow.Text"><value>Public key to sender</value></data><data name="HomeDiagramCipherFlow.Text"><value>Encrypted package to recipient</value></data>
-  <data name="RecipientKeyComboBox.PlaceholderText"><value>Select a recipient from key management</value></data><data name="EncryptPlainTextLabel.Text"><value>Message to encrypt</value></data><data name="PlainTextBox.PlaceholderText"><value>Enter the message to send</value></data><data name="EncryptButton.Text"><value>Encrypt</value></data><data name="CopyEncryptedMessageButton.Text"><value>Copy ciphertext</value></data><data name="ClearEncryptContentButton.Text"><value>Clear</value></data><data name="EncryptedMessageLabel.Text"><value>Encrypted result</value></data><data name="EncryptedMessageTextBox.PlaceholderText"><value>A copyable Base64 JSON encrypted package appears here</value></data>
-  <data name="PrivateKeySelectionLabel.Text"><value>My private key</value></data><data name="PrivateKeyComboBox.PlaceholderText"><value>Select a private key from key management</value></data><data name="CipherTextLabel.Text"><value>Ciphertext to decrypt</value></data><data name="CipherTextBox.PlaceholderText"><value>Paste the received Base64 JSON encrypted package</value></data><data name="DecryptButton.Text"><value>Decrypt</value></data><data name="PasteEncryptedMessageButton.Text"><value>Paste ciphertext</value></data><data name="ClearDecryptContentButton.Text"><value>Clear</value></data><data name="DecryptedMessageLabel.Text"><value>Decrypted result</value></data><data name="DecryptedMessageTextBox.PlaceholderText"><value>Plaintext appears here after authentication succeeds</value></data>
-  <data name="ImportRecipientKeyTitle.Text"><value>Import recipient public key</value></data><data name="RecipientAliasTextBox.PlaceholderText"><value>Recipient alias</value></data><data name="RecipientPublicKeyTextBox.PlaceholderText"><value>Paste a public key beginning with -----BEGIN PUBLIC KEY-----</value></data><data name="ImportRecipientKeyButton.Text"><value>Import recipient</value></data><data name="ImportRecipientKeyDialogTitle"><value>Import recipient public key</value></data><data name="ImportRecipientKeyDialogPrimaryButtonText"><value>Import</value></data><data name="ImportRecipientKeyFromFileButtonText"><value>Import from file</value></data><data name="CopySelectedRecipientKeyButton.Text"><value>Copy public key</value></data><data name="ExportSelectedRecipientKeyButton.Text"><value>Export public key</value></data><data name="DeleteSelectedRecipientKeyButton.Text"><value>Delete</value></data><data name="RenameSelectedKeyButton.Text"><value>Rename</value></data>
-  <data name="GenerateKeyDescription.Text"><value>Generate an RSA key pair. The private key is encrypted with the password entered here. Keep the password safe.</value></data><data name="RsaKeySizeComboBox.Header"><value>RSA key size</value></data><data name="ManagePublicKeyButton.Content"><value>Manage public keys</value></data><data name="ManagePrivateKeyButton.Content"><value>Manage private keys</value></data><data name="PrivateKeyAliasTextBox.PlaceholderText"><value>My key alias</value></data><data name="GenerateKeyButton.Text"><value>Generate key pair</value></data><data name="ImportPrivateKeyButton.Text"><value>Import private key</value></data><data name="GeneratePrivateKeyDialogTitle"><value>Generate my key</value></data><data name="GeneratePrivateKeyDialogPrimaryButtonText"><value>Generate</value></data><data name="ImportPrivateKeyDialogTitle"><value>Import my private key</value></data><data name="ImportPrivateKeyDialogPrimaryButtonText"><value>Import</value></data><data name="ImportPrivateKeyFromFileButtonText"><value>Import from file</value></data><data name="PrivateKeyTextBox.PlaceholderText"><value>Paste a PEM private key; encrypted and unencrypted keys are supported</value></data><data name="PrivateKeyPasswordBox.PlaceholderText"><value>Enter this private key's password</value></data><data name="PrivateKeyPasswordConfirmBox.PlaceholderText"><value>Enter this private key's password again</value></data><data name="RememberPrivateKeyPasswordCheckBox.Content"><value>Remember this private key password</value></data><data name="OldPrivateKeyPasswordBox.PlaceholderText"><value>Enter the current private key password</value></data><data name="NewPrivateKeyPasswordBox.PlaceholderText"><value>Enter a new private key password</value></data><data name="NewPrivateKeyPasswordConfirmBox.PlaceholderText"><value>Enter the new private key password again</value></data><data name="ChangePrivateKeyPasswordButton.Text"><value>Change password</value></data><data name="ChangePrivateKeyPasswordDialogTitle"><value>Change private key password</value></data><data name="ChangePrivateKeyPasswordDialogPrimaryButtonText"><value>Change</value></data><data name="UnlockPrivateKeyDialogTitle"><value>Enter private key password</value></data><data name="UnlockPrivateKeyDialogPrimaryButtonText"><value>Unlock</value></data><data name="RenameKeyDialogTitle"><value>Rename key</value></data><data name="RenameKeyDialogPrimaryButtonText"><value>Save</value></data><data name="RenameKeyAliasTextBox.PlaceholderText"><value>Key alias</value></data><data name="DialogCancelButtonText"><value>Cancel</value></data><data name="DialogOkButtonText"><value>OK</value></data>
-  <data name="DeleteRecipientKeyDialogTitle"><value>Delete recipient</value></data><data name="DeletePrivateKeyDialogTitle"><value>Delete my private key</value></data><data name="DeleteKeyDialogPrimaryButtonText"><value>Delete</value></data><data name="DeleteKeyDialogContent"><value>Delete “{0}”? This updates the local key store.</value></data><data name="DuplicateKeyDialogTitle"><value>Key already exists</value></data><data name="DuplicateKeyDialogContent"><value>A key with fingerprint “{0}” already exists in this list. Do not import it again.</value></data><data name="CopySelectedPrivatePublicKeyButton.Text"><value>Copy public key</value></data><data name="ExportSelectedPrivatePublicKeyButton.Text"><value>Export public key</value></data><data name="CopySelectedPrivateKeyButton.Text"><value>Copy private key</value></data><data name="ExportSelectedPrivateKeyButton.Text"><value>Export private key</value></data><data name="DeleteSelectedPrivateKeyButton.Text"><value>Delete</value></data><data name="RecipientKeysListTitle.Text"><value>Recipients</value></data><data name="PrivateKeysListTitle.Text"><value>My private keys</value></data><data name="FingerprintLabel.Text"><value>Public key fingerprint</value></data><data name="FingerprintTextBox.PlaceholderText"><value>Shown after generating or importing a public key</value></data><data name="PublicKeyOutputLabel.Text"><value>Public key</value></data><data name="GeneratedPublicKeyTextBox.PlaceholderText"><value>The generated public key appears here and can be sent to others</value></data><data name="PrivateKeyOutputLabel.Text"><value>Encrypted private key</value></data><data name="GeneratedPrivateKeyTextBox.PlaceholderText"><value>The generated encrypted private key appears here. Do not send it to others.</value></data>
-  <data name="DisplayLanguageSettingsCard.Header"><value>Display language</value></data><data name="DisplayLanguageSettingsCard.Description"><value>Changes take effect after restarting the app.</value></data><data name="DisplayLanguageAutoOption.Content"><value>Follow system</value></data><data name="DisplayLanguageRestartDialogTitle"><value>Restart required</value></data><data name="DisplayLanguageRestartDialogContent"><value>The display language will take effect after the app restarts.</value></data><data name="DisplayLanguageRestartNowButtonText"><value>Restart now</value></data><data name="DisplayLanguageRestartLaterButtonText"><value>Restart later</value></data><data name="DisplayLanguageRestartFailedDialogTitle"><value>Could not restart</value></data><data name="DisplayLanguageRestartFailedDialogContent"><value>The language preference was saved. Restart the app manually to apply it.</value></data>
-  <data name="ExportFolderSettingsCard.Header"><value>Export location</value></data><data name="ExportFolderSettingsCard.Description"><value>Used to save exported key files.</value></data><data name="ChooseExportFolderButton.Text"><value>Choose location</value></data><data name="OpenExportFolderButton.Text"><value>Open export location</value></data><data name="OpenSettingsExportFolderButton.Text"><value>Open location</value></data><data name="ProjectRepositorySettingsCard.Header"><value>Project repository</value></data><data name="ProjectRepositorySettingsCard.Description"><value>https://github.com/BlazeSnow/MessagesEncrypter</value></data><data name="OpenProjectRepositoryButton.Text"><value>Open repository</value></data><data name="ProjectWebsiteSettingsCard.Header"><value>Project website</value></data><data name="ProjectWebsiteSettingsCard.Description"><value>https://www.blazesnow.com/messages/</value></data><data name="OpenProjectWebsiteButton.Text"><value>Open website</value></data><data name="FeedbackEmailSettingsCard.Header"><value>Feedback email</value></data><data name="FeedbackEmailSettingsCard.Description"><value>messages@blazesnow.com</value></data><data name="CopyFeedbackEmailButton.Text"><value>Copy email</value></data><data name="FeedbackEmailCopiedDialogTitle"><value>Copied</value></data><data name="FeedbackEmailCopiedDialogContent"><value>The feedback email address has been copied to the clipboard.</value></data>
-  <data name="StatusKeyGenerated"><value>The key pair was generated and added to My private keys.</value></data><data name="StatusPrivateKeyImported"><value>The private key was imported and its public key was created.</value></data><data name="StatusPrivateKeyPasswordChanged"><value>The private key password was changed.</value></data><data name="StatusKeyAliasChanged"><value>The alias was changed.</value></data><data name="StatusRecipientKeyImported"><value>The recipient public key was imported.</value></data><data name="StatusMessageEncrypted"><value>The message was encrypted.</value></data><data name="StatusMessageDecrypted"><value>The message was decrypted and authenticated.</value></data><data name="StatusEncryptedMessageCopied"><value>The ciphertext was copied to the clipboard.</value></data><data name="StatusPublicKeyCopied"><value>The public key was copied to the clipboard.</value></data><data name="StatusPrivateKeyCopied"><value>The encrypted private key was copied to the clipboard.</value></data><data name="StatusEncryptedMessagePasted"><value>The ciphertext was pasted from the clipboard.</value></data><data name="StatusRecipientKeyDeleted"><value>The recipient was deleted.</value></data><data name="StatusPrivateKeyDeleted"><value>The private key was deleted.</value></data><data name="StatusExportFolderSaved"><value>The export location was saved.</value></data><data name="StatusKeyExported"><value>The key was exported to the configured export location.</value></data>
-  <data name="ErrorPasswordRequired"><value>Enter the private key password.</value></data><data name="ErrorExportFolderRequired"><value>Select an export location.</value></data><data name="ErrorExportFolderOpenFailed"><value>Could not open the export location. Check that the path is available.</value></data><data name="ErrorKeyExportFailed"><value>Could not export the key. Check that the export location is writable.</value></data><data name="ErrorCredentialPasswordMissing"><value>Enter this private key's password.</value></data><data name="ErrorCredentialSaveFailed"><value>Could not save the private key password. Check that Windows Credential Manager is available.</value></data><data name="ErrorCredentialDeleteFailed"><value>Could not delete the private key password. Try again later.</value></data><data name="ErrorKeyStoreLoadFailed"><value>Could not load the key store. Check whether the local app data file is damaged.</value></data><data name="ErrorKeyStoreSaveFailed"><value>Could not save the key store. Check whether local app storage is available.</value></data><data name="ErrorKeyStoreIntegrityMissing"><value>The key store has no integrity information. Loading was refused to avoid using keys that may have been replaced.</value></data><data name="ErrorKeyStoreIntegrityInvalid"><value>Key store integrity verification failed. The file may have been modified externally, so loading was refused.</value></data><data name="ErrorKeyStoreIntegritySignFailed"><value>Could not re-sign the key store. Check local app storage or Windows Credential Manager.</value></data><data name="KeyStoreIntegrityDialogTitle"><value>Key store may be unsafe</value></data><data name="KeyStoreIntegrityDialogIgnoreButtonText"><value>Ignore and re-sign</value></data><data name="KeyStoreIntegrityDialogExitButtonText"><value>Exit app</value></data><data name="ErrorPublicKeyRequired"><value>Provide the recipient public key.</value></data><data name="ErrorPrivateKeyRequired"><value>Provide the encrypted private key.</value></data><data name="ErrorRecipientKeyNotSelected"><value>Select a recipient first.</value></data><data name="ErrorPrivateKeyNotSelected"><value>Select my private key first.</value></data><data name="ErrorKeyAliasRequired"><value>Enter a key alias.</value></data><data name="DefaultRecipientKeyAlias"><value>Recipient {0}</value></data><data name="DefaultPrivateKeyAlias"><value>My key {0}</value></data><data name="ErrorPublicKeyInvalid"><value>The public key format is invalid.</value></data><data name="ErrorPublicKeyFileReadFailed"><value>Could not read the public key file. Check that it is accessible.</value></data><data name="ErrorPrivateKeyFileReadFailed"><value>Could not read the private key file. Check that it is accessible.</value></data><data name="ErrorPasswordConfirmMismatch"><value>The private key passwords do not match.</value></data><data name="ErrorPrivateKeyInvalidOrPasswordWrong"><value>The private key format is invalid, or the password is incorrect.</value></data><data name="ErrorPublicKeyTooSmall"><value>The public key is too small. Use an RSA-2048 key or larger.</value></data><data name="ErrorPrivateKeyTooSmall"><value>The private key is too small. Use an RSA-2048 key or larger.</value></data><data name="ErrorRsaKeySizeUnsupported"><value>Select a supported RSA key size.</value></data><data name="ErrorCipherTextRequired"><value>Enter the ciphertext to decrypt.</value></data><data name="ErrorPlainTextRequired"><value>Enter the message to encrypt.</value></data><data name="ErrorEncryptFailed"><value>Encryption failed. Check the public key format.</value></data><data name="ErrorDecryptFailed"><value>Decryption failed. The ciphertext may be tampered with or malformed, the private key may not match, or the password may be incorrect.</value></data><data name="ErrorUnsupportedMessageFormat"><value>The ciphertext format or version is unsupported.</value></data><data name="ErrorClipboardNothingToCopy"><value>There is nothing to copy.</value></data><data name="ErrorClipboardTextMissing"><value>The clipboard has no text.</value></data><data name="ErrorClipboardUnavailable"><value>The clipboard is currently unavailable.</value></data><data name="AppVersionSettingsCard.Header"><value>App version</value></data>
+  <!--
+    Microsoft ResX Schema
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MainWindowTitle" xml:space="preserve">
+    <value>MessagesEncrypter</value>
+  </data>
+  <data name="AppDisplayName" xml:space="preserve">
+    <value>MessagesEncrypter</value>
+  </data>
+  <data name="AppDescription" xml:space="preserve">
+    <value>Windows desktop public-key encryption tool</value>
+  </data>
+  <data name="AppTitleBar.Title" xml:space="preserve">
+    <value>MessagesEncrypter</value>
+  </data>
+  <data name="AppTitleBar.Subtitle" xml:space="preserve">
+    <value>Public-key encryption tool</value>
+  </data>
+  <data name="HomeNavItem.Content" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="EncryptNavItem.Content" xml:space="preserve">
+    <value>Encrypt</value>
+  </data>
+  <data name="DecryptNavItem.Content" xml:space="preserve">
+    <value>Decrypt</value>
+  </data>
+  <data name="RecipientKeysNavItem.Content" xml:space="preserve">
+    <value>Recipient keys</value>
+  </data>
+  <data name="PrivateKeysNavItem.Content" xml:space="preserve">
+    <value>My private keys</value>
+  </data>
+  <data name="SettingsNavItem.Content" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="PageTitleEncrypt" xml:space="preserve">
+    <value>Encrypt message</value>
+  </data>
+  <data name="PageTitleHome" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="PageTitleDecrypt" xml:space="preserve">
+    <value>Decrypt message</value>
+  </data>
+  <data name="PageTitleRecipientKeys" xml:space="preserve">
+    <value>Recipient keys</value>
+  </data>
+  <data name="PageTitlePrivateKeys" xml:space="preserve">
+    <value>My private keys</value>
+  </data>
+  <data name="PageTitleSettings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="RecipientKeyLabel.Text" xml:space="preserve">
+    <value>Recipient</value>
+  </data>
+  <data name="HomeSendMessageTitle.Text" xml:space="preserve">
+    <value>Send a message</value>
+  </data>
+  <data name="HomeSendMessageStep1.Header" xml:space="preserve">
+    <value>Import the public key provided by the recipient in Recipient keys.</value>
+  </data>
+  <data name="HomeSendMessageStep2.Header" xml:space="preserve">
+    <value>Select the recipient in Encrypt message and enter the message.</value>
+  </data>
+  <data name="HomeSendMessageStep3.Header" xml:space="preserve">
+    <value>Select Encrypt, then copy the generated encrypted package.</value>
+  </data>
+  <data name="HomeSendMessageStep4.Header" xml:space="preserve">
+    <value>Send the encrypted package through a channel you trust.</value>
+  </data>
+  <data name="HomeReceiveMessageTitle.Text" xml:space="preserve">
+    <value>Receive a message</value>
+  </data>
+  <data name="HomeReceiveMessageStep1.Header" xml:space="preserve">
+    <value>Generate or import your private key in My private keys, and optionally save its password.</value>
+  </data>
+  <data name="HomeReceiveMessageStep2.Header" xml:space="preserve">
+    <value>Give the corresponding public key to the sender.</value>
+  </data>
+  <data name="HomeReceiveMessageStep3.Header" xml:space="preserve">
+    <value>After receiving an encrypted package, select your private key in Decrypt message and paste the ciphertext.</value>
+  </data>
+  <data name="HomeReceiveMessageStep4.Header" xml:space="preserve">
+    <value>Select Decrypt to view the plaintext after authentication succeeds.</value>
+  </data>
+  <data name="HomeDiagramReceiverTitle.Text" xml:space="preserve">
+    <value>Recipient</value>
+  </data>
+  <data name="HomeInstructionsTitle.Text" xml:space="preserve">
+    <value>How it works</value>
+  </data>
+  <data name="HomeDiagramReceiverPrivateKey.Text" xml:space="preserve">
+    <value>First, generate or import your private key. It stays on this device.</value>
+  </data>
+  <data name="HomeDiagramReceiverPublicKey.Text" xml:space="preserve">
+    <value>Export the corresponding public key and send it to the sender.</value>
+  </data>
+  <data name="HomeDiagramReceiverDecrypt.Text" xml:space="preserve">
+    <value>When an encrypted package arrives, select the private key to decrypt it.</value>
+  </data>
+  <data name="HomeDiagramSenderTitle.Text" xml:space="preserve">
+    <value>Sender</value>
+  </data>
+  <data name="HomeDiagramSenderImportKey.Text" xml:space="preserve">
+    <value>Import the public key supplied by the recipient.</value>
+  </data>
+  <data name="HomeDiagramSenderEncrypt.Text" xml:space="preserve">
+    <value>Select the recipient, enter a message, and create an encrypted package.</value>
+  </data>
+  <data name="HomeDiagramPublicKeyFlow.Text" xml:space="preserve">
+    <value>Public key to sender</value>
+  </data>
+  <data name="HomeDiagramCipherFlow.Text" xml:space="preserve">
+    <value>Encrypted package to recipient</value>
+  </data>
+  <data name="RecipientKeyComboBox.PlaceholderText" xml:space="preserve">
+    <value>Select a recipient from key management</value>
+  </data>
+  <data name="EncryptPlainTextLabel.Text" xml:space="preserve">
+    <value>Message to encrypt</value>
+  </data>
+  <data name="PlainTextBox.PlaceholderText" xml:space="preserve">
+    <value>Enter the message to send</value>
+  </data>
+  <data name="EncryptButton.Text" xml:space="preserve">
+    <value>Encrypt</value>
+  </data>
+  <data name="CopyEncryptedMessageButton.Text" xml:space="preserve">
+    <value>Copy ciphertext</value>
+  </data>
+  <data name="ClearEncryptContentButton.Text" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="EncryptedMessageLabel.Text" xml:space="preserve">
+    <value>Encrypted result</value>
+  </data>
+  <data name="EncryptedMessageTextBox.PlaceholderText" xml:space="preserve">
+    <value>A copyable Base64 JSON encrypted package appears here</value>
+  </data>
+  <data name="PrivateKeySelectionLabel.Text" xml:space="preserve">
+    <value>My private key</value>
+  </data>
+  <data name="PrivateKeyComboBox.PlaceholderText" xml:space="preserve">
+    <value>Select a private key from key management</value>
+  </data>
+  <data name="CipherTextLabel.Text" xml:space="preserve">
+    <value>Ciphertext to decrypt</value>
+  </data>
+  <data name="CipherTextBox.PlaceholderText" xml:space="preserve">
+    <value>Paste the received Base64 JSON encrypted package</value>
+  </data>
+  <data name="DecryptButton.Text" xml:space="preserve">
+    <value>Decrypt</value>
+  </data>
+  <data name="PasteEncryptedMessageButton.Text" xml:space="preserve">
+    <value>Paste ciphertext</value>
+  </data>
+  <data name="ClearDecryptContentButton.Text" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="DecryptedMessageLabel.Text" xml:space="preserve">
+    <value>Decrypted result</value>
+  </data>
+  <data name="DecryptedMessageTextBox.PlaceholderText" xml:space="preserve">
+    <value>Plaintext appears here after authentication succeeds</value>
+  </data>
+  <data name="ImportRecipientKeyTitle.Text" xml:space="preserve">
+    <value>Import recipient public key</value>
+  </data>
+  <data name="RecipientAliasTextBox.PlaceholderText" xml:space="preserve">
+    <value>Recipient alias</value>
+  </data>
+  <data name="RecipientPublicKeyTextBox.PlaceholderText" xml:space="preserve">
+    <value>Paste a public key beginning with -----BEGIN PUBLIC KEY-----</value>
+  </data>
+  <data name="ImportRecipientKeyButton.Text" xml:space="preserve">
+    <value>Import recipient</value>
+  </data>
+  <data name="ImportRecipientKeyDialogTitle" xml:space="preserve">
+    <value>Import recipient public key</value>
+  </data>
+  <data name="ImportRecipientKeyDialogPrimaryButtonText" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="ImportRecipientKeyFromFileButtonText" xml:space="preserve">
+    <value>Import from file</value>
+  </data>
+  <data name="CopySelectedRecipientKeyButton.Text" xml:space="preserve">
+    <value>Copy public key</value>
+  </data>
+  <data name="ExportSelectedRecipientKeyButton.Text" xml:space="preserve">
+    <value>Export public key</value>
+  </data>
+  <data name="DeleteSelectedRecipientKeyButton.Text" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="RenameSelectedKeyButton.Text" xml:space="preserve">
+    <value>Rename</value>
+  </data>
+  <data name="GenerateKeyDescription.Text" xml:space="preserve">
+    <value>Generate an RSA key pair. The private key is encrypted with the password entered here. Keep the password safe.</value>
+  </data>
+  <data name="RsaKeySizeComboBox.Header" xml:space="preserve">
+    <value>RSA key size</value>
+  </data>
+  <data name="ManagePublicKeyButton.Content" xml:space="preserve">
+    <value>Manage public keys</value>
+  </data>
+  <data name="ManagePrivateKeyButton.Content" xml:space="preserve">
+    <value>Manage private keys</value>
+  </data>
+  <data name="PrivateKeyAliasTextBox.PlaceholderText" xml:space="preserve">
+    <value>My key alias</value>
+  </data>
+  <data name="GenerateKeyButton.Text" xml:space="preserve">
+    <value>Generate key pair</value>
+  </data>
+  <data name="ImportPrivateKeyButton.Text" xml:space="preserve">
+    <value>Import private key</value>
+  </data>
+  <data name="GeneratePrivateKeyDialogTitle" xml:space="preserve">
+    <value>Generate my key</value>
+  </data>
+  <data name="GeneratePrivateKeyDialogPrimaryButtonText" xml:space="preserve">
+    <value>Generate</value>
+  </data>
+  <data name="ImportPrivateKeyDialogTitle" xml:space="preserve">
+    <value>Import my private key</value>
+  </data>
+  <data name="ImportPrivateKeyDialogPrimaryButtonText" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="ImportPrivateKeyFromFileButtonText" xml:space="preserve">
+    <value>Import from file</value>
+  </data>
+  <data name="PrivateKeyTextBox.PlaceholderText" xml:space="preserve">
+    <value>Paste a PEM private key; encrypted and unencrypted keys are supported</value>
+  </data>
+  <data name="PrivateKeyPasswordBox.PlaceholderText" xml:space="preserve">
+    <value>Enter this private key's password</value>
+  </data>
+  <data name="PrivateKeyPasswordConfirmBox.PlaceholderText" xml:space="preserve">
+    <value>Enter this private key's password again</value>
+  </data>
+  <data name="RememberPrivateKeyPasswordCheckBox.Content" xml:space="preserve">
+    <value>Remember this private key password</value>
+  </data>
+  <data name="OldPrivateKeyPasswordBox.PlaceholderText" xml:space="preserve">
+    <value>Enter the current private key password</value>
+  </data>
+  <data name="NewPrivateKeyPasswordBox.PlaceholderText" xml:space="preserve">
+    <value>Enter a new private key password</value>
+  </data>
+  <data name="NewPrivateKeyPasswordConfirmBox.PlaceholderText" xml:space="preserve">
+    <value>Enter the new private key password again</value>
+  </data>
+  <data name="ChangePrivateKeyPasswordButton.Text" xml:space="preserve">
+    <value>Change password</value>
+  </data>
+  <data name="ChangePrivateKeyPasswordDialogTitle" xml:space="preserve">
+    <value>Change private key password</value>
+  </data>
+  <data name="ChangePrivateKeyPasswordDialogPrimaryButtonText" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="UnlockPrivateKeyDialogTitle" xml:space="preserve">
+    <value>Enter private key password</value>
+  </data>
+  <data name="UnlockPrivateKeyDialogPrimaryButtonText" xml:space="preserve">
+    <value>Unlock</value>
+  </data>
+  <data name="RenameKeyDialogTitle" xml:space="preserve">
+    <value>Rename key</value>
+  </data>
+  <data name="RenameKeyDialogPrimaryButtonText" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="RenameKeyAliasTextBox.PlaceholderText" xml:space="preserve">
+    <value>Key alias</value>
+  </data>
+  <data name="DialogCancelButtonText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="DialogOkButtonText" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="DeleteRecipientKeyDialogTitle" xml:space="preserve">
+    <value>Delete recipient</value>
+  </data>
+  <data name="DeletePrivateKeyDialogTitle" xml:space="preserve">
+    <value>Delete my private key</value>
+  </data>
+  <data name="DeleteKeyDialogPrimaryButtonText" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DeleteKeyDialogContent" xml:space="preserve">
+    <value>Delete “{0}”? This updates the local key store.</value>
+  </data>
+  <data name="DuplicateKeyDialogTitle" xml:space="preserve">
+    <value>Key already exists</value>
+  </data>
+  <data name="DuplicateKeyDialogContent" xml:space="preserve">
+    <value>A key with fingerprint “{0}” already exists in this list. Do not import it again.</value>
+  </data>
+  <data name="CopySelectedPrivatePublicKeyButton.Text" xml:space="preserve">
+    <value>Copy public key</value>
+  </data>
+  <data name="ExportSelectedPrivatePublicKeyButton.Text" xml:space="preserve">
+    <value>Export public key</value>
+  </data>
+  <data name="CopySelectedPrivateKeyButton.Text" xml:space="preserve">
+    <value>Copy private key</value>
+  </data>
+  <data name="ExportSelectedPrivateKeyButton.Text" xml:space="preserve">
+    <value>Export private key</value>
+  </data>
+  <data name="DeleteSelectedPrivateKeyButton.Text" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="RecipientKeysListTitle.Text" xml:space="preserve">
+    <value>Recipients</value>
+  </data>
+  <data name="PrivateKeysListTitle.Text" xml:space="preserve">
+    <value>My private keys</value>
+  </data>
+  <data name="FingerprintLabel.Text" xml:space="preserve">
+    <value>Public key fingerprint</value>
+  </data>
+  <data name="FingerprintTextBox.PlaceholderText" xml:space="preserve">
+    <value>Shown after generating or importing a public key</value>
+  </data>
+  <data name="PublicKeyOutputLabel.Text" xml:space="preserve">
+    <value>Public key</value>
+  </data>
+  <data name="GeneratedPublicKeyTextBox.PlaceholderText" xml:space="preserve">
+    <value>The generated public key appears here and can be sent to others</value>
+  </data>
+  <data name="PrivateKeyOutputLabel.Text" xml:space="preserve">
+    <value>Encrypted private key</value>
+  </data>
+  <data name="GeneratedPrivateKeyTextBox.PlaceholderText" xml:space="preserve">
+    <value>The generated encrypted private key appears here. Do not send it to others.</value>
+  </data>
+  <data name="ExportFolderSettingsCard.Header" xml:space="preserve">
+    <value>Export location</value>
+  </data>
+  <data name="ExportFolderSettingsCard.Description" xml:space="preserve">
+    <value>Used to save exported key files.</value>
+  </data>
+  <data name="ChooseExportFolderButton.Text" xml:space="preserve">
+    <value>Choose location</value>
+  </data>
+  <data name="OpenExportFolderButton.Text" xml:space="preserve">
+    <value>Open export location</value>
+  </data>
+  <data name="OpenSettingsExportFolderButton.Text" xml:space="preserve">
+    <value>Open location</value>
+  </data>
+  <data name="ProjectRepositorySettingsCard.Header" xml:space="preserve">
+    <value>Project repository</value>
+  </data>
+  <data name="ProjectRepositorySettingsCard.Description" xml:space="preserve">
+    <value>https://github.com/BlazeSnow/MessagesEncrypter</value>
+  </data>
+  <data name="OpenProjectRepositoryButton.Text" xml:space="preserve">
+    <value>Open repository</value>
+  </data>
+  <data name="ProjectWebsiteSettingsCard.Header" xml:space="preserve">
+    <value>Project website</value>
+  </data>
+  <data name="ProjectWebsiteSettingsCard.Description" xml:space="preserve">
+    <value>https://www.blazesnow.com/messages/</value>
+  </data>
+  <data name="OpenProjectWebsiteButton.Text" xml:space="preserve">
+    <value>Open website</value>
+  </data>
+  <data name="FeedbackEmailSettingsCard.Header" xml:space="preserve">
+    <value>Feedback email</value>
+  </data>
+  <data name="FeedbackEmailSettingsCard.Description" xml:space="preserve">
+    <value>messages@blazesnow.com</value>
+  </data>
+  <data name="CopyFeedbackEmailButton.Text" xml:space="preserve">
+    <value>Copy email</value>
+  </data>
+  <data name="FeedbackEmailCopiedDialogTitle" xml:space="preserve">
+    <value>Copied</value>
+  </data>
+  <data name="FeedbackEmailCopiedDialogContent" xml:space="preserve">
+    <value>The feedback email address has been copied to the clipboard.</value>
+  </data>
+  <data name="StatusKeyGenerated" xml:space="preserve">
+    <value>The key pair was generated and added to My private keys.</value>
+  </data>
+  <data name="StatusPrivateKeyImported" xml:space="preserve">
+    <value>The private key was imported and its public key was created.</value>
+  </data>
+  <data name="StatusPrivateKeyPasswordChanged" xml:space="preserve">
+    <value>The private key password was changed.</value>
+  </data>
+  <data name="StatusKeyAliasChanged" xml:space="preserve">
+    <value>The alias was changed.</value>
+  </data>
+  <data name="StatusRecipientKeyImported" xml:space="preserve">
+    <value>The recipient public key was imported.</value>
+  </data>
+  <data name="StatusMessageEncrypted" xml:space="preserve">
+    <value>The message was encrypted.</value>
+  </data>
+  <data name="StatusMessageDecrypted" xml:space="preserve">
+    <value>The message was decrypted and authenticated.</value>
+  </data>
+  <data name="StatusEncryptedMessageCopied" xml:space="preserve">
+    <value>The ciphertext was copied to the clipboard.</value>
+  </data>
+  <data name="StatusPublicKeyCopied" xml:space="preserve">
+    <value>The public key was copied to the clipboard.</value>
+  </data>
+  <data name="StatusPrivateKeyCopied" xml:space="preserve">
+    <value>The encrypted private key was copied to the clipboard.</value>
+  </data>
+  <data name="StatusEncryptedMessagePasted" xml:space="preserve">
+    <value>The ciphertext was pasted from the clipboard.</value>
+  </data>
+  <data name="StatusRecipientKeyDeleted" xml:space="preserve">
+    <value>The recipient was deleted.</value>
+  </data>
+  <data name="StatusPrivateKeyDeleted" xml:space="preserve">
+    <value>The private key was deleted.</value>
+  </data>
+  <data name="StatusExportFolderSaved" xml:space="preserve">
+    <value>The export location was saved.</value>
+  </data>
+  <data name="StatusKeyExported" xml:space="preserve">
+    <value>The key was exported to the configured export location.</value>
+  </data>
+  <data name="ErrorPasswordRequired" xml:space="preserve">
+    <value>Enter the private key password.</value>
+  </data>
+  <data name="ErrorExportFolderRequired" xml:space="preserve">
+    <value>Select an export location.</value>
+  </data>
+  <data name="ErrorExportFolderOpenFailed" xml:space="preserve">
+    <value>Could not open the export location. Check that the path is available.</value>
+  </data>
+  <data name="ErrorKeyExportFailed" xml:space="preserve">
+    <value>Could not export the key. Check that the export location is writable.</value>
+  </data>
+  <data name="ErrorCredentialPasswordMissing" xml:space="preserve">
+    <value>Enter this private key's password.</value>
+  </data>
+  <data name="ErrorCredentialSaveFailed" xml:space="preserve">
+    <value>Could not save the private key password. Check that Windows Credential Manager is available.</value>
+  </data>
+  <data name="ErrorCredentialDeleteFailed" xml:space="preserve">
+    <value>Could not delete the private key password. Try again later.</value>
+  </data>
+  <data name="ErrorKeyStoreLoadFailed" xml:space="preserve">
+    <value>Could not load the key store. Check whether the local app data file is damaged.</value>
+  </data>
+  <data name="ErrorKeyStoreSaveFailed" xml:space="preserve">
+    <value>Could not save the key store. Check whether local app storage is available.</value>
+  </data>
+  <data name="ErrorKeyStoreIntegrityMissing" xml:space="preserve">
+    <value>The key store has no integrity information. Loading was refused to avoid using keys that may have been replaced.</value>
+  </data>
+  <data name="ErrorKeyStoreIntegrityInvalid" xml:space="preserve">
+    <value>Key store integrity verification failed. The file may have been modified externally, so loading was refused.</value>
+  </data>
+  <data name="ErrorKeyStoreIntegritySignFailed" xml:space="preserve">
+    <value>Could not re-sign the key store. Check local app storage or Windows Credential Manager.</value>
+  </data>
+  <data name="KeyStoreIntegrityDialogTitle" xml:space="preserve">
+    <value>Key store may be unsafe</value>
+  </data>
+  <data name="KeyStoreIntegrityDialogIgnoreButtonText" xml:space="preserve">
+    <value>Ignore and re-sign</value>
+  </data>
+  <data name="KeyStoreIntegrityDialogExitButtonText" xml:space="preserve">
+    <value>Exit app</value>
+  </data>
+  <data name="ErrorPublicKeyRequired" xml:space="preserve">
+    <value>Provide the recipient public key.</value>
+  </data>
+  <data name="ErrorPrivateKeyRequired" xml:space="preserve">
+    <value>Provide the encrypted private key.</value>
+  </data>
+  <data name="ErrorRecipientKeyNotSelected" xml:space="preserve">
+    <value>Select a recipient first.</value>
+  </data>
+  <data name="ErrorPrivateKeyNotSelected" xml:space="preserve">
+    <value>Select my private key first.</value>
+  </data>
+  <data name="ErrorKeyAliasRequired" xml:space="preserve">
+    <value>Enter a key alias.</value>
+  </data>
+  <data name="DefaultRecipientKeyAlias" xml:space="preserve">
+    <value>Recipient {0}</value>
+  </data>
+  <data name="DefaultPrivateKeyAlias" xml:space="preserve">
+    <value>My key {0}</value>
+  </data>
+  <data name="ErrorPublicKeyInvalid" xml:space="preserve">
+    <value>The public key format is invalid.</value>
+  </data>
+  <data name="ErrorPublicKeyFileReadFailed" xml:space="preserve">
+    <value>Could not read the public key file. Check that it is accessible.</value>
+  </data>
+  <data name="ErrorPrivateKeyFileReadFailed" xml:space="preserve">
+    <value>Could not read the private key file. Check that it is accessible.</value>
+  </data>
+  <data name="ErrorPasswordConfirmMismatch" xml:space="preserve">
+    <value>The private key passwords do not match.</value>
+  </data>
+  <data name="ErrorPrivateKeyInvalidOrPasswordWrong" xml:space="preserve">
+    <value>The private key format is invalid, or the password is incorrect.</value>
+  </data>
+  <data name="ErrorPublicKeyTooSmall" xml:space="preserve">
+    <value>The public key is too small. Use an RSA-2048 key or larger.</value>
+  </data>
+  <data name="ErrorPrivateKeyTooSmall" xml:space="preserve">
+    <value>The private key is too small. Use an RSA-2048 key or larger.</value>
+  </data>
+  <data name="ErrorRsaKeySizeUnsupported" xml:space="preserve">
+    <value>Select a supported RSA key size.</value>
+  </data>
+  <data name="ErrorCipherTextRequired" xml:space="preserve">
+    <value>Enter the ciphertext to decrypt.</value>
+  </data>
+  <data name="ErrorPlainTextRequired" xml:space="preserve">
+    <value>Enter the message to encrypt.</value>
+  </data>
+  <data name="ErrorEncryptFailed" xml:space="preserve">
+    <value>Encryption failed. Check the public key format.</value>
+  </data>
+  <data name="ErrorDecryptFailed" xml:space="preserve">
+    <value>Decryption failed. The ciphertext may be tampered with or malformed, the private key may not match, or the password may be incorrect.</value>
+  </data>
+  <data name="ErrorUnsupportedMessageFormat" xml:space="preserve">
+    <value>The ciphertext format or version is unsupported.</value>
+  </data>
+  <data name="ErrorClipboardNothingToCopy" xml:space="preserve">
+    <value>There is nothing to copy.</value>
+  </data>
+  <data name="ErrorClipboardTextMissing" xml:space="preserve">
+    <value>The clipboard has no text.</value>
+  </data>
+  <data name="ErrorClipboardUnavailable" xml:space="preserve">
+    <value>The clipboard is currently unavailable.</value>
+  </data>
+  <data name="DisplayLanguageSettingsCard.Header" xml:space="preserve">
+    <value>Display language</value>
+  </data>
+  <data name="DisplayLanguageSettingsCard.Description" xml:space="preserve">
+    <value>Changes take effect after restarting the app.</value>
+  </data>
+  <data name="DisplayLanguageAutoOption.Content" xml:space="preserve">
+    <value>Follow system</value>
+  </data>
+  <data name="DisplayLanguageRestartDialogTitle" xml:space="preserve">
+    <value>Restart required</value>
+  </data>
+  <data name="DisplayLanguageRestartDialogContent" xml:space="preserve">
+    <value>The display language will take effect after the app restarts.</value>
+  </data>
+  <data name="DisplayLanguageRestartNowButtonText" xml:space="preserve">
+    <value>Restart now</value>
+  </data>
+  <data name="DisplayLanguageRestartLaterButtonText" xml:space="preserve">
+    <value>Restart later</value>
+  </data>
+  <data name="DisplayLanguageRestartFailedDialogTitle" xml:space="preserve">
+    <value>Could not restart</value>
+  </data>
+  <data name="DisplayLanguageRestartFailedDialogContent" xml:space="preserve">
+    <value>The language preference was saved. Restart the app manually to apply it.</value>
+  </data>
+  <data name="AppVersionSettingsCard.Header" xml:space="preserve">
+    <value>App version</value>
+  </data>
 </root>
