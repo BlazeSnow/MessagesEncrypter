@@ -8,6 +8,8 @@ namespace MessagesEncrypter.Pages.Views;
 
 public sealed partial class SettingsView : UserControl
 {
+    private bool _isInitializingDisplayLanguage;
+
     public SettingsView()
     {
         InitializeComponent();
@@ -19,6 +21,13 @@ public sealed partial class SettingsView : UserControl
     public event RoutedEventHandler? OpenExportFolderRequested;
 
     public event RoutedEventHandler? CopyFeedbackEmailRequested;
+
+    public event EventHandler<string>? DisplayLanguagePreferenceChanged;
+
+    public string DisplayLanguagePreference
+    {
+        set => SelectDisplayLanguage(value);
+    }
 
     public string ExportFolderPath
     {
@@ -34,6 +43,34 @@ public sealed partial class SettingsView : UserControl
     private void OpenExportFolderButton_Click(object sender, RoutedEventArgs e)
     {
         OpenExportFolderRequested?.Invoke(sender, e);
+    }
+
+    private void DisplayLanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (_isInitializingDisplayLanguage || DisplayLanguageComboBox.SelectedItem is not ComboBoxItem item)
+        {
+            return;
+        }
+
+        DisplayLanguagePreferenceChanged?.Invoke(this, item.Tag as string ?? string.Empty);
+    }
+
+    private void SelectDisplayLanguage(string preference)
+    {
+        _isInitializingDisplayLanguage = true;
+        try
+        {
+            DisplayLanguageComboBox.SelectedIndex = preference switch
+            {
+                "zh-Hans" => 1,
+                "en-US" => 2,
+                _ => 0
+            };
+        }
+        finally
+        {
+            _isInitializingDisplayLanguage = false;
+        }
     }
 
     private static string GetAppVersion()

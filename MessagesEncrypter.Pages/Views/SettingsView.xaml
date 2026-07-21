@@ -6,6 +6,21 @@
     xmlns:controls="using:CommunityToolkit.WinUI.Controls">
 
     <StackPanel Spacing="14" MaxWidth="900" HorizontalAlignment="Stretch">
+        <controls:SettingsCard x:Uid="DisplayLanguageSettingsCard">
+            <controls:SettingsCard.HeaderIcon>
+                <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE774;" />
+            </controls:SettingsCard.HeaderIcon>
+            <ComboBox
+                x:Name="DisplayLanguageComboBox"
+                MinWidth="180"
+                HorizontalAlignment="Right"
+                SelectionChanged="DisplayLanguageComboBox_SelectionChanged">
+                <ComboBoxItem x:Uid="DisplayLanguageAutoOption" Tag="auto" />
+                <ComboBoxItem Content="简体中文" Tag="zh-Hans" />
+                <ComboBoxItem Content="English" Tag="en-US" />
+            </ComboBox>
+        </controls:SettingsCard>
+
         <controls:SettingsCard x:Uid="ExportFolderSettingsCard">
             <controls:SettingsCard.HeaderIcon>
                 <SymbolIcon Symbol="Folder" />

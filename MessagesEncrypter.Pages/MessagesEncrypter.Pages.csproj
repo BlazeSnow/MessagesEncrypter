@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PRIResource Include="..\Strings\en-US\Resources.resw" Link="Strings\en-US\Resources.resw" />
     <PRIResource Include="..\Strings\zh-Hans\Resources.resw" Link="Strings\zh-Hans\Resources.resw" />
   </ItemGroup>
 

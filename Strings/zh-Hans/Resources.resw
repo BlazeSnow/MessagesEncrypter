@@ -666,6 +666,33 @@
   <data name="ErrorClipboardUnavailable" xml:space="preserve">
     <value>剪贴板当前不可用。</value>
   </data>
+  <data name="DisplayLanguageSettingsCard.Header" xml:space="preserve">
+    <value>显示语言</value>
+  </data>
+  <data name="DisplayLanguageSettingsCard.Description" xml:space="preserve">
+    <value>更改将在重启应用后生效。</value>
+  </data>
+  <data name="DisplayLanguageAutoOption.Content" xml:space="preserve">
+    <value>跟随系统</value>
+  </data>
+  <data name="DisplayLanguageRestartDialogTitle" xml:space="preserve">
+    <value>需要重启</value>
+  </data>
+  <data name="DisplayLanguageRestartDialogContent" xml:space="preserve">
+    <value>显示语言将在应用重启后生效。</value>
+  </data>
+  <data name="DisplayLanguageRestartNowButtonText" xml:space="preserve">
+    <value>立即重启</value>
+  </data>
+  <data name="DisplayLanguageRestartLaterButtonText" xml:space="preserve">
+    <value>稍后重启</value>
+  </data>
+  <data name="DisplayLanguageRestartFailedDialogTitle" xml:space="preserve">
+    <value>无法重启</value>
+  </data>
+  <data name="DisplayLanguageRestartFailedDialogContent" xml:space="preserve">
+    <value>语言偏好已保存，请手动重启应用以生效。</value>
+  </data>
   <data name="AppVersionSettingsCard.Header" xml:space="preserve">
     <value>软件版本</value>
   </data>

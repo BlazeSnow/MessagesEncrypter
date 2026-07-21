@@ -1,6 +1,8 @@
+using MessagesEncrypter.Core.Services;
 using Microsoft.UI.Xaml;
 using Microsoft.Windows.AppLifecycle;
 using System;
+using Windows.Globalization;
 
 namespace MessagesEncrypter
 {
@@ -13,6 +15,15 @@ namespace MessagesEncrypter
 
         public App()
         {
+            try
+            {
+                ApplicationLanguages.PrimaryLanguageOverride = LanguageSettings.LoadResolvedLanguage();
+            }
+            catch
+            {
+                // Language preference must never prevent the app from starting.
+            }
+
             InitializeComponent();
         }
 
