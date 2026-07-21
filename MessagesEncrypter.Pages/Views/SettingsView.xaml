@@ -8,7 +8,7 @@
     <StackPanel Spacing="14" MaxWidth="900" HorizontalAlignment="Stretch">
         <controls:SettingsCard x:Uid="DisplayLanguageSettingsCard">
             <controls:SettingsCard.HeaderIcon>
-                <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE774;" />
+                <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xF2B7;" />
             </controls:SettingsCard.HeaderIcon>
             <ComboBox
                 x:Name="DisplayLanguageComboBox"
