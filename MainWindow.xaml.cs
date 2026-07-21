@@ -13,8 +13,8 @@ using System.Linq;
 using System.Text;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
-using Windows.System.UserProfile;
 using Windows.Storage.Pickers;
+using Windows.System.UserProfile;
 using WinRT.Interop;
 
 namespace MessagesEncrypter

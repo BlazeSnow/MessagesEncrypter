@@ -1,5 +1,5 @@
-using ResourceManager = Microsoft.Windows.ApplicationModel.Resources.ResourceManager;
 using ResourceLoader = Windows.ApplicationModel.Resources.ResourceLoader;
+using ResourceManager = Microsoft.Windows.ApplicationModel.Resources.ResourceManager;
 
 namespace MessagesEncrypter.Services;
 
