@@ -1,6 +1,7 @@
 using MessagesEncrypter.Core.Models;
 using MessagesEncrypter.Core.Services;
 using MessagesEncrypter.Pages.Views;
+using MessagesEncrypter.Protocol.V1;
 using MessagesEncrypter.Services;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -26,7 +27,7 @@ namespace MessagesEncrypter
         private readonly KeyStoreService _keyStoreService = new();
         private readonly AppSettingsService _appSettingsService = new();
         private readonly KeyExportService _keyExportService = new();
-        private readonly MessageCryptoService _messageCryptoService;
+        private readonly ProtocolV1MessageCryptoService _messageCryptoService = new();
         private readonly ObservableCollection<KeyEntry> _recipientKeys = [];
         private readonly ObservableCollection<KeyEntry> _privateKeys = [];
         private const string SelectedRecipientKeyFingerprintSettingKey = "SelectedRecipientKeyFingerprint";
@@ -39,7 +40,6 @@ namespace MessagesEncrypter
 
         public MainWindow()
         {
-            _messageCryptoService = new MessageCryptoService(_keyManagementService);
             InitializeComponent();
             _statusDismissTimer.Tick += StatusDismissTimer_Tick;
             Title = AppResources.GetString("MainWindowTitle");
@@ -220,7 +220,7 @@ namespace MessagesEncrypter
                     recipientKey.PublicKeyPem);
                 ShowStatus("StatusMessageEncrypted", InfoBarSeverity.Success);
             }
-            catch (CryptoException ex)
+            catch (ProtocolV1Exception ex)
             {
                 ShowStatus(ex.ResourceKey, InfoBarSeverity.Error);
             }
@@ -323,7 +323,7 @@ namespace MessagesEncrypter
 
                 ShowStatus("StatusMessageDecrypted", InfoBarSeverity.Success);
             }
-            catch (CryptoException ex)
+            catch (ProtocolV1Exception ex)
             {
                 DecryptView.DecryptedMessage = string.Empty;
                 ShowStatus(ex.ResourceKey, InfoBarSeverity.Error);

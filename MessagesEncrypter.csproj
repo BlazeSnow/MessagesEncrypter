@@ -35,12 +35,14 @@
   <ItemGroup>
     <Compile Remove="MessagesEncrypter.Core\**\*.cs" />
     <Compile Remove="MessagesEncrypter.Pages\**\*.cs" />
+    <Compile Remove="MessagesEncrypter.Protocol.V1\**\*.cs" />
     <Page Remove="MessagesEncrypter.Pages\**\*.xaml" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="MessagesEncrypter.Core\MessagesEncrypter.Core.csproj" />
     <ProjectReference Include="MessagesEncrypter.Pages\MessagesEncrypter.Pages.csproj" />
+    <ProjectReference Include="MessagesEncrypter.Protocol.V1\MessagesEncrypter.Protocol.V1.csproj" />
   </ItemGroup>
 
   <ItemGroup>
