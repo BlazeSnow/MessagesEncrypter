@@ -18,7 +18,8 @@
             x:Uid="PlainTextBox"
             AcceptsReturn="True"
             Height="180"
-            TextWrapping="Wrap" />
+            TextWrapping="Wrap"
+            ScrollViewer.VerticalScrollBarVisibility="Auto" />
         <StackPanel Orientation="Horizontal" Spacing="8">
             <Button Click="EncryptButton_Click">
                 <StackPanel Orientation="Horizontal" Spacing="6">
@@ -46,6 +47,7 @@
             AcceptsReturn="True"
             FontFamily="Consolas"
             Height="180"
-            TextWrapping="Wrap" />
+            TextWrapping="Wrap"
+            ScrollViewer.VerticalScrollBarVisibility="Auto" />
     </StackPanel>
 </UserControl>

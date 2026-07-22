@@ -159,7 +159,7 @@ C:\Users\<User>\AppData\Local\Packages\BlazeSnow.MessagesEncrypter_<PackageId>\L
 
 ## 消息协议
 
-当前正式协议文档是 `docs/protocol-v1.md`。
+当前正式协议文档是 `docs/protocol-v1.md`。V1 的可跨平台实现位于 `MessagesEncrypter.Protocol.V1`，不得让该项目依赖 Core、Windows App SDK、SQLite、WinUI、PRI 资源或 MSIX 配置。
 
 V1 使用 Base64 包裹 UTF-8 JSON，字段名为短字段：
 

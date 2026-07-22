@@ -70,18 +70,6 @@
             </Button>
         </controls:SettingsCard>
 
-        <controls:SettingsCard x:Uid="FeedbackEmailSettingsCard">
-            <controls:SettingsCard.HeaderIcon>
-                <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE715;" />
-            </controls:SettingsCard.HeaderIcon>
-            <Button Click="CopyFeedbackEmailButton_Click">
-                <StackPanel Orientation="Horizontal" Spacing="6">
-                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8C8;" />
-                    <TextBlock x:Uid="CopyFeedbackEmailButton" />
-                </StackPanel>
-            </Button>
-        </controls:SettingsCard>
-
         <controls:SettingsCard x:Uid="AppVersionSettingsCard">
             <controls:SettingsCard.HeaderIcon>
                 <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE946;" />

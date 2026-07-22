@@ -492,21 +492,6 @@
   <data name="OpenProjectWebsiteButton.Text" xml:space="preserve">
     <value>Open website</value>
   </data>
-  <data name="FeedbackEmailSettingsCard.Header" xml:space="preserve">
-    <value>Feedback email</value>
-  </data>
-  <data name="FeedbackEmailSettingsCard.Description" xml:space="preserve">
-    <value>messages@blazesnow.com</value>
-  </data>
-  <data name="CopyFeedbackEmailButton.Text" xml:space="preserve">
-    <value>Copy email</value>
-  </data>
-  <data name="FeedbackEmailCopiedDialogTitle" xml:space="preserve">
-    <value>Copied</value>
-  </data>
-  <data name="FeedbackEmailCopiedDialogContent" xml:space="preserve">
-    <value>The feedback email address has been copied to the clipboard.</value>
-  </data>
   <data name="StatusKeyGenerated" xml:space="preserve">
     <value>The key pair was generated and added to My private keys.</value>
   </data>

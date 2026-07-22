@@ -5,6 +5,7 @@
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
     <RootNamespace>MessagesEncrypter</RootNamespace>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\messagesencrypter.ico</ApplicationIcon>
     <Platforms>x86;x64;ARM64</Platforms>
     <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
     <UseWinUI>true</UseWinUI>
@@ -15,6 +16,12 @@
 
   <ItemGroup>
     <Manifest Include="$(ApplicationManifest)" />
+    <Content Update="Assets\*.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\messagesencrypter.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <!--
@@ -28,12 +35,14 @@
   <ItemGroup>
     <Compile Remove="MessagesEncrypter.Core\**\*.cs" />
     <Compile Remove="MessagesEncrypter.Pages\**\*.cs" />
+    <Compile Remove="MessagesEncrypter.Protocol.V1\**\*.cs" />
     <Page Remove="MessagesEncrypter.Pages\**\*.xaml" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="MessagesEncrypter.Core\MessagesEncrypter.Core.csproj" />
     <ProjectReference Include="MessagesEncrypter.Pages\MessagesEncrypter.Pages.csproj" />
+    <ProjectReference Include="MessagesEncrypter.Protocol.V1\MessagesEncrypter.Protocol.V1.csproj" />
   </ItemGroup>
 
   <ItemGroup>

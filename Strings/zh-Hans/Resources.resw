@@ -492,21 +492,6 @@
   <data name="OpenProjectWebsiteButton.Text" xml:space="preserve">
     <value>打开官网</value>
   </data>
-  <data name="FeedbackEmailSettingsCard.Header" xml:space="preserve">
-    <value>反馈邮箱</value>
-  </data>
-  <data name="FeedbackEmailSettingsCard.Description" xml:space="preserve">
-    <value>messages@blazesnow.com</value>
-  </data>
-  <data name="CopyFeedbackEmailButton.Text" xml:space="preserve">
-    <value>复制邮箱</value>
-  </data>
-  <data name="FeedbackEmailCopiedDialogTitle" xml:space="preserve">
-    <value>复制成功</value>
-  </data>
-  <data name="FeedbackEmailCopiedDialogContent" xml:space="preserve">
-    <value>反馈邮箱已复制到剪贴板。</value>
-  </data>
   <data name="StatusKeyGenerated" xml:space="preserve">
     <value>密钥对已生成并加入我的私钥列表。</value>
   </data>
