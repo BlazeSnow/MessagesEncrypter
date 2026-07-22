@@ -20,8 +20,6 @@ public sealed partial class SettingsView : UserControl
 
     public event RoutedEventHandler? OpenExportFolderRequested;
 
-    public event RoutedEventHandler? CopyFeedbackEmailRequested;
-
     public event EventHandler<string>? DisplayLanguagePreferenceChanged;
 
     public string DisplayLanguagePreference
@@ -89,8 +87,4 @@ public sealed partial class SettingsView : UserControl
         await Launcher.LaunchUriAsync(new Uri("https://www.blazesnow.com/messages/"));
     }
 
-    private void CopyFeedbackEmailButton_Click(object sender, RoutedEventArgs e)
-    {
-        CopyFeedbackEmailRequested?.Invoke(sender, e);
-    }
 }

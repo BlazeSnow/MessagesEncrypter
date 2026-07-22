@@ -123,7 +123,6 @@ namespace MessagesEncrypter
 
             SettingsView.ChooseExportFolderRequested += ChooseExportFolderButton_Click;
             SettingsView.OpenExportFolderRequested += OpenExportFolderButton_Click;
-            SettingsView.CopyFeedbackEmailRequested += CopyFeedbackEmailButton_Click;
             SettingsView.DisplayLanguagePreferenceChanged += DisplayLanguagePreferenceChanged;
         }
 
@@ -876,25 +875,6 @@ namespace MessagesEncrypter
             };
 
             await failureDialog.ShowAsync();
-        }
-
-        private async void CopyFeedbackEmailButton_Click(object sender, RoutedEventArgs e)
-        {
-            var package = new DataPackage();
-            package.SetText("messages@blazesnow.com");
-            Clipboard.SetContent(package);
-
-            var dialog = new ContentDialog
-            {
-                XamlRoot = SettingsView.XamlRoot,
-                RequestedTheme = SettingsView.ActualTheme,
-                Title = AppResources.GetString("FeedbackEmailCopiedDialogTitle"),
-                Content = AppResources.GetString("FeedbackEmailCopiedDialogContent"),
-                CloseButtonText = AppResources.GetString("DialogOkButtonText"),
-                DefaultButton = ContentDialogButton.Close
-            };
-
-            await dialog.ShowAsync();
         }
 
         private async void PasteEncryptedMessageButton_Click(object sender, RoutedEventArgs e)
