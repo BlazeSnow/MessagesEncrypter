@@ -1,6 +1,6 @@
 # MessagesEncrypter 开发指南
 
-本文是本项目的详细开发指南。简要规则速览见 [AGENTS.md](./AGENTS.md)，消息协议原文见 [docs/protocol-v1.md](./docs/protocol-v1.md)。
+本文是本项目的详细开发指南，随开发进度持续更新。基准规则速览见 [AGENTS.md](./AGENTS.md)，消息协议原文见 [docs/protocol-v1.md](./docs/protocol-v1.md)。
 
 ## 项目定位
 
@@ -34,7 +34,7 @@
 
 CI 与 Visual Studio 发布应尽量共用 `MessagesEncrypter.csproj` 内的发布属性。架构由 `AppxBundlePlatforms` 控制，不要在 CI 中额外重复写死架构参数，避免 x64 / ARM64 发布配置不一致。
 
-不需要主动进行编译或运行 build；如果 build 失败，用户会发送错误日志再处理。
+自行编译和构建已获批准：完成代码修改后应主动构建验证。构建失败时优先根据构建输出自行定位并修复；确实无法解决时，向用户说明并附完整错误输出。
 
 ## 本地化与文本资源
 
