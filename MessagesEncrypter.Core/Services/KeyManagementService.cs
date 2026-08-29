@@ -164,7 +164,7 @@ public sealed class KeyManagementService
                 rsa.ImportFromEncryptedPem(privateKeyPem, password);
                 encryptedPrivateKeyPem = privateKeyPem;
             }
-            catch (CryptographicException)
+            catch (Exception ex) when (ex is CryptographicException or ArgumentException)
             {
                 rsa.ImportFromPem(privateKeyPem);
                 encryptedPrivateKeyPem = rsa.ExportEncryptedPkcs8PrivateKeyPem(
