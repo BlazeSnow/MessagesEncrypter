@@ -4,6 +4,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 
 namespace MessagesEncrypter.Core.Services;
 
@@ -109,29 +110,46 @@ public sealed class KeyStoreIntegrityService
 
     private byte[]? ReadIntegrityKey()
     {
-        if (!CredReadW(_integrityKeyTargetName, CredentialTypeGeneric, 0, out IntPtr credentialPointer))
+        // 凭据管理器在并发调用时可能返回瞬时错误（如 ERROR_NO_SUCH_LOGON_SESSION）。
+        // 此时不能把读取失败当作密钥不存在而轮换密钥，否则签名链会被永久破坏，
+        // 导致下次启动误报密钥库被篡改；因此仅对 ERROR_NOT_FOUND 视为不存在，其余重试后报错。
+        for (int attempt = 1; ; attempt++)
         {
-            return null;
-        }
+            if (CredReadW(_integrityKeyTargetName, CredentialTypeGeneric, 0, out IntPtr credentialPointer))
+            {
+                try
+                {
+                    NativeCredential credential = Marshal.PtrToStructure<NativeCredential>(credentialPointer);
+                    if (credential.CredentialBlob == IntPtr.Zero || credential.CredentialBlobSize == 0)
+                    {
+                        return null;
+                    }
 
-        try
-        {
-            NativeCredential credential = Marshal.PtrToStructure<NativeCredential>(credentialPointer);
-            if (credential.CredentialBlob == IntPtr.Zero || credential.CredentialBlobSize == 0)
+                    string? protectedKeyText = Marshal.PtrToStringUni(
+                        credential.CredentialBlob,
+                        credential.CredentialBlobSize / sizeof(char));
+                    return string.IsNullOrWhiteSpace(protectedKeyText)
+                        ? null
+                        : Convert.FromBase64String(protectedKeyText);
+                }
+                finally
+                {
+                    CredFree(credentialPointer);
+                }
+            }
+
+            int error = Marshal.GetLastWin32Error();
+            if (error == 1168)
             {
                 return null;
             }
 
-            string? protectedKeyText = Marshal.PtrToStringUni(
-                credential.CredentialBlob,
-                credential.CredentialBlobSize / sizeof(char));
-            return string.IsNullOrWhiteSpace(protectedKeyText)
-                ? null
-                : Convert.FromBase64String(protectedKeyText);
-        }
-        finally
-        {
-            CredFree(credentialPointer);
+            if (attempt >= 3)
+            {
+                throw new Win32Exception(error);
+            }
+
+            Thread.Sleep(50);
         }
     }
 

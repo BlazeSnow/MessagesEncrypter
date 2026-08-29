@@ -12,7 +12,9 @@ namespace MessagesEncrypter.Tests;
 /// <summary>
 /// 密钥库服务测试，覆盖存取往返、排序、重复指纹容忍、旧 JSON 迁移、旧数据库结构迁移和完整性签名。
 /// 使用 internal 构造函数注入临时存储目录，不触碰应用真实数据。
+/// 与 KeyStoreIntegrityServiceTests 共用集合串行执行：凭据管理器是机器级共享资源，并发调用会产生瞬时错误。
 /// </summary>
+[Collection("KeyStoreCredentialManager")]
 public sealed class KeyStoreServiceTests : IDisposable
 {
     private readonly string _integrityKeyTargetName =

@@ -8,7 +8,9 @@ namespace MessagesEncrypter.Tests;
 
 /// <summary>
 /// 密钥库完整性校验测试。使用独立的凭据目标名，不触碰应用真实的完整性密钥。
+/// 与 KeyStoreServiceTests 共用集合串行执行：凭据管理器是机器级共享资源，并发调用会产生瞬时错误。
 /// </summary>
+[Collection("KeyStoreCredentialManager")]
 public sealed class KeyStoreIntegrityServiceTests : IDisposable
 {
     private readonly string _integrityKeyTargetName =
