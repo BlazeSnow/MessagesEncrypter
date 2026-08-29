@@ -1,0 +1,6 @@
+{
+  // MD013 line-length：中文长段落和长 URL 无法在 80 列内自然断行，强行换行会破坏可读性和复制体验。
+  "MD013": false,
+  // MD033 no-inline-html：README 的 Microsoft Store 徽章需要 <a>/<img> 提供纯 markdown 无法表达的 target="_blank"。
+  "MD033": false
+}

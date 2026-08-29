@@ -204,24 +204,31 @@ namespace MessagesEncrypter
             }
         }
 
-        private void EncryptButton_Click(object sender, RoutedEventArgs e)
+        private async void EncryptButton_Click(object sender, RoutedEventArgs e)
         {
+            if (EncryptView.SelectedRecipientKey is not KeyEntry recipientKey || string.IsNullOrWhiteSpace(recipientKey.PublicKeyPem))
+            {
+                ShowStatus("ErrorRecipientKeyNotSelected", InfoBarSeverity.Warning);
+                return;
+            }
+
             try
             {
-                if (EncryptView.SelectedRecipientKey is not KeyEntry recipientKey || string.IsNullOrWhiteSpace(recipientKey.PublicKeyPem))
-                {
-                    ShowStatus("ErrorRecipientKeyNotSelected", InfoBarSeverity.Warning);
-                    return;
-                }
-
-                EncryptView.EncryptedMessage = _messageCryptoService.EncryptToBase64Json(
-                    EncryptView.PlainText,
-                    recipientKey.PublicKeyPem);
+                ShowOperationProgress(true);
+                string publicKeyPem = recipientKey.PublicKeyPem;
+                string plainText = EncryptView.PlainText;
+                EncryptView.EncryptedMessage = await System.Threading.Tasks.Task.Run(
+                    () => _messageCryptoService.EncryptToBase64Json(plainText, publicKeyPem));
                 ShowStatus("StatusMessageEncrypted", InfoBarSeverity.Success);
             }
             catch (ProtocolV1Exception ex)
             {
+                EncryptView.EncryptedMessage = string.Empty;
                 ShowStatus(ex.ResourceKey, InfoBarSeverity.Error);
+            }
+            finally
+            {
+                ShowOperationProgress(false);
             }
         }
 
@@ -297,27 +304,29 @@ namespace MessagesEncrypter
 
         private async void DecryptButton_Click(object sender, RoutedEventArgs e)
         {
+            if (DecryptView.SelectedPrivateKey is not KeyEntry privateKey || string.IsNullOrWhiteSpace(privateKey.EncryptedPrivateKeyPem))
+            {
+                ShowStatus("ErrorPrivateKeyNotSelected", InfoBarSeverity.Warning);
+                return;
+            }
+
+            PrivateKeyPasswordResult passwordResult = await GetPasswordForPrivateKeyAsync(privateKey);
+            if (string.IsNullOrEmpty(passwordResult.Password))
+            {
+                return;
+            }
+
             try
             {
-                if (DecryptView.SelectedPrivateKey is not KeyEntry privateKey || string.IsNullOrWhiteSpace(privateKey.EncryptedPrivateKeyPem))
-                {
-                    ShowStatus("ErrorPrivateKeyNotSelected", InfoBarSeverity.Warning);
-                    return;
-                }
-
-                PrivateKeyPasswordResult passwordResult = await GetPasswordForPrivateKeyAsync(privateKey);
-                if (string.IsNullOrEmpty(passwordResult.Password))
-                {
-                    return;
-                }
-
-                DecryptView.DecryptedMessage = _messageCryptoService.DecryptFromBase64Json(
-                    DecryptView.CipherText,
-                    privateKey.EncryptedPrivateKeyPem,
-                    passwordResult.Password);
+                ShowOperationProgress(true);
+                string cipherText = DecryptView.CipherText;
+                string encryptedPrivateKeyPem = privateKey.EncryptedPrivateKeyPem;
+                string password = passwordResult.Password;
+                DecryptView.DecryptedMessage = await System.Threading.Tasks.Task.Run(
+                    () => _messageCryptoService.DecryptFromBase64Json(cipherText, encryptedPrivateKeyPem, password));
                 if (passwordResult.ShouldSave)
                 {
-                    _credentialManagerService.SavePrivateKeyPassword(privateKey.Fingerprint, passwordResult.Password);
+                    _credentialManagerService.SavePrivateKeyPassword(privateKey.Fingerprint, password);
                 }
 
                 ShowStatus("StatusMessageDecrypted", InfoBarSeverity.Success);
@@ -326,6 +335,10 @@ namespace MessagesEncrypter
             {
                 DecryptView.DecryptedMessage = string.Empty;
                 ShowStatus(ex.ResourceKey, InfoBarSeverity.Error);
+            }
+            finally
+            {
+                ShowOperationProgress(false);
             }
         }
 
@@ -483,6 +496,13 @@ namespace MessagesEncrypter
             {
                 ShowStatus("StatusRecipientKeyDeleted", InfoBarSeverity.Success);
             }
+            else
+            {
+                _recipientKeys.Add(entry);
+                SortKeyCollection(_recipientKeys);
+                RecipientKeysView.SelectKey(entry);
+                EncryptView.SelectRecipientKey(entry);
+            }
         }
 
         private void CopySelectedPrivatePublicKeyButton_Click(object sender, RoutedEventArgs e)
@@ -638,6 +658,20 @@ namespace MessagesEncrypter
                 _privateKeys[index] = updatedEntry;
                 DecryptView.SelectPrivateKey(updatedEntry);
                 PrivateKeysView.SelectKey(updatedEntry);
+                if (!SaveKeyStore())
+                {
+                    int rollbackIndex = _privateKeys.IndexOf(updatedEntry);
+                    if (rollbackIndex >= 0)
+                    {
+                        _privateKeys[rollbackIndex] = entry;
+                        SortKeyCollection(_privateKeys);
+                    }
+
+                    PrivateKeysView.SelectKey(entry);
+                    DecryptView.SelectPrivateKey(entry);
+                    return;
+                }
+
                 if (rememberPasswordCheckBox.IsChecked == true)
                 {
                     _credentialManagerService.SavePrivateKeyPassword(updatedEntry.Fingerprint, newPassword);
@@ -647,10 +681,7 @@ namespace MessagesEncrypter
                     _credentialManagerService.DeletePrivateKeyPassword(updatedEntry.Fingerprint);
                 }
 
-                if (SaveKeyStore())
-                {
-                    ShowStatus("StatusPrivateKeyPasswordChanged", InfoBarSeverity.Success);
-                }
+                ShowStatus("StatusPrivateKeyPasswordChanged", InfoBarSeverity.Success);
             }
             catch (CryptoException ex)
             {
@@ -679,11 +710,18 @@ namespace MessagesEncrypter
             try
             {
                 _privateKeys.Remove(entry);
-                _credentialManagerService.DeletePrivateKeyPassword(entry.Fingerprint);
                 SelectFirstPrivateKeyIfAvailable();
                 if (SaveKeyStore())
                 {
+                    _credentialManagerService.DeletePrivateKeyPassword(entry.Fingerprint);
                     ShowStatus("StatusPrivateKeyDeleted", InfoBarSeverity.Success);
+                }
+                else
+                {
+                    _privateKeys.Add(entry);
+                    SortKeyCollection(_privateKeys);
+                    PrivateKeysView.SelectKey(entry);
+                    DecryptView.SelectPrivateKey(entry);
                 }
             }
             catch (CryptoException ex)

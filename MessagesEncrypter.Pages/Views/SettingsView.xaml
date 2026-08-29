@@ -30,18 +30,8 @@
                     x:Name="ExportFolderPathTextBlock"
                     TextWrapping="WrapWholeWords" />
                 <StackPanel Orientation="Horizontal" Spacing="8">
-                    <Button Click="ChooseExportFolderButton_Click">
-                        <StackPanel Orientation="Horizontal" Spacing="6">
-                            <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8B7;" />
-                            <TextBlock x:Uid="ChooseExportFolderButton" />
-                        </StackPanel>
-                    </Button>
-                    <Button Click="OpenExportFolderButton_Click">
-                        <StackPanel Orientation="Horizontal" Spacing="6">
-                            <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE838;" />
-                            <TextBlock x:Uid="OpenSettingsExportFolderButton" />
-                        </StackPanel>
-                    </Button>
+                    <Button Click="ChooseExportFolderButton_Click" x:Uid="ChooseExportFolderButton" />
+                    <Button Click="OpenExportFolderButton_Click" x:Uid="OpenSettingsExportFolderButton" />
                 </StackPanel>
             </StackPanel>
         </controls:SettingsCard>
@@ -50,24 +40,14 @@
             <controls:SettingsCard.HeaderIcon>
                 <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE71B;" />
             </controls:SettingsCard.HeaderIcon>
-            <Button Click="OpenProjectRepositoryButton_Click">
-                <StackPanel Orientation="Horizontal" Spacing="6">
-                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE71B;" />
-                    <TextBlock x:Uid="OpenProjectRepositoryButton" />
-                </StackPanel>
-            </Button>
+            <Button Click="OpenProjectRepositoryButton_Click" x:Uid="OpenProjectRepositoryButton" />
         </controls:SettingsCard>
 
         <controls:SettingsCard x:Uid="ProjectWebsiteSettingsCard">
             <controls:SettingsCard.HeaderIcon>
                 <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE774;" />
             </controls:SettingsCard.HeaderIcon>
-            <Button Click="OpenProjectWebsiteButton_Click">
-                <StackPanel Orientation="Horizontal" Spacing="6">
-                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE774;" />
-                    <TextBlock x:Uid="OpenProjectWebsiteButton" />
-                </StackPanel>
-            </Button>
+            <Button Click="OpenProjectWebsiteButton_Click" x:Uid="OpenProjectWebsiteButton" />
         </controls:SettingsCard>
 
         <controls:SettingsCard x:Uid="AppVersionSettingsCard">

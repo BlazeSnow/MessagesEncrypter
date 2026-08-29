@@ -23,17 +23,31 @@ public sealed class KeyStoreService
         WriteIndented = true
     });
 
-    public string StorePath => Path.Combine(ApplicationData.Current.LocalFolder.Path, DatabaseFileName);
+    private readonly string _storeFolderPath;
+    private readonly string? _integrityKeyTargetName;
 
-    private string LegacyStorePath => Path.Combine(ApplicationData.Current.LocalFolder.Path, LegacyStoreFileName);
+    public KeyStoreService()
+        : this(ApplicationData.Current.LocalFolder.Path)
+    {
+    }
 
-    private string LegacyMigratedStorePath => Path.Combine(ApplicationData.Current.LocalFolder.Path, LegacyMigratedStoreFileName);
+    internal KeyStoreService(string storeFolderPath, string? integrityKeyTargetName = null)
+    {
+        _storeFolderPath = storeFolderPath;
+        _integrityKeyTargetName = integrityKeyTargetName;
+    }
 
-    private KeyStoreIntegrityService IntegrityService => new(ApplicationData.Current.LocalFolder.Path);
+    public string StorePath => Path.Combine(_storeFolderPath, DatabaseFileName);
+
+    private string LegacyStorePath => Path.Combine(_storeFolderPath, LegacyStoreFileName);
+
+    private string LegacyMigratedStorePath => Path.Combine(_storeFolderPath, LegacyMigratedStoreFileName);
+
+    private KeyStoreIntegrityService IntegrityService => new(_storeFolderPath, _integrityKeyTargetName);
 
     public string? GetIntegrityErrorResourceKey()
     {
-        Directory.CreateDirectory(ApplicationData.Current.LocalFolder.Path);
+        Directory.CreateDirectory(_storeFolderPath);
         return IntegrityService.GetIntegrityErrorResourceKey(StorePath);
     }
 
@@ -41,7 +55,7 @@ public sealed class KeyStoreService
     {
         try
         {
-            Directory.CreateDirectory(ApplicationData.Current.LocalFolder.Path);
+            Directory.CreateDirectory(_storeFolderPath);
             bool hadDatabase = File.Exists(StorePath);
             if (hadDatabase && !trustCurrentStore)
             {
@@ -126,7 +140,7 @@ public sealed class KeyStoreService
 
     private bool EnsureDatabase()
     {
-        Directory.CreateDirectory(ApplicationData.Current.LocalFolder.Path);
+        Directory.CreateDirectory(_storeFolderPath);
 
         using SqliteConnection connection = OpenConnection();
         bool tableCreated = !KeysTableExists(connection);

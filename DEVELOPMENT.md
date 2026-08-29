@@ -1,4 +1,6 @@
-# MessagesEncrypter 项目指导
+# MessagesEncrypter 开发指南
+
+本文是本项目的详细开发指南，随开发进度持续更新。基准规则速览见 [AGENTS.md](./AGENTS.md)，消息协议原文见 [docs/protocol-v1.md](./docs/protocol-v1.md)。
 
 ## 项目定位
 
@@ -32,7 +34,9 @@
 
 CI 与 Visual Studio 发布应尽量共用 `MessagesEncrypter.csproj` 内的发布属性。架构由 `AppxBundlePlatforms` 控制，不要在 CI 中额外重复写死架构参数，避免 x64 / ARM64 发布配置不一致。
 
-不需要主动进行编译或运行 build；如果 build 失败，用户会发送错误日志再处理。
+解决方案内所有项目（含测试项目）均声明 x86、x64、ARM64 平台并按架构构建。主项目会随平台自动设置 `RuntimeIdentifier`（win-x86 / win-x64 / win-arm64），且不再固定 `PlatformTarget=AnyCPU`，主程序集与引用库的处理器架构保持一致；显式传入的 `RuntimeIdentifier` 仍然优先生效。
+
+自行编译和构建已获批准：完成代码修改后应主动构建验证。构建失败时优先根据构建输出自行定位并修复；确实无法解决时，向用户说明并附完整错误输出。
 
 ## 本地化与文本资源
 
@@ -50,6 +54,7 @@ CI 与 Visual Studio 发布应尽量共用 `MessagesEncrypter.csproj` 内的发�
 
 - XAML 中优先使用 `x:Uid` 绑定 `.resw` 资源。
 - 如果按钮内容需要图标加文字，按钮本身不要使用会覆盖 `Content` 的 `x:Uid`；应把 `x:Uid` 放到内部 `TextBlock` 上，并使用 `.Text` 资源。
+- 无图标的纯文字按钮直接把 `x:Uid` 放在按钮上，资源键使用 `.Content`，不要再包一层 `TextBlock`。
 - C# 中需要动态生成文案时，必须通过资源加载器读取 `.resw` 字符串。
 - 资源 Key 命名应稳定、清晰，避免使用实际中文文本作为 Key。
 - 新增 UI 文案时必须同步更新默认语言资源文件。
@@ -92,6 +97,7 @@ CI 与 Visual Studio 发布应尽量共用 `MessagesEncrypter.csproj` 内的发�
 - 长耗时操作使用页面中央的 `ProgressRing`，不要用会被状态栏遮挡的底部进度条。
 - 对话框需要跟随当前主题，深色模式下不能显示浅色弹窗。
 - 常规按钮优先使用 `SymbolIcon` 加文字；当内置 Symbol 不足以表达语义时再使用 `FontIcon`。如图标含义不明显，应补充工具提示或明确按钮文字。
+- 设置页按钮不放图标，仅显示文字，图标由所在设置卡片的 `HeaderIcon` 表达。
 - 设置页显示软件版本时，应读取 `Package.Current.Id.Version`，不要硬编码版本号，也不要优先使用程序集版本。
 - 发送和接收页面应记忆用户已选密钥。选择事件只应在真正选中新项时触发，不要在列表刷新或清空选择时清除已保存指纹。
 
@@ -264,6 +270,23 @@ PBKDF2 迭代次数当前为 `600_000`。
 6. MSIX / Microsoft Store 发布稳定性。
 
 暂不展开文件加密，直到消息与密钥管理稳定。
+
+## 单元测试
+
+单元测试位于 `MessagesEncrypter.Tests`（xunit.v3，基于 Microsoft.Testing.Platform，由 `global.json` 启用新的 `dotnet test` 体验），运行方式：
+
+```text
+dotnet test --project MessagesEncrypter.Tests/MessagesEncrypter.Tests.csproj
+```
+
+测试项目与主项目一致支持 x86、x64、ARM64 架构，可用 `dotnet test --project ... -p:Platform=x64` 指定架构运行；不带平台参数时按默认方式构建运行。
+
+注意不要在 MTP 模式的 `dotnet test` 后附加 `--nologo` 等旧 VSTest 选项，会被转发给测试程序导致无法发现测试。
+
+- 覆盖消息协议 V1 加解密、密钥管理、密钥导出、密钥库与完整性校验，用例场景以「测试重点」中可自动化部分为准。
+- 密钥库与完整性测试通过 internal 构造函数注入临时目录和独立的凭据目标名，不会触碰应用真实数据、`LocalState` 和凭据管理器。
+- 新增可纯函数化、不依赖 WinUI 的逻辑时应补充对应单元测试；修改协议或存储行为前先确认测试仍通过。
+- 深浅色、标题栏、单实例、Release 打包启动等 UI 与打包场景无法自动化，仍按「测试重点」手动验证。
 
 ## 测试重点
 
