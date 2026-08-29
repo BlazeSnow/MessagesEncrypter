@@ -65,6 +65,12 @@ public sealed class KeyManagementService
         {
             RSA rsa = RSA.Create();
             rsa.ImportFromPem(publicKeyPem);
+            if (ContainsPrivateKeyMaterial(rsa))
+            {
+                rsa.Dispose();
+                throw new CryptoException("ErrorPublicKeyInvalid");
+            }
+
             if (rsa.KeySize < CryptoConstants.MinRsaKeySizeBits)
             {
                 rsa.Dispose();
@@ -80,6 +86,18 @@ public sealed class KeyManagementService
         catch (Exception ex) when (ex is ArgumentException or CryptographicException)
         {
             throw new CryptoException("ErrorPublicKeyInvalid", ex);
+        }
+    }
+
+    private static bool ContainsPrivateKeyMaterial(RSA rsa)
+    {
+        try
+        {
+            return rsa.ExportParameters(true).D is not null;
+        }
+        catch (CryptographicException)
+        {
+            return false;
         }
     }
 
