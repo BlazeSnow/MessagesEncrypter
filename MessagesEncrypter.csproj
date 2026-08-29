@@ -36,6 +36,7 @@
     <Compile Remove="MessagesEncrypter.Core\**\*.cs" />
     <Compile Remove="MessagesEncrypter.Pages\**\*.cs" />
     <Compile Remove="MessagesEncrypter.Protocol.V1\**\*.cs" />
+    <Compile Remove="MessagesEncrypter.Tests\**\*.cs" />
     <Page Remove="MessagesEncrypter.Pages\**\*.xaml" />
   </ItemGroup>
 

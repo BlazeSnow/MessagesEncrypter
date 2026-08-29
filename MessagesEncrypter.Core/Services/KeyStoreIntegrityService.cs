@@ -16,10 +16,12 @@ public sealed class KeyStoreIntegrityService
     private const string SignatureFileName = "keys.db.sig";
 
     private readonly string _folderPath;
+    private readonly string _integrityKeyTargetName;
 
-    public KeyStoreIntegrityService(string folderPath)
+    public KeyStoreIntegrityService(string folderPath, string? integrityKeyTargetName = null)
     {
         _folderPath = folderPath;
+        _integrityKeyTargetName = integrityKeyTargetName ?? IntegrityKeyTargetName;
     }
 
     public string SignaturePath => Path.Combine(_folderPath, SignatureFileName);
@@ -92,7 +94,7 @@ public sealed class KeyStoreIntegrityService
         return HMACSHA256.HashData(key, stream);
     }
 
-    private static byte[] GetOrCreateIntegrityKey()
+    private byte[] GetOrCreateIntegrityKey()
     {
         byte[]? existingKey = ReadIntegrityKey();
         if (existingKey is not null)
@@ -105,9 +107,9 @@ public sealed class KeyStoreIntegrityService
         return key;
     }
 
-    private static byte[]? ReadIntegrityKey()
+    private byte[]? ReadIntegrityKey()
     {
-        if (!CredReadW(IntegrityKeyTargetName, CredentialTypeGeneric, 0, out IntPtr credentialPointer))
+        if (!CredReadW(_integrityKeyTargetName, CredentialTypeGeneric, 0, out IntPtr credentialPointer))
         {
             return null;
         }
@@ -133,7 +135,7 @@ public sealed class KeyStoreIntegrityService
         }
     }
 
-    private static void SaveIntegrityKey(byte[] key)
+    private void SaveIntegrityKey(byte[] key)
     {
         string keyText = Convert.ToBase64String(key);
         IntPtr passwordBlob = IntPtr.Zero;
@@ -147,7 +149,7 @@ public sealed class KeyStoreIntegrityService
             var credential = new NativeCredential
             {
                 Type = CredentialTypeGeneric,
-                TargetName = IntegrityKeyTargetName,
+                TargetName = _integrityKeyTargetName,
                 CredentialBlobSize = Encoding.Unicode.GetByteCount(keyText),
                 CredentialBlob = passwordBlob,
                 Persist = CredentialPersistenceLocalMachine,
@@ -173,9 +175,9 @@ public sealed class KeyStoreIntegrityService
         }
     }
 
-    private static void DeleteIntegrityKey()
+    internal void DeleteIntegrityKey()
     {
-        if (!CredDeleteW(IntegrityKeyTargetName, CredentialTypeGeneric, 0))
+        if (!CredDeleteW(_integrityKeyTargetName, CredentialTypeGeneric, 0))
         {
             int error = Marshal.GetLastWin32Error();
             if (error != 1168)

@@ -12,4 +12,8 @@
     <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.11" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="2.4.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="MessagesEncrypter.Tests" />
+  </ItemGroup>
 </Project>
