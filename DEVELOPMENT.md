@@ -269,11 +269,13 @@ PBKDF2 迭代次数当前为 `600_000`。
 
 ## 单元测试
 
-单元测试位于 `MessagesEncrypter.Tests`（xUnit），运行方式：
+单元测试位于 `MessagesEncrypter.Tests`（xunit.v3，基于 Microsoft.Testing.Platform，由 `global.json` 启用新的 `dotnet test` 体验），运行方式：
 
 ```text
-dotnet test MessagesEncrypter.Tests/MessagesEncrypter.Tests.csproj
+dotnet test --project MessagesEncrypter.Tests/MessagesEncrypter.Tests.csproj
 ```
+
+注意不要在 MTP 模式的 `dotnet test` 后附加 `--nologo` 等旧 VSTest 选项，会被转发给测试程序导致无法发现测试。
 
 - 覆盖消息协议 V1 加解密、密钥管理、密钥导出、密钥库与完整性校验，用例场景以「测试重点」中可自动化部分为准。
 - 密钥库与完整性测试通过 internal 构造函数注入临时目录和独立的凭据目标名，不会触碰应用真实数据、`LocalState` 和凭据管理器。
