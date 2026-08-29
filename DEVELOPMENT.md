@@ -34,6 +34,8 @@
 
 CI 与 Visual Studio 发布应尽量共用 `MessagesEncrypter.csproj` 内的发布属性。架构由 `AppxBundlePlatforms` 控制，不要在 CI 中额外重复写死架构参数，避免 x64 / ARM64 发布配置不一致。
 
+解决方案内所有项目（含测试项目）均声明 x86、x64、ARM64 平台并按架构构建。主项目会随平台自动设置 `RuntimeIdentifier`（win-x86 / win-x64 / win-arm64），且不再固定 `PlatformTarget=AnyCPU`，主程序集与引用库的处理器架构保持一致；显式传入的 `RuntimeIdentifier` 仍然优先生效。
+
 自行编译和构建已获批准：完成代码修改后应主动构建验证。构建失败时优先根据构建输出自行定位并修复；确实无法解决时，向用户说明并附完整错误输出。
 
 ## 本地化与文本资源

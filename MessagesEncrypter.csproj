@@ -8,6 +8,9 @@
     <ApplicationIcon>Assets\messagesencrypter.ico</ApplicationIcon>
     <Platforms>x86;x64;ARM64</Platforms>
     <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
+    <RuntimeIdentifier Condition="'$(Platform)' == 'x86'">win-x86</RuntimeIdentifier>
+    <RuntimeIdentifier Condition="'$(Platform)' == 'x64'">win-x64</RuntimeIdentifier>
+    <RuntimeIdentifier Condition="'$(Platform)' == 'ARM64'">win-arm64</RuntimeIdentifier>
     <UseWinUI>true</UseWinUI>
     <WinUISDKReferences>false</WinUISDKReferences>
     <EnableMsixTooling>true</EnableMsixTooling>
@@ -77,7 +80,6 @@
     <SelfContained>true</SelfContained>
     <PublishSingleFile>False</PublishSingleFile>
     <DefaultLanguage>zh-Hans</DefaultLanguage>
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/BlazeSnow/MessagesEncrypter</RepositoryUrl>
