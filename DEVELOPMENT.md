@@ -275,6 +275,8 @@ PBKDF2 迭代次数当前为 `600_000`。
 dotnet test --project MessagesEncrypter.Tests/MessagesEncrypter.Tests.csproj
 ```
 
+测试项目与主项目一致支持 x86、x64、ARM64 架构，可用 `dotnet test --project ... -p:Platform=x64` 指定架构运行；不带平台参数时按默认方式构建运行。
+
 注意不要在 MTP 模式的 `dotnet test` 后附加 `--nologo` 等旧 VSTest 选项，会被转发给测试程序导致无法发现测试。
 
 - 覆盖消息协议 V1 加解密、密钥管理、密钥导出、密钥库与完整性校验，用例场景以「测试重点」中可自动化部分为准。
