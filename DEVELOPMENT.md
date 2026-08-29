@@ -1,4 +1,6 @@
-# MessagesEncrypter 项目指导
+# MessagesEncrypter 开发指南
+
+本文是本项目的详细开发指南。简要规则速览见 [AGENTS.md](./AGENTS.md)，消息协议原文见 [docs/protocol-v1.md](./docs/protocol-v1.md)。
 
 ## 项目定位
 
