@@ -465,13 +465,13 @@
   <data name="ExportFolderSettingsCard.Description" xml:space="preserve">
     <value>用于保存导出的密钥文件。</value>
   </data>
-  <data name="ChooseExportFolderButton.Text" xml:space="preserve">
+  <data name="ChooseExportFolderButton.Content" xml:space="preserve">
     <value>选择位置</value>
   </data>
   <data name="OpenExportFolderButton.Text" xml:space="preserve">
     <value>打开导出位置</value>
   </data>
-  <data name="OpenSettingsExportFolderButton.Text" xml:space="preserve">
+  <data name="OpenSettingsExportFolderButton.Content" xml:space="preserve">
     <value>打开位置</value>
   </data>
   <data name="ProjectRepositorySettingsCard.Header" xml:space="preserve">
@@ -480,7 +480,7 @@
   <data name="ProjectRepositorySettingsCard.Description" xml:space="preserve">
     <value>https://github.com/BlazeSnow/MessagesEncrypter</value>
   </data>
-  <data name="OpenProjectRepositoryButton.Text" xml:space="preserve">
+  <data name="OpenProjectRepositoryButton.Content" xml:space="preserve">
     <value>打开仓库</value>
   </data>
   <data name="ProjectWebsiteSettingsCard.Header" xml:space="preserve">
@@ -489,7 +489,7 @@
   <data name="ProjectWebsiteSettingsCard.Description" xml:space="preserve">
     <value>https://www.blazesnow.com/messages/</value>
   </data>
-  <data name="OpenProjectWebsiteButton.Text" xml:space="preserve">
+  <data name="OpenProjectWebsiteButton.Content" xml:space="preserve">
     <value>打开官网</value>
   </data>
   <data name="StatusKeyGenerated" xml:space="preserve">

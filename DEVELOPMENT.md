@@ -54,6 +54,7 @@ CI 与 Visual Studio 发布应尽量共用 `MessagesEncrypter.csproj` 内的发�
 
 - XAML 中优先使用 `x:Uid` 绑定 `.resw` 资源。
 - 如果按钮内容需要图标加文字，按钮本身不要使用会覆盖 `Content` 的 `x:Uid`；应把 `x:Uid` 放到内部 `TextBlock` 上，并使用 `.Text` 资源。
+- 无图标的纯文字按钮直接把 `x:Uid` 放在按钮上，资源键使用 `.Content`，不要再包一层 `TextBlock`。
 - C# 中需要动态生成文案时，必须通过资源加载器读取 `.resw` 字符串。
 - 资源 Key 命名应稳定、清晰，避免使用实际中文文本作为 Key。
 - 新增 UI 文案时必须同步更新默认语言资源文件。
