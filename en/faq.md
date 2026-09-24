@@ -6,7 +6,7 @@ No. The software has no server and never sends any messages. It only converts pl
 
 ## Is it compatible with PGP / GPG?
 
-No. MessagesEncrypter uses a custom ciphertext format (Base64-wrapped JSON) and neither reads nor produces PGP formats. The full format specification is available on the [Message Format](/en/protocol) page, and third-party developers can implement interoperability from the documentation.
+No. MessagesEncrypter uses a custom ciphertext format (Base64-wrapped JSON) and neither reads nor produces PGP formats. The full format specification is available on the [Message Format](/en/protocol-v1) page, and third-party developers can implement interoperability from the documentation.
 
 ## What if I forget my private key password?
 

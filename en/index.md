@@ -41,7 +41,7 @@ The software does not rely on any server: public keys are exchanged by the users
 - **Integrity check**: the key store is protected by an HMAC-SHA256 integrity signature, verified at every startup with an immediate warning on tampering;
 - **Fail-safe**: a tampered ciphertext always fails verification — decryption never outputs partial content.
 
-For algorithm and format details, see the [Message Format](/en/protocol) page.
+For algorithm and format details, see the [Message Format](/en/protocol-v1) page.
 
 ## Open Source
 

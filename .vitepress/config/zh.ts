@@ -39,8 +39,8 @@ export const zh = defineConfig({
             },
             {
                 text: '消息格式',
-                link: '/protocol',
-                activeMatch: '/protocol'
+                link: '/protocol-v1',
+                activeMatch: '/protocol-v1'
             },
             {
                 text: '更新日志',

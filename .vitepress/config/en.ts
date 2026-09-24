@@ -39,8 +39,8 @@ export const en = defineConfig({
             },
             {
                 text: 'Message Format',
-                link: '/en/protocol',
-                activeMatch: '/en/protocol'
+                link: '/en/protocol-v1',
+                activeMatch: '/en/protocol-v1'
             },
             {
                 text: 'Changelog',

@@ -6,7 +6,7 @@
 
 ## 与 PGP / GPG 兼容吗？
 
-不兼容。MessagesEncrypter 使用自定义密文格式（Base64 包裹的 JSON），不读取也不生成 PGP 格式。格式完整定义见[消息格式](/protocol)页面，第三方开发者可按文档自行实现互通。
+不兼容。MessagesEncrypter 使用自定义密文格式（Base64 包裹的 JSON），不读取也不生成 PGP 格式。格式完整定义见[消息格式](/protocol-v1)页面，第三方开发者可按文档自行实现互通。
 
 ## 忘记私钥密码怎么办？
 
