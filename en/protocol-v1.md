@@ -1,10 +1,10 @@
-# Message Format V1
+# MessagesEncrypter Message Format v1
 
-This document specifies the standard Base64 JSON encrypted-package format of MessagesEncrypter, for cross-software interoperability and third-party implementations.
+This document records the standard Base64 JSON encrypted-package format of MessagesEncrypter.
 
-This is the formal definition for `ver = 1`. Field semantics for the same `ver` must stay compatible, and `ver = 1` only defines the RSA message encryption format.
+This document is the formal format definition for `ver = 1`. Field semantics for the same `ver` must remain compatible.
 
-The authoritative specification lives in the GitHub repository: <https://github.com/BlazeSnow/MessagesEncrypter/blob/main/docs/protocol-v1.md>
+`ver = 1` only defines the RSA message encryption format.
 
 ## Outer Encoding
 
@@ -32,13 +32,13 @@ Field names are lowercase short names to reduce the copy/transfer size.
 
 ## Common Fields
 
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `ver` | number | Yes | Message format version. Currently fixed to `1`. |
-| `ek` | string | Yes | The wrapped AES-256-GCM session key. |
-| `nonce` | string | Yes | AES-GCM nonce, Base64-encoded, 12 bytes raw. |
-| `tag` | string | Yes | AES-GCM authentication tag, Base64-encoded, 16 bytes raw. |
-| `ct` | string | Yes | AES-GCM ciphertext, Base64-encoded. |
+| Field   | Type   | Required | Description                                                  |
+| ------- | ------ | -------- | ------------------------------------------------------------ |
+| `ver`   | number | Yes      | Message format version. Currently fixed to `1`.              |
+| `ek`    | string | Yes      | The wrapped AES-256-GCM session key.                         |
+| `nonce` | string | Yes      | AES-GCM nonce, Base64-encoded, 12 bytes raw.                 |
+| `tag`   | string | Yes      | AES-GCM authentication tag, Base64-encoded, 16 bytes raw.    |
+| `ct`    | string | Yes      | AES-GCM ciphertext, Base64-encoded.                          |
 
 ## Algorithms
 
@@ -47,25 +47,27 @@ Field names are lowercase short names to reduce the copy/transfer size.
 
 Field constraints:
 
-| Field | Description |
-| --- | --- |
-| `ek` | Required. Contains the 32-byte AES session key encrypted with RSA-OAEP-SHA256, Base64-encoded. |
+| Field | Description                                                                                    |
+| ----- | ---------------------------------------------------------------------------------------------- |
+| `ek`  | Required. Contains the 32-byte AES session key encrypted with RSA-OAEP-SHA256, Base64-encoded. |
 
 ## AES-GCM
 
 All algorithms ultimately encrypt the body with AES-256-GCM.
 
-| Parameter | Value |
-| --- | --- |
-| Key length | 32 bytes |
-| Nonce length | 12 bytes |
-| Tag length | 16 bytes |
-| Plaintext encoding | UTF-8 |
-| AAD | None |
+| Parameter          | Value    |
+| ------------------ | -------- |
+| Key length         | 32 bytes |
+| Nonce length       | 12 bytes |
+| Tag length         | 16 bytes |
+| Plaintext encoding | UTF-8    |
+| AAD                | None     |
 
 `ver = 1` does not use AAD yet. When fields such as `ver`, `ek`, or `nonce` are tampered with, decryption typically fails at field validation, RSA-OAEP unwrapping, or AES-GCM authentication.
 
 ## Example
+
+### RSA
 
 ```json
 {
@@ -91,6 +93,6 @@ Decryption must perform the following checks:
 
 ## Revision History
 
-| Date | Version | Description |
-| --- | --- | --- |
+| Date       | Version  | Description                              |
+| ---------- | -------- | ---------------------------------------- |
 | 2026-05-31 | v1 final | Finalized the RSA Base64 JSON structure. |
