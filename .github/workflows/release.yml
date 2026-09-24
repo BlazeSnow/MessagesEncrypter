@@ -1,0 +1,20 @@
+name: Release
+
+on:
+  push:
+    tags:
+    - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: ncipollo/release-action@v1
+      with:
+        tag: ${{ github.ref_name }}
+        name: ${{ github.ref_name }}
+        generateReleaseNotes: true
+        allowUpdates: true
