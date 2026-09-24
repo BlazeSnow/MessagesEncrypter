@@ -33,30 +33,21 @@ export const en = defineConfig({
                 link: '/en/'
             },
             {
-                text: 'Quick Start',
-                link: '/en/guide',
-                activeMatch: '/en/guide'
-            },
-            {
-                text: 'User Guide',
-                link: '/en/usage',
-                activeMatch: '/en/usage'
-            },
-            {
-                text: 'FAQ',
-                link: '/en/faq',
-                activeMatch: '/en/faq'
-            },
-            {
-                text: 'Message Format',
-                link: '/en/protocol-v1',
-                activeMatch: '/en/protocol-v1'
+                text: 'Docs',
+                link: '/en/quickstart',
+                activeMatch: '/en/(quickstart|faq|protocol-v1)'
             },
             {
                 text: 'Changelog',
                 link: '/en/changelog',
                 activeMatch: '/en/changelog'
             }
+        ],
+        sidebar: [
+            { text: 'Quick Start', link: '/en/quickstart' },
+            { text: 'FAQ', link: '/en/faq' },
+            { text: 'Message Format V1', link: '/en/protocol-v1' },
+            { text: 'Changelog', link: '/en/changelog' }
         ],
         notFound: {
             title: 'Page not found',
