@@ -26,8 +26,6 @@ export const shared = defineConfig({
         //显示行号
         lineNumbers: true,
     },
-    //不参与站点构建的 markdown 文件（README 是仓库说明，不是站点页面）
-    srcExclude: ['**/README.md'],
     //主题配置
     themeConfig: {
         //左上角logo
