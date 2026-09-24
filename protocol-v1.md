@@ -1,10 +1,10 @@
-# 消息格式 V1
+# MessagesEncrypter Message Format v1
 
-本文档记录 MessagesEncrypter 的标准 Base64 JSON 密文包格式，供跨软件互通与第三方实现参考。
+本文档记录 MessagesEncrypter 的标准 Base64 JSON 密文包格式。
 
-本文档为 `ver = 1` 的正式格式定义。同一 `ver` 的字段语义应保持兼容，`ver = 1` 仅定义 RSA 消息加密格式。
+本文档为 `ver = 1` 的正式格式定义。同一 `ver` 的字段语义应保持兼容。
 
-协议原文见 GitHub 仓库：<https://github.com/BlazeSnow/MessagesEncrypter/blob/main/docs/protocol-v1.md>
+`ver = 1` 仅定义 RSA 消息加密格式。
 
 ## 外层编码
 
@@ -32,13 +32,13 @@
 
 ## 公共字段
 
-| 字段 | 类型 | 必需 | 说明 |
-| --- | --- | --- | --- |
-| `ver` | number | 是 | 消息格式版本。当前固定为 `1`。 |
-| `ek` | string | 是 | 被封装的 AES-256-GCM 会话密钥。 |
-| `nonce` | string | 是 | AES-GCM nonce，Base64 编码，原始长度 12 字节。 |
-| `tag` | string | 是 | AES-GCM authentication tag，Base64 编码，原始长度 16 字节。 |
-| `ct` | string | 是 | AES-GCM ciphertext，Base64 编码。 |
+| 字段    | 类型   | 必需 | 说明                                                        |
+| ------- | ------ | ---- | ----------------------------------------------------------- |
+| `ver`   | number | 是   | 消息格式版本。当前固定为 `1`。                              |
+| `ek`    | string | 是   | 被封装的 AES-256-GCM 会话密钥。                             |
+| `nonce` | string | 是   | AES-GCM nonce，Base64 编码，原始长度 12 字节。              |
+| `tag`   | string | 是   | AES-GCM authentication tag，Base64 编码，原始长度 16 字节。 |
+| `ct`    | string | 是   | AES-GCM ciphertext，Base64 编码。                           |
 
 ## 算法
 
@@ -47,25 +47,27 @@
 
 字段约束：
 
-| 字段 | 说明 |
-| --- | --- |
+| 字段 | 说明                                                                          |
+| ---- | ----------------------------------------------------------------------------- |
 | `ek` | 必须存在。内容为 RSA-OAEP-SHA256 加密后的 32 字节 AES 会话密钥，Base64 编码。 |
 
 ## AES-GCM
 
 所有算法最终都使用 AES-256-GCM 加密正文。
 
-| 参数 | 值 |
-| --- | --- |
-| Key length | 32 bytes |
-| Nonce length | 12 bytes |
-| Tag length | 16 bytes |
-| Plaintext encoding | UTF-8 |
-| AAD | 无 |
+| 参数               | 值       |
+| ------------------ | -------- |
+| Key length         | 32 bytes |
+| Nonce length       | 12 bytes |
+| Tag length         | 16 bytes |
+| Plaintext encoding | UTF-8    |
+| AAD                | 无       |
 
 `ver = 1` 暂不启用 AAD。`ver`、`ek`、`nonce` 等字段被篡改时，通常会在字段校验、RSA-OAEP 解封装或 AES-GCM 认证阶段失败。
 
 ## 示例
+
+### RSA
 
 ```json
 {
@@ -91,6 +93,6 @@
 
 ## 修订记录
 
-| 日期 | 版本 | 说明 |
-| --- | --- | --- |
+| 日期       | 版本     | 说明                        |
+| ---------- | -------- | --------------------------- |
 | 2026-05-31 | v1 final | 定稿 RSA Base64 JSON 结构。 |

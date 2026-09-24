@@ -33,30 +33,21 @@ export const zh = defineConfig({
                 link: '/'
             },
             {
-                text: '快速开始',
-                link: '/guide',
-                activeMatch: '/guide'
-            },
-            {
-                text: '使用指南',
-                link: '/usage',
-                activeMatch: '/usage'
-            },
-            {
-                text: '常见问题',
-                link: '/faq',
-                activeMatch: '/faq'
-            },
-            {
-                text: '消息格式',
-                link: '/protocol-v1',
-                activeMatch: '/protocol-v1'
+                text: '文档',
+                link: '/quickstart',
+                activeMatch: '/(quickstart|faq|protocol-v1)'
             },
             {
                 text: '更新日志',
                 link: '/changelog',
                 activeMatch: '/changelog'
             }
+        ],
+        sidebar: [
+            { text: '快速开始', link: '/quickstart' },
+            { text: '常见问题', link: '/faq' },
+            { text: '消息格式 V1', link: '/protocol-v1' },
+            { text: '更新日志', link: '/changelog' }
         ],
         notFound: {
             title: '页面未找到',
