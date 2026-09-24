@@ -5,7 +5,7 @@ export const zh = defineConfig({
     //网页语言
     lang: 'zh-CN',
     //网页描述
-    description: 'MessagesEncrypter：Windows 桌面端本地公钥消息加密工具，用接收方公钥加密消息，用自己的私钥解密。',
+    description: 'MessagesEncrypter 是一款面向 Windows 桌面端的本地公钥消息加密工具',
     //主题配置
     themeConfig: {
         //语言切换按钮提示

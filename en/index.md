@@ -1,11 +1,11 @@
 ---
 titleTemplate: 'MessagesEncrypter'
-description: 'Secure your sensitive text with MessagesEncrypter!'
+description: 'MessagesEncrypter is a local public-key message encryption tool for the Windows desktop'
 layout: home
 
 hero:
     name: "MessagesEncrypter"
-    tagline: "A local public-key message encryption tool: encrypt messages with the recipient's public key — only the private key holder can decrypt!"
+    tagline: "MessagesEncrypter is a local public-key message encryption tool for the Windows desktop"
 ---
 
 ## How to Download

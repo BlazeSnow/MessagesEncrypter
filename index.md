@@ -1,11 +1,11 @@
 ---
 titleTemplate: 'MessagesEncrypter'
-description: '使用 MessagesEncrypter，安全传递您的敏感文本！'
+description: 'MessagesEncrypter 是一款面向 Windows 桌面端的本地公钥消息加密工具'
 layout: home
 
 hero:
     name: "MessagesEncrypter"
-    tagline: "本地公钥消息加密工具：用接收方公钥加密消息，只有私钥持有者才能解密！"
+    tagline: "MessagesEncrypter 是一款面向 Windows 桌面端的本地公钥消息加密工具"
 ---
 
 ## 如何下载

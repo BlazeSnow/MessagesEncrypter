@@ -5,7 +5,7 @@ export const en = defineConfig({
     //网页语言
     lang: 'en-US',
     //网页描述
-    description: 'MessagesEncrypter: a local public-key message encryption tool for Windows. Encrypt with the recipient\'s public key, decrypt with your own private key.',
+    description: 'MessagesEncrypter is a local public-key message encryption tool for the Windows desktop',
     //主题配置
     themeConfig: {
         //语言切换按钮提示
