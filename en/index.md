@@ -31,7 +31,7 @@ hero:
 
 ![MessagesEncrypter guide](/asset/guide.png)
 
-The software does not rely on any server: public keys are exchanged by the users themselves, and encrypted packages travel through your own channels.
+The software does not rely on any server: public keys are exchanged by the users themselves, and encrypted packages travel through your own channels. See the [Quick Start](/en/guide) page for a step-by-step walkthrough.
 
 ## Security Design
 

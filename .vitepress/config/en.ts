@@ -33,6 +33,16 @@ export const en = defineConfig({
                 link: '/en/'
             },
             {
+                text: 'Quick Start',
+                link: '/en/guide',
+                activeMatch: '/en/guide'
+            },
+            {
+                text: 'User Guide',
+                link: '/en/usage',
+                activeMatch: '/en/usage'
+            },
+            {
                 text: 'FAQ',
                 link: '/en/faq',
                 activeMatch: '/en/faq'

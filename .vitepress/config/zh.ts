@@ -33,6 +33,16 @@ export const zh = defineConfig({
                 link: '/'
             },
             {
+                text: '快速开始',
+                link: '/guide',
+                activeMatch: '/guide'
+            },
+            {
+                text: '使用指南',
+                link: '/usage',
+                activeMatch: '/usage'
+            },
+            {
                 text: '常见问题',
                 link: '/faq',
                 activeMatch: '/faq'
