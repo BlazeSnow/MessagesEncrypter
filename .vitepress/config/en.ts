@@ -39,15 +39,15 @@ export const en = defineConfig({
             },
             {
                 text: 'Changelog',
-                link: '/en/changelog',
-                activeMatch: '/en/changelog'
+                link: '/en/CHANGELOG',
+                activeMatch: '/en/CHANGELOG'
             }
         ],
         sidebar: [
             { text: 'Quick Start', link: '/en/quickstart' },
             { text: 'FAQ', link: '/en/faq' },
             { text: 'Message Format V1', link: '/en/protocol-v1' },
-            { text: 'Changelog', link: '/en/changelog' }
+            { text: 'Changelog', link: '/en/CHANGELOG' }
         ],
         notFound: {
             title: 'Page not found',

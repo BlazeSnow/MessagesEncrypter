@@ -39,15 +39,15 @@ export const zh = defineConfig({
             },
             {
                 text: '更新日志',
-                link: '/changelog',
-                activeMatch: '/changelog'
+                link: '/CHANGELOG',
+                activeMatch: '/CHANGELOG'
             }
         ],
         sidebar: [
             { text: '快速开始', link: '/quickstart' },
             { text: '常见问题', link: '/faq' },
             { text: '消息格式 V1', link: '/protocol-v1' },
-            { text: '更新日志', link: '/changelog' }
+            { text: '更新日志', link: '/CHANGELOG' }
         ],
         notFound: {
             title: '页面未找到',
