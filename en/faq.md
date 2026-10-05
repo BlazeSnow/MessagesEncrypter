@@ -57,4 +57,4 @@ Not yet. The current version focuses on encrypting and decrypting text messages.
 
 ## Which systems are supported?
 
-Windows 10 (version 17763) and above, on x86, x64, and ARM64, distributed through the Microsoft Store.
+Windows 10 (version 17763) and above, on x64 and ARM64, distributed through the Microsoft Store.

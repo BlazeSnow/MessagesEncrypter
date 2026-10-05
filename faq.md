@@ -57,4 +57,4 @@
 
 ## 支持哪些系统？
 
-Windows 10（版本 17763）及以上，支持 x86、x64、ARM64 架构，通过 Microsoft Store 分发。
+Windows 10（版本 17763）及以上，支持 x64、ARM64 架构，通过 Microsoft Store 分发。
