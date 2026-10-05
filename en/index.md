@@ -22,9 +22,12 @@ Go to [Quick Start](quickstart) for the software usage instructions
 
 ![MessagesEncrypter decryption page screenshot](/asset/decryption.png)
 
-## Development Info
+## Repository Info
 
-- Software repository: <https://github.com/BlazeSnow/MessagesEncrypter>
+> Since v2026.9.24.0, MessagesEncrypter has been rewritten in Rust, replacing the original WinUI version.
+
+- Rust version: <https://github.com/BlazeSnow/MessagesEncrypter.Rust>
+- WinUI version: <https://github.com/BlazeSnow/MessagesEncrypter.WinUI>
 
 ## Copyright
 

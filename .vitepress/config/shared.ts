@@ -70,7 +70,7 @@ export const shared = defineConfig({
             }
         },
         socialLinks: [
-            { icon: 'github', link: 'https://github.com/BlazeSnow/MessagesEncrypter' },
+            { icon: 'github', link: 'https://github.com/BlazeSnow/MessagesEncrypter.Rust' },
         ],
     }
 })

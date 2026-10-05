@@ -22,9 +22,12 @@ hero:
 
 ![MessagesEncrypter 消息解密页面截图](/asset/decryption.png)
 
-## 开发信息
+## 仓库信息
 
-- 软件仓库：<https://github.com/BlazeSnow/MessagesEncrypter>
+> 由 v2026.9.24.0 起，MessagesEncrypter 使用 Rust 重写，接替原有的 WinUI 版。
+
+- Rust版：<https://github.com/BlazeSnow/MessagesEncrypter.Rust>
+- WinUI版：<https://github.com/BlazeSnow/MessagesEncrypter.WinUI>
 
 ## 版权信息
 
