@@ -18,7 +18,11 @@ hero:
 
 ## 软件截图
 
+### 加密信息
+
 ![MessagesEncrypter 消息加密页面截图](/asset/encryption.png)
+
+### 解密信息
 
 ![MessagesEncrypter 消息解密页面截图](/asset/decryption.png)
 
